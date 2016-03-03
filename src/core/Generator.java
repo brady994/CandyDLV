@@ -11,6 +11,8 @@ public class Generator implements IGenerator {
 
 		case 2:
 			return new Candy2();
+		case 3:
+			return new Candy3();
 		default:
 			break;
 		}
@@ -23,8 +25,7 @@ public class Generator implements IGenerator {
 		for (int i = 0; i < c.length; i++) {
 			for (int j = 0; j < c[0].length; j++) {
 				Random r = new Random();
-				c[i][j] = randomCandy(r.nextInt(2) + 1);
-				System.out.println(r.nextInt(2) + 1);
+				c[i][j] = randomCandy(r.nextInt(3) + 1);
 
 			}
 		}
