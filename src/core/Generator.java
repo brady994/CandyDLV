@@ -4,20 +4,18 @@ import java.util.Random;
 
 public class Generator implements IGenerator {
 
-	public Candy randomCandy(int type) {
-		switch (type) {
-		case 1:
+	public Candy randomCandy(int type) 
+	{
+		
+		if(type==1)
 			return new Candy1();
-
-		case 2:
-			return new Candy2();
-		case 3:
-			return new Candy3();
-		default:
-			break;
-		}
-		return null;
-
+		else if(type == 2)
+				return new Candy2();
+		else if(type == 3)
+				return new Candy3();
+		else
+			return null;
+		
 	}
 
 	@Override

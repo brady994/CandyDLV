@@ -40,5 +40,10 @@ public class Cell {
 	public static int getSIZE() {
 		return SIZE;
 	}
+	public static int getAllSize()
+	{
+		return SIZE*6;   //be careful
+		
+	}
 
 }

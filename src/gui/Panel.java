@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JPanel;
 
@@ -23,13 +25,24 @@ public class Panel extends JPanel implements MouseListener {
 		this.setBackground(Color.WHITE);
 
 	}
-
+	public void paintString(String n)
+	{
+		
+		Timer t=new Timer();
+		t.schedule(new TimerTask() {
+			  public void run() {
+				  getGraphics().drawString("Direzione errata", 550, 500);
+			  }
+			}, 5*1000);
+		getGraphics().drawString("", 550, 500);
+	}
+	
 	private void paintCell(Graphics g, int row, int col, Candy c) {
 		int x = Cell.getSIZE() * row;
 		int y = Cell.getSIZE() * col;
 
 		g.drawRect(x, y, Cell.getSIZE(), Cell.getSIZE());
-		c.paint(g, x, y);
+		c.paint(g, x+10, y+10);
 	}
 
 	private void hightOneCell(Graphics g, int row, int col) {
@@ -37,6 +50,7 @@ public class Panel extends JPanel implements MouseListener {
 		int y = Cell.getSIZE() * col;
 		g.setColor(Color.RED);
 		g.drawRect(x, y, Cell.getSIZE(), Cell.getSIZE());
+		
 	}
 
 	@Override
@@ -59,17 +73,25 @@ public class Panel extends JPanel implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		int row = e.getX() / Cell.getSIZE();
 		int col = e.getY() / Cell.getSIZE();
-		currentCell = new Cell(row, col, gw.getCandy(row, col));
-		System.out.println(row + " " + col);
-		repaint();
-
+		if(e.getX() <= Cell.getAllSize() && e.getY() <= Cell.getAllSize())
+		{
+			currentCell = new Cell(row, col, gw.getCandy(row, col));
+			System.out.println(row + " " + col);
+			repaint();
+		}
+		else
+		{
+			
+			paintString("Direzione errata");
+			repaint();
+		}
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mousePressed(MouseEvent e) 
+	{
+		
+	}	
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
@@ -77,10 +99,18 @@ public class Panel extends JPanel implements MouseListener {
 		int row = e.getX() / Cell.getSIZE();
 		int col = e.getY() / Cell.getSIZE();
 		System.out.println(row + "" + col + "release");
-		tmp = new Cell(row, col, gw.getCandy(row, col));
-		nextCell = currentCell;
-		currentCell = tmp;
-		repaint();
+		if(e.getX() <= Cell.getAllSize() && e.getY() <= Cell.getAllSize())
+		{	
+			tmp = new Cell(row, col, gw.getCandy(row, col));
+			nextCell = currentCell;
+			currentCell = tmp;
+			repaint();
+		}
+		else
+		{
+			paintString("Direzione errata");
+			repaint();
+		}
 
 	}
 
@@ -96,7 +126,8 @@ public class Panel extends JPanel implements MouseListener {
 
 	}
 
-	public Cell getCurrentCell() {
+	public Cell getCurrentCell() 
+	{
 		return currentCell;
 	}
 }

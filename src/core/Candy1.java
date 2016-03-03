@@ -11,9 +11,9 @@ public class Candy1 implements Candy {
 	}
 
 	@Override
-	public void paint(Graphics g, int x, int y) {
+	public void paint(Graphics g, int x, int y) 
+	{
 		g.drawImage(ImageLoader.getCandyYellow(), x, y, null);
-
 	}
 
 }
