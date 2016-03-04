@@ -1,11 +1,10 @@
-package core;	
+package core;
 
 public class GameWorld {
 	private Candy[][] candies;
 	private IGenerator g;
 	private int score;
-	
-	
+
 	public GameWorld(int row, int col) {
 		this.candies = new Candy[row][col];
 		this.g = new Generator();
@@ -32,6 +31,18 @@ public class GameWorld {
 
 	public void setScore(int score) {
 		this.score = score;
+	}
+
+	public void setCandies(Cell[] c) {
+		if (c.length == 2) {
+			int row = c[0].getRow();
+			int col = c[0].getCol();
+			int row1 = c[1].getRow();
+			int col1 = c[1].getCol();
+			Candy tmp = getCandy(row, col);
+			candies[row][col] = candies[row1][col1];
+			candies[row1][col1] = tmp;
+		}
 	}
 
 }
