@@ -19,11 +19,15 @@ public class Panel extends JPanel implements MouseListener {
 	private GameWorld gw;
 	private Cell currentCell;
 	private Cell nextCell;
+	private int firstClickX=0;
+	private int firstClickY=0;
 
 	Panel(GameWorld gw) {
 		this.gw = gw;
+		this.currentCell=null;
+		this.nextCell=null;
 		addMouseListener(this);
-		addMouseMotionListener(new MyMouseMotionListener());
+	//	addMouseMotionListener(new MyMouseMotionListener());
 		this.setBackground(Color.WHITE);
 
 	}
@@ -39,7 +43,25 @@ public class Panel extends JPanel implements MouseListener {
 		}, 5 * 1000);
 		getGraphics().drawString("", 550, 500);
 	}
-
+	public int getFirstClickX() 
+	{
+		return firstClickX;
+	}
+	
+	public int getFirstClickY() 
+	{
+		return firstClickY;
+	}
+	
+	public void setFirstClickX(int firstClickX) 
+	{
+		this.firstClickX = firstClickX;
+	}
+	
+	public void setFirstClickY(int firstClickY)
+	{
+		this.firstClickY=firstClickY;
+	}
 	private void paintCell(Graphics g, int row, int col, Candy c) {
 		int x = Cell.getSIZE() * row;
 		int y = Cell.getSIZE() * col;
@@ -65,49 +87,104 @@ public class Panel extends JPanel implements MouseListener {
 				paintCell(g, i, j, c);
 			}
 		}
-		if (currentCell != null) {
+		if (currentCell != null) 
+		{
 			hightOneCell(g, currentCell.getRow(), currentCell.getCol());
 		}
-		if (nextCell != null) {
+		if (nextCell != null) 
+		{
 			hightOneCell(g, nextCell.getRow(), nextCell.getCol());
 		}
 
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mouseClicked(MouseEvent e) 
+	{
 
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
+	public void mousePressed(MouseEvent e) 
+	{
 		int row = e.getX() / Cell.getSIZE();
 		int col = e.getY() / Cell.getSIZE();
-		if (e.getX() <= Cell.getAllSize() && e.getY() <= Cell.getAllSize()) {
-			currentCell = new Cell(row, col, gw.getCandy(row, col));
+		if(currentCell == null)
+		{
+			if ((e.getX()/Cell.getSIZE()) <=5 && (e.getY()/Cell.getSIZE()) <= 5) 
+			{
+					currentCell = new Cell(col, row, gw.getCandy(col, row));
+			}
+		}	
+		else if(nextCell == null)
+		{
+			if ((e.getX()/Cell.getSIZE()) <=5 && (e.getY()/Cell.getSIZE()) <= 5) {
+			{
+						nextCell = new Cell(col, row, gw.getCandy(col, row));
+			}
+		}
+		
+		if(currentCell != null && nextCell!=null)
+		{
+			System.out.println("prostituzione");
+			int difX=Math.abs(currentCell.getCol()-nextCell.getCol());
+			int difY=Math.abs(currentCell.getRow()-nextCell.getRow());
+			if( difX == 1 && difY==0)
+			{ 
+				gw.moveCandies(currentCell.getCol(), currentCell.getRow(), nextCell.getCol(), nextCell.getRow());
+				repaint();
+			}
+			else
+			{
+				paintString("Puoi postare solo di una posizione");
+			}
+			if( difY==1 && difX==0)
+			{
+				gw.moveCandies(currentCell.getCol(), currentCell.getRow(), nextCell.getCol(), nextCell.getRow());
+				repaint();
+			}
+			else
+			{
+				paintString("Puoi postare solo di una posizione");
+			}			
+			currentCell=null;
+			nextCell=null;
+		}
+		repaint();
+		
+	}
+	}
+		/*int row1;
+		int col1;
+		row1=e.getX() / Cell.getSIZE();
+		col1=e.getY() / Cell.getSIZE();
+		if(row1 <= 5 && col1 <=5)
+		{
+			setFirstClickX(row1);
+			setFirstClickY(col1);
+		}
+		
+		
 
 			repaint();
-		} else {
+		} 
+		else 
+		{
 
 			paintString("Direzione errata");
 			repaint();
-		}
-	}
+			
+		}*/
+	
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		if (e.getX() <= Cell.getAllSize() && e.getY() <= Cell.getAllSize()) {
-			gw.setCandies(new Cell[] { nextCell, currentCell });
-			repaint();
-		} else {
-			paintString("Direzione errata");
-			repaint();
+	public void mouseReleased(MouseEvent e) 
+	{
 		}
 
-	}
-
 	@Override
-	public void mouseEntered(MouseEvent e) {
+	public void mouseEntered(MouseEvent e) 
+	{
 		//
 
 	}
@@ -122,21 +199,23 @@ public class Panel extends JPanel implements MouseListener {
 		return currentCell;
 	}
 
-	private class MyMouseMotionListener implements MouseMotionListener {
+	/*private class MyMouseMotionListener implements MouseMotionListener {
 
 		@Override
 		public void mouseDragged(MouseEvent e) {
 			int row = e.getX() / Cell.getSIZE();
 			int col = e.getY() / Cell.getSIZE();
-			nextCell = new Cell(row, col, gw.getCandy(row, col));
-			repaint();
-
+			if((e.getX()/Cell.getSIZE()) <= 5 && (e.getY()/Cell.getSIZE()) <= 5) 
+			{
+				nextCell = new Cell(row, col, gw.getCandy(row, col));
+				repaint();
+			}
 		}
 
 		@Override
 		public void mouseMoved(MouseEvent e) {
 
 		}
-	}
+	}*/
 
 }

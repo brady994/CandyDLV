@@ -5,7 +5,8 @@ import java.awt.Graphics;
 public class Candy1 implements Candy {
 
 	@Override
-	public int getType() {
+	public int getType() 
+	{
 
 		return 1;
 	}
