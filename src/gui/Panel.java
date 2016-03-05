@@ -126,7 +126,7 @@ public class Panel extends JPanel implements MouseListener {
 		
 		if(currentCell != null && nextCell!=null)
 		{
-			System.out.println("prostituzione");
+			
 			int difX=Math.abs(currentCell.getCol()-nextCell.getCol());
 			int difY=Math.abs(currentCell.getRow()-nextCell.getRow());
 			if( difX == 1 && difY==0)
