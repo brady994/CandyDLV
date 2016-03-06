@@ -15,11 +15,10 @@ public class Frame extends JFrame {
 	public Frame() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Candy Crush");
-		this.setBounds(20, 20, 600, 600);
+		this.setBounds(20, 20, 1280, 768);
 		this.setLocationRelativeTo(null);
 		GameWorld gw = new GameWorld(6, 6);
-		this.setContentPane(new Panel(gw));
+		this.setContentPane(new MenuPanel(this, gw));
 		this.setVisible(true);
-
 	}
 }

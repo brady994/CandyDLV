@@ -118,7 +118,7 @@ public class Panel extends JPanel implements MouseListener {
 		}	
 		else if(nextCell == null)
 		{
-			if ((e.getX()/Cell.getSIZE()) <=5 && (e.getY()/Cell.getSIZE()) <= 5) {
+			if ((e.getX()/Cell.getSIZE()) <=5 && (e.getY()/Cell.getSIZE()) <= 5) 
 			{
 						nextCell = new Cell(col, row, gw.getCandy(col, row));
 			}

@@ -46,7 +46,7 @@ public class MenuPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MenuPanel game = new MenuPanel(gw);
+				Panel game = new Panel(gw);
 				frame.setContentPane(game);
 				game.requestFocus();
 				game.updateUI();
@@ -60,6 +60,6 @@ public class MenuPanel extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		//g.drawImage(ImageLoader.getCandyBackground(), 300, 0, null);
+		g.drawImage(ImageLoader.getCandyBackground(), 300, 0, null);
 	}
 }
