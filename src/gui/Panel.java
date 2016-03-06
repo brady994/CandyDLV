@@ -153,7 +153,7 @@ public class Panel extends JPanel implements MouseListener {
 		repaint();
 		
 	}
-	}
+	
 		/*int row1;
 		int col1;
 		row1=e.getX() / Cell.getSIZE();
