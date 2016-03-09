@@ -158,20 +158,43 @@ public class Panel extends JPanel implements MouseListener {
 	@Override
 	public void mouseReleased(MouseEvent e) {
 	}
+	public void mouseReleased(MouseEvent e) 
+	{
+	
+	}
+	public void mouseReleased(MouseEvent e) 
+	{
+	
+	}
+	public void mouseReleased(MouseEvent e) 
+	{
+	
+	}
 
+	
+	
 	@Override
 	public void mouseEntered(MouseEvent e) {
+	public void m
+	public Cell getCurrentCell() 
+	{
+		return currentCell;
+	}ouseExited(MouseEvent e) 
+	{
+		
+	}
 		//
 
 	}
 
 	@Override
-	public void mouseExited(MouseEvent e) {
-		//
-
+	public void mouseExited(MouseEvent e) 
+	{
+		
 	}
 
-	public Cell getCurrentCell() {
+	public Cell getCurrentCell() 
+	{
 		return currentCell;
 	}
 
