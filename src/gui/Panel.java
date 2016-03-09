@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -157,68 +156,31 @@ public class Panel extends JPanel implements MouseListener {
 		
 	}
 	
-		/*int row1;
-		int col1;
-		row1=e.getX() / Cell.getSIZE();
-		col1=e.getY() / Cell.getSIZE();
-		if(row1 <= 5 && col1 <=5)
-		{
-			setFirstClickX(row1);
-			setFirstClickY(col1);
-		}
-		
-		
-
-			repaint();
-		} 
-		else 
-		{
-
-			paintString("Direzione errata");
-			repaint();
 			
-		}*/
-	
+	public Cell getCurrentCell() 
+	{
+		return currentCell;
+	}
 
+	
 	@Override
 	public void mouseReleased(MouseEvent e) 
 	{
-		}
+	
+	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) 
 	{
-		//
-
+	
 	}
 
 	@Override
-	public void mouseExited(MouseEvent e) {
-		//
-
+	public void mouseExited(MouseEvent e) 
+	{
+		
 	}
 
-	public Cell getCurrentCell() {
-		return currentCell;
-	}
-
-	/*private class MyMouseMotionListener implements MouseMotionListener {
-
-		@Override
-		public void mouseDragged(MouseEvent e) {
-			int row = e.getX() / Cell.getSIZE();
-			int col = e.getY() / Cell.getSIZE();
-			if((e.getX()/Cell.getSIZE()) <= 5 && (e.getY()/Cell.getSIZE()) <= 5) 
-			{
-				nextCell = new Cell(row, col, gw.getCandy(row, col));
-				repaint();
-			}
-		}
-
-		@Override
-		public void mouseMoved(MouseEvent e) {
-
-		}
-	}*/
-
+	
+	
 }
