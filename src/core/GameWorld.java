@@ -6,7 +6,11 @@ public class GameWorld {
 	private int score;
 	private int rowS;
 	private int colS;
-
+	private int Xt;
+	private int Yt;
+	private Candy c;
+	
+	
 	public GameWorld(int row, int col) {
 		this.rowS = row;
 		this.colS = col;
@@ -17,6 +21,18 @@ public class GameWorld {
 
 	}
 
+	public int getXt() {
+		return Xt;
+	}
+	public int getYt() {
+		return Yt;
+	}
+	public void setXt(int xt) {
+		this.Xt = xt;
+	}
+	public void setYt(int yt) {
+		this.Yt = yt;
+	}
 	public Candy getCandy(int r, int c) {
 		return candies[r][c];
 	}
@@ -37,7 +53,7 @@ public class GameWorld {
 		this.score = score;
 	}
 
-	public void setCandies(Cell[] c) {
+	/*public void setCandies(Cell[] c) {
 		if (c.length == 2) {
 			int row = c[0].getRow();
 			int col = c[0].getCol();
@@ -106,6 +122,83 @@ public class GameWorld {
 			}
 
 		}
+	}*/
+	public void setCandies(int x,int y,int x1,int y1)
+	{
+		Candy tmp= candies[y][x];
+		candies[y][x]=candies[y1][x1];
+		candies[y1][x1]=tmp;
+		setXt(x1);
+		setYt(y1);
+			
 	}
+	public boolean checkMoreCandies()
+	{
+		int indice=1;
+		int count=1;
+		int tmp=candies[getYt()][getXt()].getType();
+		System.out.println(candies[getYt()][getXt()].getType()+" "+(candies[getYt()][getXt()].getType()));
+		System.out.println(getYt()+" "+getXt());
+		System.out.println("Cazzo"+getYt()+" "+colS);
+		while((getYt()<colS) &&(tmp==(candies[getYt()][getXt()+indice].getType()))) 
+		{	
+			count++;
+			indice++;
+			if(getXt()+indice >= colS)
+				break;
+		}
+		if(count>=3)
+		{
+			System.out.println(count);
+			return true;
+		}
+		System.out.println(count);
+		
+		count=1;
+		indice=1;
+		while((getXt()>=0) && (tmp==(candies[getYt()][getXt()-indice].getType()))) 
+		{
+			count++;
+			indice++;
+			if(getXt()-indice < 0)
+				break;
+			
+		}
+		if(count>=3)
+		{
+			System.out.println(count);
+			return true;
+		}
+		System.out.println(count);
+		count=1;
+		indice=1;
+		while((getYt()<rowS) && (tmp==(candies[getYt()+indice][getXt()].getType()))) 
+		{
+			count++;
+			indice++;
+			if(getYt()+indice>=rowS)
+				break;
+			
+		}
+		if(count >= 3)
+			return true;
+		count=1;
+		indice=1;
+		
+		while((getYt()>=0)&& (tmp==(candies[getYt()-indice][getXt()].getType())))
+		{
+			count++;
+			indice++;
+			if(getYt()-indice<0)
+				break;
+			
+		}
+		if(count >= 3)
+			return true;
+		
+		
+		return false;
+	}			
+				
 
 }

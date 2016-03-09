@@ -113,14 +113,14 @@ public class Panel extends JPanel implements MouseListener {
 		{
 			if ((e.getX()/Cell.getSIZE()) <=5 && (e.getY()/Cell.getSIZE()) <= 5) 
 			{
-					currentCell = new Cell(col, row, gw.getCandy(col, row));
+					currentCell = new Cell(row, col, gw.getCandy(row, col));
 			}
 		}	
 		else if(nextCell == null)
 		{
 			if ((e.getX()/Cell.getSIZE()) <=5 && (e.getY()/Cell.getSIZE()) <= 5) 
 			{
-						nextCell = new Cell(col, row, gw.getCandy(col, row));
+						nextCell = new Cell(row, col, gw.getCandy(row, col));
 			}
 		}
 		
@@ -131,7 +131,8 @@ public class Panel extends JPanel implements MouseListener {
 			int difY=Math.abs(currentCell.getRow()-nextCell.getRow());
 			if( difX == 1 && difY==0)
 			{ 
-				gw.moveCandies(currentCell.getCol(), currentCell.getRow(), nextCell.getCol(), nextCell.getRow());
+				gw.setCandies(currentCell.getCol(), currentCell.getRow(), nextCell.getCol(), nextCell.getRow());
+				System.out.println(gw.checkMoreCandies());
 				repaint();
 			}
 			else
@@ -140,7 +141,9 @@ public class Panel extends JPanel implements MouseListener {
 			}
 			if( difY==1 && difX==0)
 			{
-				gw.moveCandies(currentCell.getCol(), currentCell.getRow(), nextCell.getCol(), nextCell.getRow());
+				gw.setCandies(currentCell.getCol(), currentCell.getRow(), nextCell.getCol(), nextCell.getRow());
+				System.out.println(gw.checkMoreCandies());
+				
 				repaint();
 			}
 			else
