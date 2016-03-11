@@ -1,11 +1,17 @@
 package core;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Vector;
+
 public class GameWorld {
 	private Candy[][] candies;
 	private IGenerator g;
 	private int score;
+	
 	private int rowS;
 	private int colS;
+	
 
 	public GameWorld(int row, int col) {
 		this.rowS = row;
@@ -14,9 +20,21 @@ public class GameWorld {
 		this.g = new Generator();
 		g.inizialize(candies);
 		this.score = 0;
+		
+
 
 	}
-
+	
+	public void setCandies()
+	{
+		for (int i = 0; i <rowS; i++) 
+		{
+			for (int j = 0; j < colS; j++) 
+			{
+				candies[i][j]=null;
+			}
+		}
+	}
 	public Candy getCandy(int r, int c) {
 		return candies[r][c];
 	}
@@ -84,8 +102,8 @@ public class GameWorld {
 	 * 
 	 * } }
 	 */
-	public void setCandies(int x, int y, int x1, int y1) {
-
+	public void setCandies(int x, int y, int x1, int y1) 
+	{
 		Candy tmp = candies[y][x];
 		candies[y][x] = candies[y1][x1];
 		candies[y1][x1] = tmp;
@@ -143,11 +161,85 @@ public class GameWorld {
 
 		}
 		if (countO >= 3) {
-			System.out.println(countO + "finalO");
+			System.out.println(countO + "final O");
 			return true;
 		}
 
 		return false;
 	}
+	public ArrayList<Cell> checkBeforeChange()
+	{
+		
+		ArrayList<Cell> cell=new ArrayList<Cell>();
+		ArrayList<Integer> tmp=new ArrayList<Integer>();
 
+		int kx=0;
+		int ky=0;
+		int kxx=0;
+		int kyy=0;
+		for (int i = 0; i < rowS; i++) 
+		{
+			for (int j = 0; j < colS; j++) 
+			{
+				
+				if(j>0 && candies[i][j].getType()==candies[i][j-1].getType())
+				{
+					cell.add(new Cell(j, i, candies[j][i]));				
+					kx++;
+				}
+				else if(i<rowS-1 && candies[i][j].getType() == candies[i+1][j].getType())
+				{
+					kyy++;
+					cell.add(new Cell(j, i, candies[j][i]));
+				}
+				else if(j<colS-1 && candies[i][j].getType() == candies[i][j+1].getType())
+				{
+					kx++;
+					cell.add(new Cell(j, i, candies[j][i]));
+				}
+				
+				else if(i>0 && candies[i][j].getType() == candies[i-1][j].getType())
+				{
+					cell.add(new Cell(j, i, candies[j][i]));
+					ky++;
+				}
+				
+			}
+			
+		}
+		
+		System.out.println(cell.size()+"size");
+		int count=1;
+		for (int k = 0; k < cell.size(); k++) 
+		{
+			boolean find=false;
+			for (int a = 0; a < cell.size(); a++) 
+			{
+				if(k!=a && (cell.get(k).getIcon().getType() != cell.get(a).getIcon().getType()))
+				{
+					//find=true;
+					cell.remove(count);
+				}
+				//else
+					//count++;
+			}
+			/*if(find && count<3)
+			{
+				while(count!=0)
+				{
+					cell.remove(count);
+					 count--;
+				}
+			}*/
+			count=1;
+		}
+		for (int k = 0; k < cell.size(); k++) 
+		{
+			System.out.println("I'm hashmap"+ " "+ cell.get(k).getRow()+" "+cell.get(k).getCol() + " tipe "+ cell.get(k).getIcon().getType() );
+		}
+		System.out.println(cell.size()+"size");
+		return cell;
+	}
+	
+	
 }

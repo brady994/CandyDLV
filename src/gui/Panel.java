@@ -21,14 +21,16 @@ public class Panel extends JPanel implements MouseListener {
 	private int firstClickX = 0;
 	private int firstClickY = 0;
 
-	Panel(GameWorld gw) {
+	Panel(GameWorld gw) 
+	{
 		this.gw = gw;
 		this.currentCell = null;
 		this.nextCell = null;
 		addMouseListener(this);
-		// addMouseMotionListener(new MyMouseMotionListener());
 		this.setBackground(Color.WHITE);
-
+		System.out.println(gw.checkBeforeChange());	
+		
+		
 	}
 
 	public void paintString(String n) {
@@ -90,7 +92,7 @@ public class Panel extends JPanel implements MouseListener {
 		if (nextCell != null) {
 			hightOneCell(g, nextCell.getRow(), nextCell.getCol());
 		}
-
+	
 	}
 
 	@Override
@@ -99,30 +101,36 @@ public class Panel extends JPanel implements MouseListener {
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
+	public void mousePressed(MouseEvent e) 
+	{
 		int row = e.getX() / Cell.getSIZE();
 		int col = e.getY() / Cell.getSIZE();
-		if (currentCell == null) {
-			if ((e.getX() / Cell.getSIZE()) <= 5 && (e.getY() / Cell.getSIZE()) <= 5) {
+		if (currentCell == null) 
+		{
+			if ((e.getX() / Cell.getSIZE()) <= 5 && (e.getY() / Cell.getSIZE()) <= 5) 
+			{
 				currentCell = new Cell(row, col, gw.getCandy(row, col));
 			}
-		} else if (nextCell == null) {
+		}
+		else if (nextCell == null) 
+		{
 			if ((e.getX() / Cell.getSIZE()) <= 5 && (e.getY() / Cell.getSIZE()) <= 5) {
 				nextCell = new Cell(row, col, gw.getCandy(row, col));
 			}
 		}
 
-		if (currentCell != null && nextCell != null) {
+		if (currentCell != null && nextCell != null) 
+		{
 
 			int difX = Math.abs(currentCell.getCol() - nextCell.getCol());
 			int difY = Math.abs(currentCell.getRow() - nextCell.getRow());
-			if (difX == 1 && difY == 0) {
-
+			if (difX == 1 && difY == 0) 
+			{
 				gw.setCandies(currentCell.getCol(), currentCell.getRow(), nextCell.getCol(), nextCell.getRow());
-
 				repaint();
-
-			} else {
+			} 
+			else 
+			{
 				paintString("Puoi postare solo di una posizione");
 			}
 			if (difY == 1 && difX == 0) {
@@ -141,19 +149,7 @@ public class Panel extends JPanel implements MouseListener {
 
 	}
 
-	/*
-	 * int row1; int col1; row1=e.getX() / Cell.getSIZE(); col1=e.getY() /
-	 * Cell.getSIZE(); if(row1 <= 5 && col1 <=5) { setFirstClickX(row1);
-	 * setFirstClickY(col1); }
-	 * 
-	 * 
-	 * 
-	 * repaint(); } else {
-	 * 
-	 * paintString("Direzione errata"); repaint();
-	 * 
-	 * }
-	 */
+	
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
@@ -175,17 +171,6 @@ public class Panel extends JPanel implements MouseListener {
 		return currentCell;
 	}
 
-	/*
-	 * private class MyMouseMotionListener implements MouseMotionListener {
-	 * 
-	 * @Override public void mouseDragged(MouseEvent e) { int row = e.getX() /
-	 * Cell.getSIZE(); int col = e.getY() / Cell.getSIZE();
-	 * if((e.getX()/Cell.getSIZE()) <= 5 && (e.getY()/Cell.getSIZE()) <= 5) {
-	 * nextCell = new Cell(row, col, gw.getCandy(row, col)); repaint(); } }
-	 * 
-	 * @Override public void mouseMoved(MouseEvent e) {
-	 * 
-	 * } }
-	 */
+	
 
 }

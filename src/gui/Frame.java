@@ -1,15 +1,26 @@
 package gui;
 
 import javax.swing.JFrame;
-
+import javax.swing.SwingUtilities;
 import core.GameWorld;
+
 
 public class Frame extends JFrame {
 	private static final long serialVersionUID = 1L;
-
-	public static void main(String[] args) {
-
-		new Frame();
+	
+	public static void main(String[] args) 
+	{
+		
+		Runnable r=new Runnable() 
+		{
+			@Override
+			public void run() 
+			{	
+				
+				new Frame();
+			}
+		};
+		SwingUtilities.invokeLater(r);
 	}
 
 	public Frame() {
@@ -21,4 +32,5 @@ public class Frame extends JFrame {
 		this.setContentPane(new MenuPanel(this, gw));
 		this.setVisible(true);
 	}
+	
 }
