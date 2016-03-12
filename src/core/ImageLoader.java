@@ -19,9 +19,8 @@ public class ImageLoader {
 			candyYellow = ImageIO.read(ImageLoader.class.getClassLoader().getResource("assets/lollipopFruitYellow.png"));
 			candyOrange = ImageIO.read(ImageLoader.class.getClassLoader().getResource("assets/lollipopFruitRed.png"));
 			candyGreen = ImageIO.read(ImageLoader.class.getClassLoader().getResource("assets/lollipopFruitGreen.png"));
-			candyBackground = ImageIO
-					.read(ImageLoader.class.getClassLoader().getResource("assets/Candy-designstyle-candy-m.png"));
-			//prova = new ImageIcon(ImageLoader.class.getClassLoader().getResource("assets/soldi.png"));
+			candyBackground = ImageIO.read(ImageLoader.class.getClassLoader().getResource("assets/SfondoCandy.png"));
+			prova = new ImageIcon(ImageLoader.class.getClassLoader().getResource("assets/soldi.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

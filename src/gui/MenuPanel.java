@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
@@ -30,8 +31,8 @@ public class MenuPanel extends JPanel {
 		this.setLayout(new GridBagLayout());
 		this.setBackground(Color.WHITE);
 
-		buttonStart = new JButton("START GAME");
-		// buttonStart.setBorderPainted(false);
+		buttonStart = new JButton(ImageLoader.getProva());
+		buttonStart.setBorderPainted(false);
 
 		setListener();
 		constraint.insets.set(20, 20, 20, 20);
@@ -47,19 +48,23 @@ public class MenuPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Panel game = new Panel(gw);
-				frame.setContentPane(game);
+				game.setBounds(0, 0, 100, 100);
+				JPanel p = new JPanel();
+				p.setLayout(new BorderLayout());
+				p.add(game, BorderLayout.CENTER);
+				frame.setContentPane(p);
+				;
 				game.requestFocus();
 				game.updateUI();
 				frame.setVisible(true);
-
 			}
-		});
 
+		});
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(ImageLoader.getCandyBackground(), 300, 0, null);
+		g.drawImage(ImageLoader.getCandyBackground(), 0, 0, null);
 	}
 }
