@@ -30,4 +30,18 @@ public class Generator implements IGenerator {
 
 	}
 
+	@Override
+	public void inizializeCell(Candy[][] c) 
+	{
+		for(int i=0;i<c[0].length;i++)	
+		{
+			if(c[i][0]==null)
+			{
+				Random r=new Random();
+				c[i][0]=randomCandy(r.nextInt(3)+1);
+			}
+		}
+		
+	}
+
 }

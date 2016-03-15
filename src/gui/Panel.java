@@ -20,6 +20,7 @@ public class Panel extends JPanel implements MouseListener {
 	private Cell nextCell;
 	private int firstClickX = 0;
 	private int firstClickY = 0;
+	private boolean first=true;
 
 	Panel(GameWorld gw) {
 		this.gw = gw;
@@ -27,9 +28,8 @@ public class Panel extends JPanel implements MouseListener {
 		this.nextCell = null;
 		addMouseListener(this);
 		this.setBackground(Color.WHITE);
-		gw.checkAfterChangeO();
-		gw.checkAfterChangeV();
-
+	
+		
 	}
 
 	public void paintString(String n) {
@@ -65,7 +65,8 @@ public class Panel extends JPanel implements MouseListener {
 		int y = Cell.getSIZE() * col;
 
 		g.drawRect(x, y, Cell.getSIZE(), Cell.getSIZE());
-		c.paint(g, x + 10, y + 10);
+		if(c!=null)
+			c.paint(g, x + 10, y + 10);
 	}
 
 	private void hightOneCell(Graphics g, int row, int col) {
@@ -85,17 +86,32 @@ public class Panel extends JPanel implements MouseListener {
 				paintCell(g, i, j, c);
 			}
 		}
-		if (currentCell != null) {
+		if (currentCell != null) 
+		{
 			hightOneCell(g, currentCell.getRow(), currentCell.getCol());
 		}
-		if (nextCell != null) {
+		if (nextCell != null) 
+		{
 			hightOneCell(g, nextCell.getRow(), nextCell.getCol());
 		}
-
+		
+		try{
+			gw.setCell();
+			gw.checkAfterChangeO();
+			gw.checkAfterChangeV();
+			Thread.sleep(5);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		repaint();
+		
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mouseClicked(MouseEvent e) 
+	{
 
 	}
 
@@ -129,14 +145,15 @@ public class Panel extends JPanel implements MouseListener {
 
 				repaint();
 
-			} else {
+			} 
+			else 
+			{
 				paintString("Puoi postare solo di una posizione");
 			}
 			currentCell = null;
 			nextCell = null;
 		}
 		repaint();
-
 	}
 
 	@Override
@@ -159,4 +176,5 @@ public class Panel extends JPanel implements MouseListener {
 		return currentCell;
 	}
 
+	
 }
