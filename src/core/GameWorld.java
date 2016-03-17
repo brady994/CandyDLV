@@ -306,17 +306,19 @@ public class GameWorld {
 				break;
 
 		}
-		if (countO == 3 || countV ==3) 
-		{
+		if (countO == 3 ) 
 			return 3;
-		}
-		else if(countO > 3 || countO >3)
-		{
+		if(countV==3)
+			return 3;
+		if(countO > 3 )
 			return 4;
-		}
-		else
+		if( countO >3)
+			return 4;
+		if(countO < 3)
 			return 2;
-		
+		if( countV < 3)
+			return 2;
+		return tmp;
 		
 		
 	}
