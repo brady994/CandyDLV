@@ -60,18 +60,18 @@ public class Panel extends JPanel implements MouseListener {
 		this.firstClickY = firstClickY;
 	}
 
-	private void paintCell(Graphics g, int row, int col, Candy c) {
-		int x = Cell.getSIZE() * row;
-		int y = Cell.getSIZE() * col;
+	private void paintCell(Graphics g, int row, int col, Candy c,int b,int a) {
+		int x = (Cell.getSIZE() * row);
+		int y = (Cell.getSIZE() * col);
 
-		g.drawRect(x, y, Cell.getSIZE(), Cell.getSIZE());
+		g.drawRect(b+x, a+y, Cell.getSIZE(), Cell.getSIZE());
 		if(c!=null)
-			c.paint(g, x + 10, y + 10);
+			c.paint(g, b+x + 10,a+ y + 10);
 	}
 
 	private void hightOneCell(Graphics g, int row, int col) {
-		int x = Cell.getSIZE() * row;
-		int y = Cell.getSIZE() * col;
+		int x = (Cell.getSIZE() * row)+270;
+		int y = (Cell.getSIZE() * col)+100;
 		g.setColor(Color.RED);
 		g.drawRect(x, y, Cell.getSIZE(), Cell.getSIZE());
 	}
@@ -80,10 +80,15 @@ public class Panel extends JPanel implements MouseListener {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		for (int i = 0; i < gw.getHeight(); i++) {
-			for (int j = 0; j < gw.getWidth(); j++) {
+		for (int i = 0; i < gw.getHeight(); i++) 
+		{
+			int a = 100;
+			for (int j = 0; j < gw.getWidth(); j++) 
+			{
+				int b = 270;
 				Candy c = gw.getCandy(i, j);
-				paintCell(g, i, j, c);
+				paintCell(g, i, j, c,b,a);
+				b++;
 			}
 		}
 		if (currentCell != null) 
@@ -99,7 +104,7 @@ public class Panel extends JPanel implements MouseListener {
 			gw.setCell();
 			gw.checkAfterChangeO();
 			gw.checkAfterChangeV();
-			Thread.sleep(5);
+			Thread.sleep(250);
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -116,15 +121,18 @@ public class Panel extends JPanel implements MouseListener {
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		int row = e.getX() / Cell.getSIZE();
-		int col = e.getY() / Cell.getSIZE();
+	public void mousePressed(MouseEvent e) 
+	{
+		int row = (e.getX()-270)/Cell.getSIZE();
+		int col = (e.getY()-100)/ Cell.getSIZE();
+		System.out.println(row + "                        mouse");
+		System.out.println(col + " 							mouse");
 		if (currentCell == null) {
-			if ((e.getX() / Cell.getSIZE()) <= 5 && (e.getY() / Cell.getSIZE()) <= 5) {
+			if ((e.getX() / Cell.getSIZE()) <= 8 && (e.getY() / Cell.getSIZE()) <= 8) {
 				currentCell = new Cell(row, col, gw.getCandy(row, col));
 			}
 		} else if (nextCell == null) {
-			if ((e.getX() / Cell.getSIZE()) <= 5 && (e.getY() / Cell.getSIZE()) <= 5) {
+			if ((e.getX() / Cell.getSIZE()) <= 8 && (e.getY() / Cell.getSIZE()) <= 8) {
 				nextCell = new Cell(row, col, gw.getCandy(row, col));
 			}
 		}

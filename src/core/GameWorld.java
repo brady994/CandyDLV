@@ -25,7 +25,7 @@ public class GameWorld {
 	public void cancella(int x,int y)
 	{
 		candies[x][y]=null;
-		System.out.println(x+" "+y);
+		
 	}
 	
 	public void setCandies() {
@@ -39,39 +39,15 @@ public class GameWorld {
 	}
 	public void setCell()
 	{
-		int countEmpty=0;
-		
-//		for (int i = 0; i < colS; i++) 
-//		{
-//			for (int k = rowS-1; k >=0; k--) 
-//			{
-//				int row=k;
-//				if(candies[k][i]==null)
-//				{
-//					while(candies[row][i] == null && row > 0)
-//					{
-//						row--;
-//						countEmpty++;
-//					}
-//					System.out.println(row+" "+i);
-//					Random r = new Random();
-//					candies[row][i]=randomCandy(r.nextInt(3) + 1);
-//					candies[k][i]=candies[k-countEmpty][i];
-//					for ( ; countEmpty>=0 ; countEmpty--) 
-//					{
-//						candies[k-countEmpty][i]=null;
-//					}
-//				}
-//			}
-//		}
-ArrayList<Cell> col1 = new ArrayList<Cell>();
-ArrayList<Cell> col2 = new ArrayList<Cell>();
-ArrayList<Cell> col3 = new ArrayList<Cell>();
-ArrayList<Cell> col4 = new ArrayList<Cell>();
-ArrayList<Cell> col5 = new ArrayList<Cell>();
-ArrayList<Cell> col6 = new ArrayList<Cell>();
-
-int i=0;
+			
+			ArrayList<Cell> col1 = new ArrayList<Cell>();
+			ArrayList<Cell> col2 = new ArrayList<Cell>();
+			ArrayList<Cell> col3 = new ArrayList<Cell>();
+			ArrayList<Cell> col4 = new ArrayList<Cell>();
+			ArrayList<Cell> col5 = new ArrayList<Cell>();
+			ArrayList<Cell> col6 = new ArrayList<Cell>();
+			
+			int i=0;
 			for (int j = 0; j < rowS; j++) 
 			{
 				if (candies[i][j]!= null)
@@ -83,9 +59,9 @@ int i=0;
 			}
 			
 			for (int j =col1.size()-1; j >=0;j--){
-				Cell last = col1.get(j);System.out.println(j + " candy");
+				Cell last = col1.get(j);
 				for (int k = last.getCol()+1;k<rowS; k++ ){
-					System.out.println(k + " col");
+					
 					if (k < rowS && candies[i][k]==null){
 						Candy tmpc = candies[last.getRow()][last.getCol()];
 						candies[i][k]=tmpc;
@@ -107,9 +83,9 @@ int i=0;
 			}
 			
 			for (int j =col2.size()-1; j >=0;j--){
-				Cell last = col2.get(j);System.out.println(j + " candy");
+				Cell last = col2.get(j);
 				for (int k = last.getCol()+1;k < rowS; k++ ){
-					System.out.println(k + " col");
+					
 					if (k < rowS && candies[i][k]==null){
 						Candy tmpc = candies[last.getRow()][last.getCol()];
 						candies[i][k]=tmpc;
@@ -131,9 +107,9 @@ int i=0;
 			}
 			
 			for (int j =col3.size()-1; j >=0;j--){
-				Cell last = col3.get(j);System.out.println(j + " candy");
+				Cell last = col3.get(j);
 				for (int k = last.getCol()+1;k<rowS; k++ ){
-					System.out.println(k + " col");
+					
 					if (k < rowS && candies[i][k]==null){
 						Candy tmpc = candies[last.getRow()][last.getCol()];
 						candies[i][k]=tmpc;
@@ -155,9 +131,9 @@ int i=0;
 			}
 			
 			for (int j =col4.size()-1; j >=0;j--){
-				Cell last = col4.get(j);System.out.println(j + " candy");
+				Cell last = col4.get(j);
 				for (int k = last.getCol()+1;k<rowS; k++ ){
-					System.out.println(k + " col");
+					
 					if (k < rowS && candies[i][k]==null){
 						Candy tmpc = candies[last.getRow()][last.getCol()];
 						candies[i][k]=tmpc;
@@ -179,9 +155,9 @@ int i=0;
 			}
 			
 			for (int j =col5.size()-1; j >=0;j--){
-				Cell last = col5.get(j);System.out.println(j + " candy");
+				Cell last = col5.get(j);
 				for (int k = last.getCol()+1;k<rowS; k++ ){
-					System.out.println(k + " col");
+				
 					if (k < rowS && candies[i][k]==null){
 						Candy tmpc = candies[last.getRow()][last.getCol()];
 						candies[i][k]=tmpc;
@@ -204,10 +180,10 @@ int i=0;
 			
 			for (int j =col6.size()-1; j >=0;j--)
 			{
-				Cell last = col6.get(j);System.out.println(j + " candy");
+				Cell last = col6.get(j);
 				for (int k = last.getCol()+1;k<rowS; k++ )
 				{
-					System.out.println(k + " col");
+					
 					if (k < rowS && candies[i][k]==null)
 					{
 						Candy tmpc = candies[last.getRow()][last.getCol()];
@@ -266,7 +242,8 @@ int i=0;
 		Candy tmp = candies[y][x];
 		candies[y][x] = candies[y1][x1];
 		candies[y1][x1] = tmp;
-		if (!checkMoreCandies(x1, y1)) {
+		if (checkMoreCandies(x1, y1) < 3) 
+		{
 			Candy tmp1 = candies[y][x];
 			candies[y][x] = candies[y1][x1];
 			candies[y1][x1] = tmp1;
@@ -274,7 +251,8 @@ int i=0;
 
 	}
 
-	public boolean checkMoreCandies(int x, int y) {
+	public int checkMoreCandies(int x, int y) 
+	{
 		int indice = 1;
 		int countV = 1;
 		int countO = 1;
@@ -295,10 +273,19 @@ int i=0;
 				break;
 
 		}
-		if (countV >= 3) {
-			System.out.println(countV + "finalV");
-			return true;
-		}
+//		if (countV == 3) 
+//		{
+//			return 3;
+//		}
+//		else if(countV > 3)
+//		{
+//			return 4;
+//		}
+//		else 
+//		{
+//			return 2;
+//		}
+		
 		countV = 1;
 		countO = 1;
 		indice = 1;
@@ -319,12 +306,19 @@ int i=0;
 				break;
 
 		}
-		if (countO >= 3) {
-			System.out.println(countO + "final O");
-			return true;
+		if (countO == 3 || countV ==3) 
+		{
+			return 3;
 		}
-
-		return false;
+		else if(countO > 3 || countO >3)
+		{
+			return 4;
+		}
+		else
+			return 2;
+		
+		
+		
 	}
 
 	public void checkAfterChangeV() 
@@ -385,7 +379,7 @@ int i=0;
 //			System.out.println("I'm hashmap V" + " " + tmp.get(k).getRow() + " " + tmp.get(k).getCol() + " tipe "
 //					+ tmp.get(k).getIcon().getType());
 //		}
-		System.out.println(tmp.size() + "size");
+	
 		for (int k = 0; k < tmp.size(); k++) 
 		{
 			cancella(tmp.get(k).getRow(),tmp.get(k).getCol());
