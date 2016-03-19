@@ -16,6 +16,9 @@ public class ImageLoader {
 	private static Image specialYellow;
 	private static Image specialOrange;
 	private static Icon prova;
+	private static Image specialCandyGreen;
+	private static Image specialCandyYellow;
+	private static Image specialCandyRed;
 
 	static {
 		try {
@@ -28,6 +31,9 @@ public class ImageLoader {
 			specialYellow = ImageIO.read(ImageLoader.class.getClassLoader().getResource("assets/lollipopYellow.png"));
 			specialOrange = ImageIO.read(ImageLoader.class.getClassLoader().getResource("assets/lollipopRed.png"));
 
+			specialCandyGreen = ImageIO.read(ImageLoader.class.getClassLoader().getResource("assets/lollipopGreen.png"));
+			specialCandyRed = ImageIO.read(ImageLoader.class.getClassLoader().getResource("assets/lollipopRed.png"));
+			specialCandyYellow = ImageIO.read(ImageLoader.class.getClassLoader().getResource("assets/lollipopYellow"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

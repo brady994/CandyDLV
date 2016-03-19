@@ -554,4 +554,33 @@ public class GameWorld {
 			checkAfterChangeV();
 		}
 	}
+	public void removeSpecialCandy()
+	{
+		int tmp=0;
+		boolean exit=false;
+		for (int i = 0; i < rowS && !exit; i++) 
+		{
+			for (int j = 0; j < colS && !exit; j++) 
+			{
+				if(candies[i][j].getType()==30 || candies[i][j].getType()==20 || candies[i][j].getType()==10)
+				{
+					tmp=candies[i][j].getType();
+					break;
+				}
+			}
+			if(tmp!=0)
+				exit=true;
+		}
+		for (int i = 0; i < rowS && !exit; i++) 
+		{
+			for (int j = 0; j < colS && !exit; j++) 
+			{
+				if(candies[i][j].getType()==(tmp/10))
+				{
+					candies[i][j]=null;
+				}
+			}
+		}
+	}
+	
 }
