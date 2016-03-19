@@ -12,6 +12,9 @@ public class ImageLoader {
 	private static Image candyOrange;
 	private static Image candyGreen;
 	private static Image candyBackground;
+	private static Image specialGreen;
+	private static Image specialYellow;
+	private static Image specialOrange;
 	private static Icon prova;
 
 	static {
@@ -21,6 +24,10 @@ public class ImageLoader {
 			candyGreen = ImageIO.read(ImageLoader.class.getClassLoader().getResource("assets/lollipopFruitGreen.png"));
 			candyBackground = ImageIO.read(ImageLoader.class.getClassLoader().getResource("assets/SfondoCandy.png"));
 			prova = new ImageIcon(ImageLoader.class.getClassLoader().getResource("assets/soldi.png"));
+			specialGreen = ImageIO.read(ImageLoader.class.getClassLoader().getResource("assets/lollipopGreen.png"));
+			specialYellow = ImageIO.read(ImageLoader.class.getClassLoader().getResource("assets/lollipopYellow.png"));
+			specialOrange = ImageIO.read(ImageLoader.class.getClassLoader().getResource("assets/lollipopRed.png"));
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -44,6 +51,18 @@ public class ImageLoader {
 
 	public static Icon getProva() {
 		return prova;
+	}
+
+	public static Image getSpecialGreen() {
+		return specialGreen;
+	}
+
+	public static Image getSpecialOrange() {
+		return specialOrange;
+	}
+
+	public static Image getSpecialYellow() {
+		return specialYellow;
 	}
 
 }

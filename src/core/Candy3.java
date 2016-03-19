@@ -4,10 +4,8 @@ import java.awt.Graphics;
 
 public class Candy3 implements Candy {
 
-	int type;
 	@Override
-	public int getType() 
-	{
+	public int getType() {
 		return 3;
 	}
 
@@ -16,15 +14,5 @@ public class Candy3 implements Candy {
 		g.drawImage(ImageLoader.getCandyGreen(), x, y, null);
 
 	}
-
-	@Override
-	public void setType(int x) 
-	{
-		this.type=type;
-		
-	}
-
-
-	
 
 }

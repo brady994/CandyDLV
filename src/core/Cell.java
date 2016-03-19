@@ -12,6 +12,7 @@ public class Cell {
 		this.col = col;
 		this.candy = icon;
 	}
+
 	public int getCol() {
 		return col;
 	}
@@ -35,6 +36,7 @@ public class Cell {
 	public void setIcon(Candy icon) {
 		this.candy = icon;
 	}
+
 	public static int getSIZE() {
 		return SIZE;
 	}
@@ -43,6 +45,5 @@ public class Cell {
 		return SIZE*6;   //be careful
 		
 	}
-
 
 }

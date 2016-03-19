@@ -33,7 +33,6 @@ public class MenuPanel extends JPanel {
 
 		buttonStart = new JButton(ImageLoader.getProva());
 		buttonStart.setBorderPainted(false);
-		buttonStart.setOpaque(true);
 
 		setListener();
 		constraint.insets.set(20, 20, 20, 20);
@@ -49,7 +48,7 @@ public class MenuPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Panel game = new Panel(gw);
-				game.setBounds(0, 0, 100, 100);
+				game.setBounds(900, 900, 100, 100);
 				JPanel p = new JPanel();
 				p.setLayout(new BorderLayout());
 				p.add(game, BorderLayout.CENTER);
@@ -57,6 +56,7 @@ public class MenuPanel extends JPanel {
 				game.requestFocus();
 				game.updateUI();
 				frame.setVisible(true);
+
 			}
 
 		});
