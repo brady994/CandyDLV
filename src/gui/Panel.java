@@ -1,7 +1,9 @@
 package gui;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Timer;
@@ -20,7 +22,6 @@ public class Panel extends JPanel implements MouseListener {
 	private Cell nextCell;
 	private int firstClickX = 0;
 	private int firstClickY = 0;
-	private boolean first=true;
 
 	Panel(GameWorld gw) {
 		this.gw = gw;
@@ -28,8 +29,7 @@ public class Panel extends JPanel implements MouseListener {
 		this.nextCell = null;
 		addMouseListener(this);
 		this.setBackground(Color.WHITE);
-	
-		
+
 	}
 
 	public void paintString(String n) {
@@ -60,19 +60,20 @@ public class Panel extends JPanel implements MouseListener {
 		this.firstClickY = firstClickY;
 	}
 
-	private void paintCell(Graphics g, int row, int col, Candy c,int b,int a) {
+	private void paintCell(Graphics g, int row, int col, Candy c, int b, int a) {
 		int x = (Cell.getSIZE() * row);
 		int y = (Cell.getSIZE() * col);
 
-		g.drawRect(b+x, a+y, Cell.getSIZE(), Cell.getSIZE());
-		if(c!=null)
-			c.paint(g, b+x + 10,a+ y + 10);
+		g.drawRect(b + x, a + y, Cell.getSIZE(), Cell.getSIZE());
+		if (c != null)
+			c.paint(g, b + x + 10, a + y + 10);
 	}
 
 	private void hightOneCell(Graphics g, int row, int col) {
-		int x = (Cell.getSIZE() * row)+270;
-		int y = (Cell.getSIZE() * col)+100;
+		int x = (Cell.getSIZE() * row) + 270;
+		int y = (Cell.getSIZE() * col) + 100;
 		g.setColor(Color.RED);
+		((Graphics2D) g).setStroke(new BasicStroke(2));
 		g.drawRect(x, y, Cell.getSIZE(), Cell.getSIZE());
 	}
 
@@ -80,51 +81,57 @@ public class Panel extends JPanel implements MouseListener {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		for (int i = 0; i < gw.getHeight(); i++) 
-		{
+		for (int i = 0; i < gw.getHeight(); i++) {
 			int a = 100;
-			for (int j = 0; j < gw.getWidth(); j++) 
-			{
+			for (int j = 0; j < gw.getWidth(); j++) {
 				int b = 270;
 				Candy c = gw.getCandy(i, j);
-				paintCell(g, i, j, c,b,a);
+				paintCell(g, i, j, c, b, a);
 				b++;
 			}
 		}
-		if (currentCell != null) 
-		{
+		if (currentCell != null) {
 			hightOneCell(g, currentCell.getRow(), currentCell.getCol());
 		}
-		if (nextCell != null) 
-		{
+		if (nextCell != null) {
 			hightOneCell(g, nextCell.getRow(), nextCell.getCol());
 		}
-		
-		try{
-			gw.setCell();
-			gw.checkAfterChangeO();
-			gw.checkAfterChangeV();
-			Thread.sleep(250);
-		}catch(Exception e)
-		{
+
+		gw.start();
+		if (gw.check()) {
+			for (int i = 0; i < gw.checkAfterChangeO().size(); i++) {
+
+				hightOneCell(g, gw.checkAfterChangeO().get(i).getRow(), gw.checkAfterChangeO().get(i).getCol());
+
+			}
+
+			for (int i = 0; i < gw.checkAfterChangeV().size(); i++) {
+				hightOneCell(g, gw.checkAfterChangeV().get(i).getRow(), gw.checkAfterChangeV().get(i).getCol());
+			}
+
+			gw.tmpCancellaO(gw.checkAfterChangeO());
+			gw.cancellaTmpV(gw.checkAfterChangeV());
+		}
+
+		repaint();
+		try {
+			Thread.sleep(400);
+		} catch (InterruptedException e) {
+
 			e.printStackTrace();
 		}
-		
-		repaint();
-		
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) 
-	{
 
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) 
-	{
-		int row = (e.getX()-270)/Cell.getSIZE();
-		int col = (e.getY()-100)/ Cell.getSIZE();
+	public void mouseClicked(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		int row = (e.getX() - 270) / Cell.getSIZE();
+		int col = (e.getY() - 100) / Cell.getSIZE();
 		System.out.println(row + "                        mouse");
 		System.out.println(col + " 							mouse");
 		if (currentCell == null) {
@@ -153,15 +160,14 @@ public class Panel extends JPanel implements MouseListener {
 
 				repaint();
 
-			} 
-			else 
-			{
+			} else {
 				paintString("Puoi postare solo di una posizione");
 			}
 			currentCell = null;
 			nextCell = null;
 		}
 		repaint();
+
 	}
 
 	@Override
@@ -184,5 +190,4 @@ public class Panel extends JPanel implements MouseListener {
 		return currentCell;
 	}
 
-	
 }
