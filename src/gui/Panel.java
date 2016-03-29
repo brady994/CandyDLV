@@ -108,14 +108,11 @@ public class Panel extends JPanel implements MouseListener {
 			for (int i = 0; i < gw.checkAfterChangeV().size(); i++) {
 				hightOneCell(g, gw.checkAfterChangeV().get(i).getRow(), gw.checkAfterChangeV().get(i).getCol());
 			}
-			if(gw.checkSpecialCandy())
-			{
-				gw.removeSpecialCandy();
-			}
+
 			gw.tmpCancellaO(gw.checkAfterChangeO());
 			gw.cancellaTmpV(gw.checkAfterChangeV());
-			
 		}
+		gw.getG().inizializeCell(gw.getCandies());
 
 		repaint();
 		try {

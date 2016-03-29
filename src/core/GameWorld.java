@@ -20,6 +20,14 @@ public class GameWorld {
 
 	}
 
+	public IGenerator getG() {
+		return g;
+	}
+
+	public Candy[][] getCandies() {
+		return candies;
+	}
+
 	public void cancellaO(ArrayList<Cell> c) {
 		if (c.size() == 3) {
 
@@ -209,9 +217,6 @@ public class GameWorld {
 			}
 		}
 
-		// for ()
-		g.inizializeCell(candies);
-
 	}
 
 	public Candy randomCandy(int type) {
@@ -271,7 +276,9 @@ public class GameWorld {
 
 		int tmp = candies[y][x].getType();
 
-		while ((x < colS - 1) && (tmp == (candies[y][x + indice].getType()))) {
+		while ((x < colS - 1)
+				&& (tmp == (candies[y][x + indice].getType()) || tmp == (candies[y][x + indice].getType() / 10) || (tmp / 10) == candies[y][x
+						+ indice].getType())) {
 			countV++;
 			indice++;
 			if (x + indice >= colS)
@@ -279,7 +286,9 @@ public class GameWorld {
 		}
 
 		indice = 1;
-		while ((x > 0) && (tmp == (candies[y][x - indice].getType()))) {
+		while ((x > 0)
+				&& (tmp == (candies[y][x - indice].getType()) || tmp == (candies[y][x - indice].getType() / 10) || (tmp / 10) == candies[y][x
+						- indice].getType())) {
 			countV++;
 			indice++;
 			if (x - indice < 0)
@@ -307,7 +316,9 @@ public class GameWorld {
 		int countO = 1;
 		int indice = 1;
 		int tmp = candies[y][x].getType();
-		while ((y < rowS - 1) && (tmp == (candies[y + indice][x].getType()))) {
+		while ((y < rowS - 1)
+				&& (tmp == (candies[y + indice][x].getType()) || tmp == (candies[y + indice][x].getType() / 10) || (tmp / 10) == candies[y
+						+ indice][x].getType())) {
 			countO++;
 			indice++;
 			if (y + indice >= rowS)
@@ -317,7 +328,9 @@ public class GameWorld {
 
 		indice = 1;
 
-		while ((y > 0) && (tmp == (candies[y - indice][x].getType()))) {
+		while ((y > 0)
+				&& (tmp == (candies[y - indice][x].getType()) || tmp == (candies[y - indice][x].getType() / 10) || (tmp / 10) == candies[y
+						- indice][x].getType())) {
 			countO++;
 			indice++;
 			if (y - indice < 0)
@@ -335,13 +348,21 @@ public class GameWorld {
 		for (int i = 0; i < rowS; i++) {
 			for (int j = 0; j < colS; j++) {
 				// verticale
-				if (candies[i][j] != null && j > 0 && candies[i][j - 1] != null
-						&& candies[i][j].getType() == candies[i][j - 1].getType()) {
+				if (candies[i][j] != null
+						&& j > 0
+						&& candies[i][j - 1] != null
+						&& (candies[i][j].getType() == candies[i][j - 1].getType()
+								|| candies[i][j].getType() == (candies[i][j - 1].getType() / 10) || (candies[i][j].getType() / 10) == candies[i][j - 1]
+								.getType())) {
 
 					cell.add(new Cell(i, j, candies[i][j]));
 
-				} else if (candies[i][j] != null && j < colS - 1 && candies[i][j + 1] != null
-						&& candies[i][j].getType() == candies[i][j + 1].getType()) {
+				} else if (candies[i][j] != null
+						&& j < colS - 1
+						&& candies[i][j + 1] != null
+						&& (candies[i][j].getType() == candies[i][j + 1].getType()
+								|| candies[i][j].getType() == (candies[i][j + 1].getType() / 10) || (candies[i][j].getType() / 10) == candies[i][j + 1]
+								.getType())) {
 
 					cell.add(new Cell(i, j, candies[i][j]));
 				}
@@ -359,7 +380,9 @@ public class GameWorld {
 
 			for (int a = k + 1; a < cell.size(); a++) {
 
-				if (cell.get(k).getIcon().getType() == cell.get(a).getIcon().getType()
+				if ((cell.get(k).getIcon().getType() == cell.get(a).getIcon().getType()
+						|| cell.get(k).getIcon().getType() == (cell.get(a).getIcon().getType() / 10) || (cell.get(k).getIcon()
+						.getType() / 10) == cell.get(a).getIcon().getType())
 						&& cell.get(k).getRow() == cell.get(a).getRow()
 						&& (cell.get(k).getCol() + indColTmp) == cell.get(a).getCol()) {
 					indTmp = cell.get(a).getCol();
@@ -402,7 +425,9 @@ public class GameWorld {
 
 			for (int a = k + 1; a < tmp.size(); a++) {
 
-				if (tmp.get(k).getIcon().getType() == tmp.get(a).getIcon().getType()
+				if ((tmp.get(k).getIcon().getType() == tmp.get(a).getIcon().getType()
+						|| tmp.get(k).getIcon().getType() == (tmp.get(a).getIcon().getType() / 10) || (tmp.get(k).getIcon()
+						.getType() / 10) == tmp.get(a).getIcon().getType())
 						&& tmp.get(k).getRow() == tmp.get(a).getRow()
 						&& (tmp.get(a).getCol() + indColTmp1) == tmp.get(k).getCol()) {
 
@@ -433,13 +458,21 @@ public class GameWorld {
 		for (int i = 0; i < rowS; i++) {
 			for (int j = 0; j < colS; j++) {
 
-				if (candies[j][i] != null && j > 0 && candies[j - 1][i] != null
-						&& candies[j][i].getType() == candies[j - 1][i].getType()) {
+				if (candies[j][i] != null
+						&& j > 0
+						&& candies[j - 1][i] != null
+						&& (candies[j][i].getType() == candies[j - 1][i].getType()
+								|| candies[j][i].getType() == (candies[j - 1][i].getType() / 10) || (candies[j][i].getType() / 10) == candies[j - 1][i]
+								.getType())) {
 
 					cell.add(new Cell(j, i, candies[j][i]));
 
-				} else if (candies[j][i] != null && j < colS - 1 && candies[j + 1][i] != null
-						&& candies[j][i].getType() == candies[j + 1][i].getType()) {
+				} else if (candies[j][i] != null
+						&& j < colS - 1
+						&& candies[j + 1][i] != null
+						&& (candies[j][i].getType() == candies[j + 1][i].getType()
+								|| candies[j][i].getType() == (candies[j + 1][i].getType() / 10) || (candies[j][i].getType() / 10) == candies[j + 1][i]
+								.getType())) {
 
 					cell.add(new Cell(j, i, candies[j][i]));
 				}
@@ -455,7 +488,9 @@ public class GameWorld {
 			for (int a = k + 1; a < cell.size(); a++) {
 				// orizzontali
 
-				if (cell.get(k).getIcon().getType() == cell.get(a).getIcon().getType()
+				if ((cell.get(k).getIcon().getType() == cell.get(a).getIcon().getType()
+						|| cell.get(k).getIcon().getType() == (cell.get(a).getIcon().getType() / 10) || (cell.get(k).getIcon()
+						.getType() / 10) == cell.get(a).getIcon().getType())
 						&& cell.get(k).getCol() == cell.get(a).getCol()
 						&& (cell.get(k).getRow() + indRowTmp) == cell.get(a).getRow()) {
 
@@ -504,9 +539,13 @@ public class GameWorld {
 
 				// System.out.println((tmp.get(k).getRow()) + " r c " +
 				// tmp.get(k).getCol());
-				if (tmp.get(k).getIcon().getType() == tmp.get(a).getIcon().getType()
+				if ((tmp.get(k).getIcon().getType() == tmp.get(a).getIcon().getType()
+						|| tmp.get(k).getIcon().getType() == (tmp.get(a).getIcon().getType() / 10) || (tmp.get(k).getIcon()
+						.getType() / 10) == tmp.get(a).getIcon().getType())
 						&& tmp.get(k).getCol() == tmp.get(a).getCol()
 						&& (tmp.get(a).getRow() + indRowTmp1) == tmp.get(k).getRow()) {
+					// System.out.println(tmp.get(k).getIcon().getType() + " " +
+					// (tmp.get(a).getIcon().getType() / 10) + " type");
 					// System.out.println("si");
 					// System.out.println(tmp.get(a).getCol() + indRowTmp1 + " "
 					// + tmp.get(k).getCol());
@@ -554,48 +593,40 @@ public class GameWorld {
 			checkAfterChangeV();
 		}
 	}
-	public boolean checkSpecialCandy()
-	{
-		for (int i = 0; i < rowS ; i++) 
-		{
-			for (int j = 0; j < colS; j++) 
-			{
-				if((candies[i][j].getType()==30 || candies[i][j].getType()==20 || candies[i][j].getType()==10) && candies[i][j]!=null)
-				{
+
+	public boolean checkSpecialCandy() {
+		for (int i = 0; i < rowS; i++) {
+			for (int j = 0; j < colS; j++) {
+				if ((candies[i][j].getType() == 30 || candies[i][j].getType() == 20 || candies[i][j].getType() == 10)
+						&& candies[i][j] != null) {
 					return true;
 				}
 			}
 		}
 		return false;
 	}
-	
-	public void removeSpecialCandy()
-	{
-		int tmp=0;
-		boolean exit=false;
-		for (int i = 0; i < rowS && !exit; i++) 
-		{
-			for (int j = 0; j < colS ; j++) 
-			{
-				if((candies[i][j].getType()==30 || candies[i][j].getType()==20 || candies[i][j].getType()==10) && candies[i][j]!=null)
-				{
-					tmp=candies[i][j].getType();
+
+	public void removeSpecialCandy() {
+		int tmp = 0;
+		boolean exit = false;
+		for (int i = 0; i < rowS && !exit; i++) {
+			for (int j = 0; j < colS; j++) {
+				if ((candies[i][j].getType() == 30 || candies[i][j].getType() == 20 || candies[i][j].getType() == 10)
+						&& candies[i][j] != null) {
+					tmp = candies[i][j].getType();
 					break;
 				}
 			}
-			if(tmp!=0)
-				exit=true;
+			if (tmp != 0)
+				exit = true;
 		}
-		for (int i = 0; i < rowS; i++) 
-		{
-			for (int j = 0; j < colS; j++) 
-			{
-				if((candies[i][j].getType()==(tmp/10) || candies[i][j].getType() ==tmp) && candies[i][j]!=null)
-				{
-					candies[i][j]=null;
+		for (int i = 0; i < rowS; i++) {
+			for (int j = 0; j < colS; j++) {
+				if ((candies[i][j].getType() == (tmp / 10) || candies[i][j].getType() == tmp) && candies[i][j] != null) {
+					candies[i][j] = null;
 				}
 			}
 		}
 	}
-	
+
 }
