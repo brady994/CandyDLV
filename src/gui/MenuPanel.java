@@ -32,6 +32,8 @@ public class MenuPanel extends JPanel {
 		this.setBackground(Color.WHITE);
 
 		buttonStart = new JButton(ImageLoader.getProva());
+		buttonStart.setRolloverEnabled(true);
+		buttonStart.setRolloverIcon(ImageLoader.getRollstart());
 		buttonStart.setBorderPainted(false);
 
 		setListener();
