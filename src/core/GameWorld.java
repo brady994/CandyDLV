@@ -1,12 +1,14 @@
 package core;
 
+
 import java.util.ArrayList;
 
 public class GameWorld {
 	public Candy[][] candies;
 	private IGenerator g;
 	private int score;
-
+	private ArrayList<Cell> mosse =new ArrayList<Cell>();
+	private ArrayList<Cell> mosseV =new ArrayList<Cell>();
 	public int rowS;
 	public int colS;
 
@@ -651,5 +653,224 @@ public class GameWorld {
 			}
 		}
 	}
-
+	public boolean southEast(int x,int y,int type)
+	{
+		x+=1;
+		y+=1;
+		if(!(y < colS && x < rowS))
+			return false;
+		
+		if(candies[x][y].getType() == type)
+			return true;
+		return false;
+	}
+	public boolean northEast(int x,int y,int type)
+	{
+		x-=1;
+		y+=1;
+		if(!(x>=0 && y < colS))
+			return false;
+		if(candies[x][y].getType()==type)
+			return true;
+		return false;
+	}
+	
+	public boolean northWest(int x,int y,int type)
+	{
+		x-=1;
+		y-=1;
+		if(!(y>=0 && x>= 0))
+			return false;
+		
+		if(candies[x][y].getType()==type)
+			return true;
+		return false;
+	}
+	public boolean southWest(int x,int y,int type)
+	{
+		x+=1;
+		y-=1;
+		if(!(x<rowS && y>=0))
+			return false;
+		
+		if(candies[x][y].getType()==type)
+			return true;
+		return false;
+	}
+	
+	public void possibleMoves()
+	{
+		for(int i=0;i<rowS;i++)
+		{
+			for(int j=0;j<colS;j++)
+			{
+				if(j+1<colS && candies[i][j].getType() == candies[i][j+1].getType())
+				{
+					if(northWest(i, j, candies[i][j].getType()))
+					{
+						mosse.add(i,j,candies[i][j]);
+					}
+					if(southWest(i,j,candies[i][j].getType()))
+					{
+						mosse.add(i,j,candies[i][j]);
+					}
+					if(northEast(i,j,candies[i][j+1].getType()))
+					{
+						mosse.add(i,j,candies[i][j+1]);
+					}
+					if(southEast(i, j, candies[i][j+1].getType()))
+					{
+						mosse.add(i,j,candies[i][j+1]);
+					}
+				}
+				if(i+1<rowS && candies[i][j].getType()==candies[i+1][j].getType())
+				{
+					if(northWest(i,j,candies[i][j].getType()))
+					{
+						mosseV.add(i,j,candies[i][j]);
+					}
+					if(northEast(i,j,candies[i][j].getType()))
+					{
+						mosseV.add(i, j,candies[i][j]);
+					}
+					if(southWest(i,j,candies[i][j].getType()))
+					{
+						mosseV.add(i,j,candies[i][j]);
+					}
+					if(southEast(i,j,candies[i][j].getType()))
+					{
+						mosseV.add(i, j,candies[i][j]);
+					}
+				}
+				if(j>0 && candies[i][j].getType() == candies[i][j-1].getType())
+				{
+					if(northWest(i,j,candies[i][j-1].getType()))
+					{
+						mosse.add(i, j,candies[i][j-1]);
+					}
+					if(southWest(i,j,candies[i][j-1].getType()))
+					{
+						mosse.add(i, j,candies[i][j-1]);
+					}
+					if(northEast(i,j,candies[i][j].getType()))
+					{
+						mosse.add(i, j,candies[i][j]);
+					}
+					if(southEast(i,j,candies[i][j].getType()))
+					{
+						mosse.add(i, j,candies[i][j]);
+					}
+				}
+			    if(i>0 && candies[i][j].getType() == candies[i-1][j].getType())
+				{
+					if(northWest(i,j,candies[i-1][j].getType()))
+					{
+						mosseV.add(i,j,candies[i][j]);
+					}
+					if(northEast(i,j,candies[i-1][j].getType()))
+					{
+						mosseV.add(i,j,candies[i-1][j]);
+					}
+					if(southEast(i,j,candies[i][j].getType()))
+					{
+						mosseV.add(i,j,candies[i][j]);
+					}
+					if(southWest(i,j,candies[i][j].getType()))
+					{
+						mosseV.add(i,j,candies[i][j]);
+					}
+				}
+			}
+		}
+	}
+	public void possibleMoves2()
+	{
+		int k=0;
+		for(int i=0;i<rowS;i++)
+		{
+			for(int j=0;j<colS;j++)
+			{
+				if(j< colS && candies[i][j].getType() == candies[i][j+1].getType())
+				{
+					k=0;
+					k=j+1;
+					while(k < colS && candies[i][j].getType()== candies[i][k].getType())
+					{
+						k++;
+					}
+					if(k+2 < colS && candies[i][j].getType() == candies[i][k+2].getType())
+					{
+						if(northEast(i,j,candies[i][j+1].getType()))
+						{
+							mosse.add(i,j,candies[i][j+1]);
+						}
+						if(southEast(i,j,candies[i][j+1].getType()))
+						{
+							mosse.add(i,j,candies[i][j+1]);
+						}
+					}
+				}
+				if(j > 0 && candies[i][j-1].getType() == candies[i][j-1].getType())
+				{
+					k=0;
+					k=j-1;
+					while(k>=0 && candies[i][j].getType()== candies[i][k].getType())
+					{
+						k--;
+					}
+					if(k-2>=0 && candies[i][j].getType() == candies[i][k-2].getType())
+					{
+						if(northWest(i,j,candies[i][j-1].getType()))
+						{
+							mosse.add(i,j,candies[i][j-1]);
+						}
+						if(southWest(i,j,candies[i][j-1].getType()))
+						{
+							mosse.add(i,j,candies[i][j-1]);
+						}
+					}
+				}
+				if(i<rowS && candies[i][j].getType() == candies[i+1][j].getType())
+				{
+					k=0;
+					k=i+1;
+					while(k+1<rowS && candies[i][j].getType() == candies[i][k].getType())
+					{
+						k++;
+					}
+					if(k+2<rowS && candies[i][j].getType() == candies[i][k+2].getType())
+					{
+						if(southEast(i,j,candies[i+1][j].getType()))
+						{
+							mosseV.add(i,j,candies[i+1][j]);
+						}
+						if(southWest(i,j,candies[i+1][j].getType()))
+						{
+							mosseV.add(i,j,candies[i+1][j]);
+						}
+					}
+				}
+				if(i>0 && candies[i][j].getType() == candies[i-1][j].getType())
+				{
+					k=0;
+					k=i-1;
+					while(k-1>=0 && candies[i][j].getType() == candies[k][j].getType())
+					{
+						k--;
+					}
+					if(k-2>=0 && candies[i][j].getType() ==  candies[k-2][j].getType())
+					{
+						if(northWest(i,j,candies[i][j].getType()))
+						{
+							mosseV.add(i,j,candies[i-1][j]);
+						}
+						if(northEast(i,j,candies[i][j].getType()))
+						{
+							mosseV.add(i,j,candies[i-1][j]);
+						}
+					}
+				}
+			}
+		}
+	}
 }
