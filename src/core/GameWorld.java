@@ -307,7 +307,7 @@ public class GameWorld {
 				break;
 
 		}
-		// System.out.println(countV + " count v");
+	
 		return countV;
 		// if (countV == 3)
 		// {
@@ -349,7 +349,7 @@ public class GameWorld {
 				break;
 
 		}
-		// System.out.println(countO + " count o");
+		
 		return countO;
 	}
 
@@ -576,7 +576,6 @@ public class GameWorld {
 			}
 
 			k += count1 - 1;
-			// System.out.println(k + " k");
 
 			count1 = 1;
 			indTmp1 = 0;
@@ -708,76 +707,76 @@ public class GameWorld {
 				{
 					if(northWest(i, j, candies[i][j].getType()))
 					{
-						mosse.add(i,j,candies[i][j]);
+						mosse.add(new Cell(i,j,candies[i][j]));
 					}
 					if(southWest(i,j,candies[i][j].getType()))
 					{
-						mosse.add(i,j,candies[i][j]);
+						mosse.add(new Cell(i,j,candies[i][j]));
 					}
 					if(northEast(i,j,candies[i][j+1].getType()))
 					{
-						mosse.add(i,j,candies[i][j+1]);
+						mosse.add(new Cell(i,j,candies[i][j+1]));
 					}
 					if(southEast(i, j, candies[i][j+1].getType()))
 					{
-						mosse.add(i,j,candies[i][j+1]);
+						mosse.add(new Cell(i,j,candies[i][j+1]));
 					}
 				}
 				if(i+1<rowS && candies[i][j].getType()==candies[i+1][j].getType())
 				{
 					if(northWest(i,j,candies[i][j].getType()))
 					{
-						mosseV.add(i,j,candies[i][j]);
+						mosseV.add(new Cell(i,j,candies[i][j]));
 					}
 					if(northEast(i,j,candies[i][j].getType()))
 					{
-						mosseV.add(i, j,candies[i][j]);
+						mosseV.add(new Cell(i, j,candies[i][j]));
 					}
 					if(southWest(i,j,candies[i][j].getType()))
 					{
-						mosseV.add(i,j,candies[i][j]);
+						mosseV.add(new Cell(i,j,candies[i][j]));
 					}
 					if(southEast(i,j,candies[i][j].getType()))
 					{
-						mosseV.add(i, j,candies[i][j]);
+						mosseV.add(new Cell(i, j,candies[i][j]));
 					}
 				}
 				if(j>0 && candies[i][j].getType() == candies[i][j-1].getType())
 				{
 					if(northWest(i,j,candies[i][j-1].getType()))
 					{
-						mosse.add(i, j,candies[i][j-1]);
+						mosse.add(new Cell(i, j,candies[i][j-1]));
 					}
 					if(southWest(i,j,candies[i][j-1].getType()))
 					{
-						mosse.add(i, j,candies[i][j-1]);
+						mosse.add(new Cell(i, j,candies[i][j-1]));
 					}
 					if(northEast(i,j,candies[i][j].getType()))
 					{
-						mosse.add(i, j,candies[i][j]);
+						mosse.add(new Cell(i, j,candies[i][j]));
 					}
 					if(southEast(i,j,candies[i][j].getType()))
 					{
-						mosse.add(i, j,candies[i][j]);
+						mosse.add(new Cell(i, j,candies[i][j]));
 					}
 				}
 			    if(i>0 && candies[i][j].getType() == candies[i-1][j].getType())
 				{
 					if(northWest(i,j,candies[i-1][j].getType()))
 					{
-						mosseV.add(i,j,candies[i][j]);
+						mosseV.add(new Cell(i,j,candies[i][j]));
 					}
 					if(northEast(i,j,candies[i-1][j].getType()))
 					{
-						mosseV.add(i,j,candies[i-1][j]);
+						mosseV.add(new Cell(i,j,candies[i-1][j]));
 					}
 					if(southEast(i,j,candies[i][j].getType()))
 					{
-						mosseV.add(i,j,candies[i][j]);
+						mosseV.add(new Cell(i,j,candies[i][j]));
 					}
 					if(southWest(i,j,candies[i][j].getType()))
 					{
-						mosseV.add(i,j,candies[i][j]);
+						mosseV.add(new Cell(i,j,candies[i][j]));
 					}
 				}
 			}
@@ -802,11 +801,11 @@ public class GameWorld {
 					{
 						if(northEast(i,j,candies[i][j+1].getType()))
 						{
-							mosse.add(i,j,candies[i][j+1]);
+							mosse.add(new Cell(i,j,candies[i][j+1]));
 						}
 						if(southEast(i,j,candies[i][j+1].getType()))
 						{
-							mosse.add(i,j,candies[i][j+1]);
+							mosse.add(new Cell(i,j,candies[i][j+1]));
 						}
 					}
 				}
@@ -822,11 +821,11 @@ public class GameWorld {
 					{
 						if(northWest(i,j,candies[i][j-1].getType()))
 						{
-							mosse.add(i,j,candies[i][j-1]);
+							mosse.add(new Cell(i,j,candies[i][j-1]));
 						}
 						if(southWest(i,j,candies[i][j-1].getType()))
 						{
-							mosse.add(i,j,candies[i][j-1]);
+							mosse.add(new Cell(i,j,candies[i][j-1]));
 						}
 					}
 				}
@@ -842,11 +841,11 @@ public class GameWorld {
 					{
 						if(southEast(i,j,candies[i+1][j].getType()))
 						{
-							mosseV.add(i,j,candies[i+1][j]);
+							mosseV.add(new Cell(i,j,candies[i+1][j]));
 						}
 						if(southWest(i,j,candies[i+1][j].getType()))
 						{
-							mosseV.add(i,j,candies[i+1][j]);
+							mosseV.add(new Cell(i,j,candies[i+1][j]));
 						}
 					}
 				}
@@ -862,11 +861,11 @@ public class GameWorld {
 					{
 						if(northWest(i,j,candies[i][j].getType()))
 						{
-							mosseV.add(i,j,candies[i-1][j]);
+							mosseV.add(new Cell(i,j,candies[i-1][j]));
 						}
 						if(northEast(i,j,candies[i][j].getType()))
 						{
-							mosseV.add(i,j,candies[i-1][j]);
+							mosseV.add(new Cell(i,j,candies[i-1][j]));
 						}
 					}
 				}
