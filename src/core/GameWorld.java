@@ -655,122 +655,198 @@ public class GameWorld
 			}
 		}
 	}
-	public void calcolatePossibleMoves() 
+//	public void calcolatePossibleMoves() 
+//	{
+//		System.out.println("ciao");
+//		System.out.println("sono row: "+rowS+" sono colS: "+ colS);
+//		
+//		// Calcolo la mia riga
+//		if ((colS >= 0) && (colS <= 1) && (colS + 3 < candies.length)
+//				&& (!(candies[rowS][colS + 1].getType()== candies[rowS][colS + 1].getType()))
+//				&& (candies[rowS][colS + 2].getType() ==candies[rowS][colS + 2].getType())
+//				&& (candies[rowS][colS + 3].getType() == candies[rowS][colS + 3].getType()))
+//		{
+//			mosse.add(new Cell(rowS,colS+1,candies[rowS][colS + 1]));
+//			System.out.println("ciao3465798");
+//		}
+//		if (colS > 2 && colS < candies.length) 
+//		{
+//			System.out.println("sono row: "+rowS+" sono colS: "+ colS);
+//			System.out.println("ciao1");
+//			if (candies[rowS][colS - 2].getType()==candies[rowS][colS - 2].getType() && candies[rowS][colS - 3].getType() == candies[rowS][colS - 3].getType())
+//				mosse.add(new Cell(rowS,colS-1,candies[rowS][colS - 1]));
+//			if ((colS < (candies.length - 3)) && candies[rowS][colS + 3].getType() == candies[rowS][colS + 3].getType()
+//					&& candies[rowS][colS + 2].getType() ==candies[rowS][colS + 2].getType())
+//				mosse.add(new Cell(rowS,colS+1,candies[rowS][colS + 1]));
+//		}
+//
+//		// Calcolo la mia colonna
+//		if ((rowS >= 0) && (rowS <= 1) && (rowS + 3 < candies.length)
+//				&& (!(candies[rowS + 1][colS].getType() == candies[rowS + 1][colS].getType()))
+//				&& (candies[rowS + 2][colS].getType()== candies[rowS + 2][colS].getType())
+//				&& (candies[rowS + 3][colS].getType()== candies[rowS + 3][colS].getType()))
+//		{
+//			mosse.add(new Cell(rowS+1,colS,candies[rowS + 1][colS]));
+//		}
+//		if (rowS > 2 && rowS < candies.length) 
+//		{System.out.println("sono row: "+rowS+" sono colS: "+ colS);
+//			System.out.println("ciao2");
+//			if (candies[rowS - 2][colS].getType() == candies[rowS - 2][colS].getType() && candies[rowS - 3][colS].getType()==candies[rowS - 3][colS].getType())
+//				mosse.add(new Cell(rowS-1,colS,candies[rowS - 1][colS]));
+//			if ((rowS < (candies.length - 3)) && candies[rowS + 3][colS].getType() ==candies[rowS + 3][colS].getType()
+//					&& candies[rowS + 2][colS].getType()==candies[rowS + 2][colS].getType())
+//				mosse.add(new Cell(rowS+1,colS,candies[rowS + 1][colS]));
+//		}
+//
+//		// Calcolo riga precedente
+//		if (rowS > 0) {
+//			System.out.println("ciao3");
+//			if ((colS >= 0) && (colS < candies.length - 2) && (candies[rowS - 1][colS + 1].getType()==candies[rowS - 1][colS + 1].getType())
+//					&& (candies[rowS - 1][colS + 2].getType()==candies[rowS - 1][colS + 2].getType())) {
+//				mosse.add(new Cell(rowS-1,colS,candies[rowS - 1][colS]));
+//			} else if ((colS > 1) && (colS < candies.length) && (candies[rowS - 1][colS - 1].getType() == candies[rowS - 1][colS - 1].getType())
+//					&& (candies[rowS - 1][colS - 2].getType()==candies[rowS - 1][colS - 2].getType())) {
+//				mosse.add(new Cell(rowS-1,colS,candies[rowS - 1][colS]));
+//			} else if ((colS > 0) && (colS < candies.length - 1) && (candies[rowS - 1][colS - 1].getType() == candies[rowS - 1][colS - 1].getType())
+//					&& (candies[rowS - 1][colS + 1].getType()== candies[rowS - 1][colS + 1].getType()))
+//				mosse.add(new Cell(rowS-1,colS,candies[rowS - 1][colS]));
+//		}
+//		// Calcolo riga successiva
+//		if (rowS < candies.length - 1) {
+//			System.out.println("sono row: "+rowS+" sono colS: "+ colS);
+//			System.out.println("ciao4");
+//			if ((colS >= 0) && (colS < candies.length - 2) && (candies[rowS + 1][colS + 1].getType()==candies[rowS + 1][colS + 1].getType())
+//					&& (candies[rowS + 1][colS + 2].getType()== candies[rowS + 1][colS + 2].getType())) {
+//				mosse.add(new Cell(rowS+1,colS,candies[rowS + 1][colS]));
+//			} else if ((colS > 1) && (colS < candies.length) && (candies[rowS + 1][colS - 1].getType()== candies[rowS + 1][colS - 1].getType())
+//					&& (candies[rowS + 1][colS - 2].getType() == candies[rowS + 1][colS - 2].getType())) {
+//				mosse.add(new Cell(rowS+1,colS,candies[rowS + 1][colS]));
+//			} else if ((colS > 0) && (colS < candies.length - 1) && (candies[rowS + 1][colS - 1].getType() == candies[rowS + 1][colS - 1].getType())
+//					&& (candies[rowS + 1][colS + 1].getType()) == candies[rowS + 1][colS + 1].getType())
+//			{
+//				mosse.add(new Cell(rowS+1,colS,candies[rowS + 1][colS]));
+//			}
+//		}
+//
+//		// Calcolo colonna precedente
+//		if (colS > 0) {
+//			System.out.println("sono row: "+rowS+" sono colS: "+ colS);
+//			System.out.println("ciao5");
+//			if ((rowS >= 0) && (rowS < candies.length - 2) && (candies[rowS + 1][colS - 1].getType() == candies[rowS + 1][colS - 1].getType()
+//					&& (candies[rowS + 2][colS - 1].getType()== candies[rowS + 2][colS - 1].getType()))) 
+//			{
+//				System.out.println("cazzo3");
+//				mosse.add(new Cell(rowS,colS-1,candies[rowS][colS - 1]));
+//			} else if ((rowS > 1) && (rowS < candies.length) && (candies[rowS - 1][colS - 1].getType()==candies[rowS - 1][colS - 1].getType()
+//					&& (candies[rowS - 2][colS - 1].getType() ==candies[rowS - 2][colS - 1].getType()))) {
+//				mosse.add(new Cell(rowS,colS-1,candies[rowS][colS - 1]));
+//				System.out.println("cazzo4");
+//			} else if ((rowS > 0) && (rowS < candies.length - 1) && (candies[rowS - 1][colS - 1].getType() == candies[rowS - 1][colS - 1].getType())
+//					&& (candies[rowS + 1][colS - 1].getType()== candies[rowS + 1][colS - 1].getType())) {
+//				mosse.add(new Cell(rowS,colS-1,candies[rowS][colS - 1]));
+//				System.out.println("cazzo5");
+//			}
+//		}
+//		// Calcolo colonna successiva
+//		if (colS < candies.length - 1) {
+//			System.out.println("sono row: "+rowS+" sono colS: "+ colS);
+//			System.out.println("ciao6");
+//			if ((rowS >= 0) && (rowS < candies.length - 2) && (candies[rowS + 1][colS + 1].getType()== candies[rowS + 1][colS + 1].getType())
+//					&& (candies[rowS + 2][colS + 1].getType() == candies[rowS + 2][colS + 1].getType())) {
+//				System.out.println("cazzo2");
+//				mosse.add(new Cell(rowS,colS+1,candies[rowS][colS + 1]));
+//			} else if ((rowS > 1) && (rowS < candies.length) && (candies[rowS - 1][colS + 1].getType()) == candies[rowS - 1][colS + 1].getType()
+//					&& (candies[rowS - 2][colS + 1].getType() == candies[rowS - 2][colS + 1].getType()))
+//			{
+//				System.out.println("cazzo1");
+//				mosse.add(new Cell(rowS,colS+1,candies[rowS][colS + 1]));
+//			} else if ((rowS > 0) && (rowS < candies.length - 1) && (candies[rowS - 1][colS + 1].getType()== candies[rowS - 1][colS + 1].getType()	
+//					&& (candies[rowS + 1][colS + 1].getType()==candies[rowS + 1][colS + 1].getType())))
+//			{
+//				System.out.println("cazzo");
+//				mosse.add(new Cell(rowS,colS+1,candies[rowS][colS + 1]));
+//			}
+//		}
+//					System.out.println("size: "+mosse.size());
+//	}
+	
+	public void possibleMoves()
 	{
-		System.out.println("ciao");
-		System.out.println("sono row: "+rowS+" sono colS: "+ colS);
-		
-		// Calcolo la mia riga
-		if ((colS >= 0) && (colS <= 1) && (colS + 3 < candies.length)
-				&& (!(candies[rowS][colS + 1].getType()== candies[rowS][colS + 1].getType()))
-				&& (candies[rowS][colS + 2].getType() ==candies[rowS][colS + 2].getType())
-				&& (candies[rowS][colS + 3].getType() == candies[rowS][colS + 3].getType()))
+		for(int i=0;i<rowS;i++)
 		{
-			mosse.add(new Cell(rowS,colS+1,candies[rowS][colS + 1]));
-			System.out.println("ciao3465798");
-		}
-		if (colS > 2 && colS < candies.length) 
-		{
-			System.out.println("sono row: "+rowS+" sono colS: "+ colS);
-			System.out.println("ciao1");
-			if (candies[rowS][colS - 2].getType()==candies[rowS][colS - 2].getType() && candies[rowS][colS - 3].getType() == candies[rowS][colS - 3].getType())
-				mosse.add(new Cell(rowS,colS-1,candies[rowS][colS - 1]));
-			if ((colS < (candies.length - 3)) && candies[rowS][colS + 3].getType() == candies[rowS][colS + 3].getType()
-					&& candies[rowS][colS + 2].getType() ==candies[rowS][colS + 2].getType())
-				mosse.add(new Cell(rowS,colS+1,candies[rowS][colS + 1]));
-		}
-
-		// Calcolo la mia colonna
-		if ((rowS >= 0) && (rowS <= 1) && (rowS + 3 < candies.length)
-				&& (!(candies[rowS + 1][colS].getType() == candies[rowS + 1][colS].getType()))
-				&& (candies[rowS + 2][colS].getType()== candies[rowS + 2][colS].getType())
-				&& (candies[rowS + 3][colS].getType()== candies[rowS + 3][colS].getType()))
-		{
-			mosse.add(new Cell(rowS+1,colS,candies[rowS + 1][colS]));
-		}
-		if (rowS > 2 && rowS < candies.length) 
-		{System.out.println("sono row: "+rowS+" sono colS: "+ colS);
-			System.out.println("ciao2");
-			if (candies[rowS - 2][colS].getType() == candies[rowS - 2][colS].getType() && candies[rowS - 3][colS].getType()==candies[rowS - 3][colS].getType())
-				mosse.add(new Cell(rowS-1,colS,candies[rowS - 1][colS]));
-			if ((rowS < (candies.length - 3)) && candies[rowS + 3][colS].getType() ==candies[rowS + 3][colS].getType()
-					&& candies[rowS + 2][colS].getType()==candies[rowS + 2][colS].getType())
-				mosse.add(new Cell(rowS+1,colS,candies[rowS + 1][colS]));
-		}
-
-		// Calcolo riga precedente
-		if (rowS > 0) {
-			System.out.println("ciao3");
-			if ((colS >= 0) && (colS < candies.length - 2) && (candies[rowS - 1][colS + 1].getType()==candies[rowS - 1][colS + 1].getType())
-					&& (candies[rowS - 1][colS + 2].getType()==candies[rowS - 1][colS + 2].getType())) {
-				mosse.add(new Cell(rowS-1,colS,candies[rowS - 1][colS]));
-			} else if ((colS > 1) && (colS < candies.length) && (candies[rowS - 1][colS - 1].getType() == candies[rowS - 1][colS - 1].getType())
-					&& (candies[rowS - 1][colS - 2].getType()==candies[rowS - 1][colS - 2].getType())) {
-				mosse.add(new Cell(rowS-1,colS,candies[rowS - 1][colS]));
-			} else if ((colS > 0) && (colS < candies.length - 1) && (candies[rowS - 1][colS - 1].getType() == candies[rowS - 1][colS - 1].getType())
-					&& (candies[rowS - 1][colS + 1].getType()== candies[rowS - 1][colS + 1].getType()))
-				mosse.add(new Cell(rowS-1,colS,candies[rowS - 1][colS]));
-		}
-		// Calcolo riga successiva
-		if (rowS < candies.length - 1) {
-			System.out.println("sono row: "+rowS+" sono colS: "+ colS);
-			System.out.println("ciao4");
-			if ((colS >= 0) && (colS < candies.length - 2) && (candies[rowS + 1][colS + 1].getType()==candies[rowS + 1][colS + 1].getType())
-					&& (candies[rowS + 1][colS + 2].getType()== candies[rowS + 1][colS + 2].getType())) {
-				mosse.add(new Cell(rowS+1,colS,candies[rowS + 1][colS]));
-			} else if ((colS > 1) && (colS < candies.length) && (candies[rowS + 1][colS - 1].getType()== candies[rowS + 1][colS - 1].getType())
-					&& (candies[rowS + 1][colS - 2].getType() == candies[rowS + 1][colS - 2].getType())) {
-				mosse.add(new Cell(rowS+1,colS,candies[rowS + 1][colS]));
-			} else if ((colS > 0) && (colS < candies.length - 1) && (candies[rowS + 1][colS - 1].getType() == candies[rowS + 1][colS - 1].getType())
-					&& (candies[rowS + 1][colS + 1].getType()) == candies[rowS + 1][colS + 1].getType())
+			for(int j=0;j<colS;j++)
 			{
-				mosse.add(new Cell(rowS+1,colS,candies[rowS + 1][colS]));
+				if(j <colS-1)
+				{
+					if(candies[i][j].getType() == candies[i][j+1].getType())
+					{
+						if(i>0 && j <colS-2)
+						{
+							if(candies[i][j+1].getType() == candies[i-1][j+2].getType())
+							{
+								System.out.println("sono l ultima cella"+(i-1)+" : " +"" +(j+2)+ " : " + candies[i][j+1].getType());
+							}
+							else if( i< rowS-1 && candies[i][j+1].getType() == candies[i+1][j+2].getType())
+							{
+								System.out.println("sono l ultima cellaa destra: "+(i+1)+" : " +"" +(j+2)+ " : " + candies[i][j+1].getType());
+							}
+						}
+						else if(i< rowS-1 && j> 0)
+						{
+							if(candies[i][j].getType() ==  candies[i+1][j-1].getType())
+							{
+								System.out.println("sono in x: " +(i+1)+" sono in y: "+ (j-1));
+								System.out.println("sono la prima cella alto a dx"+(i+1)+" : " +"" +(j-1)+ " : " + candies[i+1][j-1].getType());
+							}
+						}
+						else if( i > 0 && j > 0 )
+						{
+							if(candies[i][j].getType() == candies[i-1][j-1].getType())
+							{
+								System.out.println("sono in x: " +(i-1)+" sono in y: "+ (j-1));
+								System.out.println("sono la prima cella alto sx"+(i-1)+" : " +"" +(j-1)+ " : " + candies[i-1][j-1].getType());
+							}
+						}
+					}
+				//j scorre colonne "com'è giusto che sia stupido java"
+				}
+				else if(j < colS -1 && i>0)
+				{
+					if(candies[j][i].getType() ==  candies[j+1][i].getType())
+					{
+						if( j<colS-2 && candies[j+1][i].getType() == candies[j+2][i-1].getType())
+						{
+							System.out.println("sono in y: " +(j+1)+" sono in x: "+ (i));
+							System.out.println("sono la prima cella alto "+(j+2)+" : " +"" +(i-1)+ " : " + candies[j+2][i-1].getType());
+						}
+						else if(j<colS-2 &&  i <rowS-1 && candies[j+1][i].getType() == candies[j+2][i+1].getType())
+						{
+							System.out.println("sono in y: " +(j+1)+" sono in x: "+ (i));
+							System.out.println("sono la prima cella basso "+(j+2)+" : " +"" +(i+1)+ " : " + candies[j+2][i+1].getType());
+						}
+					}
+				}
+				else if(i>0 && j< colS-1)
+				{
+					if(candies[j][i].getType() == candies[j+1][i].getType())
+					{
+						if( j>0 && candies[j][i].getType() ==  candies[j-1][i-1].getType())
+						{
+							System.out.println("sono in y: " +(j)+" sono in x: "+ (i));
+							System.out.println("sono la prima cella alto "+(j-1)+" : " +"" +(i-1)+ " : " + candies[j-1][i-1].getType());
+						}
+						else if(j>0 && i <rowS-1 && candies[j][i].getType() == candies[j-1][i+1].getType())
+						{
+							System.out.println("sono in y: " +(j)+" sono in x: "+ (i));
+							System.out.println("sono la prima cella basso"+(j-1)+" : " +" "+(i+1)+ " : " + candies[j-1][i+1].getType());
+						}
+					}
+				}		
 			}
 		}
-
-		// Calcolo colonna precedente
-		if (colS > 0) {
-			System.out.println("sono row: "+rowS+" sono colS: "+ colS);
-			System.out.println("ciao5");
-			if ((rowS >= 0) && (rowS < candies.length - 2) && (candies[rowS + 1][colS - 1].getType() == candies[rowS + 1][colS - 1].getType()
-					&& (candies[rowS + 2][colS - 1].getType()== candies[rowS + 2][colS - 1].getType()))) 
-			{
-				System.out.println("cazzo3");
-				mosse.add(new Cell(rowS,colS-1,candies[rowS][colS - 1]));
-			} else if ((rowS > 1) && (rowS < candies.length) && (candies[rowS - 1][colS - 1].getType()==candies[rowS - 1][colS - 1].getType()
-					&& (candies[rowS - 2][colS - 1].getType() ==candies[rowS - 2][colS - 1].getType()))) {
-				mosse.add(new Cell(rowS,colS-1,candies[rowS][colS - 1]));
-				System.out.println("cazzo4");
-			} else if ((rowS > 0) && (rowS < candies.length - 1) && (candies[rowS - 1][colS - 1].getType() == candies[rowS - 1][colS - 1].getType())
-					&& (candies[rowS + 1][colS - 1].getType()== candies[rowS + 1][colS - 1].getType())) {
-				mosse.add(new Cell(rowS,colS-1,candies[rowS][colS - 1]));
-				System.out.println("cazzo5");
-			}
-		}
-		// Calcolo colonna successiva
-		if (colS < candies.length - 1) {
-			System.out.println("sono row: "+rowS+" sono colS: "+ colS);
-			System.out.println("ciao6");
-			if ((rowS >= 0) && (rowS < candies.length - 2) && (candies[rowS + 1][colS + 1].getType()== candies[rowS + 1][colS + 1].getType())
-					&& (candies[rowS + 2][colS + 1].getType() == candies[rowS + 2][colS + 1].getType())) {
-				System.out.println("cazzo2");
-				mosse.add(new Cell(rowS,colS+1,candies[rowS][colS + 1]));
-			} else if ((rowS > 1) && (rowS < candies.length) && (candies[rowS - 1][colS + 1].getType()) == candies[rowS - 1][colS + 1].getType()
-					&& (candies[rowS - 2][colS + 1].getType() == candies[rowS - 2][colS + 1].getType()))
-			{
-				System.out.println("cazzo1");
-				mosse.add(new Cell(rowS,colS+1,candies[rowS][colS + 1]));
-			} else if ((rowS > 0) && (rowS < candies.length - 1) && (candies[rowS - 1][colS + 1].getType()== candies[rowS - 1][colS + 1].getType()	
-					&& (candies[rowS + 1][colS + 1].getType()==candies[rowS + 1][colS + 1].getType())))
-			{
-				System.out.println("cazzo");
-				mosse.add(new Cell(rowS,colS+1,candies[rowS][colS + 1]));
-			}
-		}
-					System.out.println("size: "+mosse.size());
 	}
 	
-	
 }
+
 
 
