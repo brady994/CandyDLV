@@ -671,26 +671,32 @@ public class GameWorld
 							if(candies[i][j+1].getType() == candies[i-1][j+2].getType())
 							{
 								System.out.println("sono l ultima cella"+(i-1)+" : " +"" +(j+2)+ " : " + candies[i][j+1].getType());
+								System.out.println("sposta la caramella in "+(i-1)+" : " +"" +(j+2));
+								System.out.println(" in posizione" +(i)+" : " +"" +(j+2));
 							}
 							else if( i< rowS-1 && candies[i][j+1].getType() == candies[i+1][j+2].getType())
 							{
 								System.out.println("sono l ultima cellaa destra: "+(i+1)+" : " +"" +(j+2)+ " : " + candies[i][j+1].getType());
+								System.out.println("sposta la caramella in "+(i+1)+" : " +"" +(j+2));
+								System.out.println(" in posizione" +(i)+" : " +"" +(j+2));
 							}
 						}
 						else if(i< rowS-1 && j> 0)
 						{
 							if(candies[i][j].getType() ==  candies[i+1][j-1].getType())
 							{
-								System.out.println("sono in x: " +(i+1)+" sono in y: "+ (j-1));
 								System.out.println("sono la prima cella alto a dx"+(i+1)+" : " +"" +(j-1)+ " : " + candies[i+1][j-1].getType());
+								System.out.println("sposta la caramella in "+(i+1)+" : " +"" +(j-1));
+								System.out.println(" in posizione" +(i)+" : " +"" +(j-1));
 							}
 						}
 						else if( i > 0 && j > 0 )
 						{
 							if(candies[i][j].getType() == candies[i-1][j-1].getType())
 							{
-								System.out.println("sono in x: " +(i-1)+" sono in y: "+ (j-1));
 								System.out.println("sono la prima cella alto sx"+(i-1)+" : " +"" +(j-1)+ " : " + candies[i-1][j-1].getType());
+								System.out.println("sposta la caramella in "+(i-1)+" : " +"" +(j-1));
+								System.out.println(" in posizione" +(i)+" : " +"" +(j-1));
 							}
 						}
 					}
@@ -702,13 +708,15 @@ public class GameWorld
 					{
 						if( j<colS-2 && candies[j+1][i].getType() == candies[j+2][i-1].getType())
 						{
-							System.out.println("sono in y: " +(j+1)+" sono in x: "+ (i));
 							System.out.println("sono la prima cella alto "+(j+2)+" : " +"" +(i-1)+ " : " + candies[j+2][i-1].getType());
+							System.out.println("sposta la caramella in "+(j+2)+" : " +"" +(i-1));
+							System.out.println(" in posizione" +(j+2)+" : " +"" +(i));
 						}
 						else if(j<colS-2 &&  i <rowS-1 && candies[j+1][i].getType() == candies[j+2][i+1].getType())
 						{
-							System.out.println("sono in y: " +(j+1)+" sono in x: "+ (i));
 							System.out.println("sono la prima cella basso "+(j+2)+" : " +"" +(i+1)+ " : " + candies[j+2][i+1].getType());
+							System.out.println("sposta la caramella in "+(j+2)+" : " +"" +(i+1));
+							System.out.println(" in posizione" +(j+2)+" : " +"" +(i));
 						}
 					}
 				}
@@ -718,13 +726,15 @@ public class GameWorld
 					{
 						if( j>0 && candies[j][i].getType() ==  candies[j-1][i-1].getType())
 						{
-							System.out.println("sono in y: " +(j)+" sono in x: "+ (i));
 							System.out.println("sono la prima cella alto "+(j-1)+" : " +"" +(i-1)+ " : " + candies[j-1][i-1].getType());
+							System.out.println("sposta la caramella in "+(j-1)+" : " +"" +(i-1));
+							System.out.println(" in posizione" +(j-1)+" : " +"" +(i));
 						}
 						else if(j>0 && i <rowS-1 && candies[j][i].getType() == candies[j-1][i+1].getType())
 						{
-							System.out.println("sono in y: " +(j)+" sono in x: "+ (i));
 							System.out.println("sono la prima cella basso"+(j-1)+" : " +" "+(i+1)+ " : " + candies[j-1][i+1].getType());
+							System.out.println("sposta la caramella in "+(j-1)+" : " +"" +(i+1));
+							System.out.println(" in posizione" +(j-1)+" : " +"" +(i));
 						}
 					}
 				}		
@@ -744,13 +754,15 @@ public class GameWorld
 					{
 						if(candies[i][j].getType() ==  candies[i][j+3].getType())
 						{
-							System.out.println("sono in x:"+ i+ "sono in y: "+j);
 							System.out.println("sono in x: "+i+"sono in y: "+(j+3));
+							System.out.println("sposta la caramella in "+i+" : " +"" +(j+3));
+							System.out.println(" in posizione" +(i)+" : " +"" +(j+2));
 						}
 						else if( j>=3 && candies[i][j].getType() == candies[i][j-3].getType())
 						{
-							System.out.println("sono in x:"+ i+ "sono in y: "+j);
 							System.out.println("sono in x: "+i+"sono in y: "+(j-3));
+							System.out.println("sposta la caramella in "+i+" : " +"" +(j-3));
+							System.out.println(" in posizione" +(i)+" : " +"" +(j-2));
 						}
 					}
 				}
@@ -761,8 +773,9 @@ public class GameWorld
 						
 						if(candies[j][i].getType() == candies[j+3][i].getType() || (candies[j][i].getType() == candies[j+3][i].getType()/10))
 						{
-							System.out.println("sono in y:"+ j+ "sono in x: "+i);
 							System.out.println("sono in y: "+(j+3)+"sono in x: "+i);
+							System.out.println("sposta la caramella in "+(j+3)+" : " +"" +i);
+							System.out.println(" in posizione" +(j+2)+" : " +"" +(i));
 						}
 					}
 				}
@@ -776,6 +789,8 @@ public class GameWorld
 							if(candies[j][i].getType() == candies[j-2][i].getType() || (candies[j][i].getType() == candies[j-2][i].getType()/10))
 							{
 								System.out.println("sono in y: "+(j-2)+"sono in x: "+i);
+								System.out.println("sposta la caramella in "+(j-2)+" : " +"" +i);
+								System.out.println(" in posizione" +(j-1)+" : " +"" +(i));
 							}
 						}
 					}
@@ -797,10 +812,14 @@ public class GameWorld
 						if(candies[i][j].getType()== candies[i-1][j+1].getType())
 						{
 							System.out.println("sono x: "+(i-1)+" sono y:"+ (j+1));
+							System.out.println("sposta la caramella in "+(i-1)+" : " +"" +(j+1));
+							System.out.println(" in posizione" +(i)+" : " +"" +(j+1));
 						}
 						if(i < rowS-1 && candies[i][j].getType()== candies[i+1][j+1].getType())
 						{
 							System.out.println("sono x: "+(i+1)+" sono y:"+ (j+1));
+							System.out.println("sposta la caramella in "+(i+1)+" : " +"" +(j+1));
+							System.out.println(" in posizione" +(i)+" : " +"" +(j+1));
 						}
 					}
 				}
@@ -811,10 +830,14 @@ public class GameWorld
 						if(candies[j][i].getType() ==  candies[j+1][i+1].getType())
 						{
 							System.out.println("sono y: "+(j+1)+" sono x:"+ (i+1));
+							System.out.println("sposta la caramella in "+(j+1)+" : " +"" +(i+1));
+							System.out.println(" in posizione" +(j+1)+" : " +"" +(i));
 						}
 						else if(j<colS-1 && i>0 && candies[j][i].getType() == candies[j+1][i-1].getType())
 						{
 							System.out.println("sono y: "+(j+1)+" sono x:"+ (i-1));
+							System.out.println("sposta la caramella in "+(j+1)+" : " +"" +(i-1));
+							System.out.println(" in posizione" +(j+1)+" : " +"" +(i));
 						}
 					}
 				}
