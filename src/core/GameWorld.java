@@ -7,6 +7,7 @@ public class GameWorld {
 	private IGenerator g;
 	protected String ID;
 	private int score;
+	public static ArrayList<Cell> movableCandy = new ArrayList<Cell>();
 	public static ArrayList<Cell> mosse = new ArrayList<Cell>();
 
 	public int rowS;
@@ -662,6 +663,7 @@ public class GameWorld {
 
 	public void possibleMoves() {
 		ArrayList<Cell> tmp = new ArrayList<Cell>();
+		ArrayList<Cell> tmpMovable = new ArrayList<Cell>();
 		boolean enter = false;
 
 		int indice = 0;
@@ -674,7 +676,9 @@ public class GameWorld {
 
 								tmp.add(new Cell(i, j, candies[i][j]));
 								tmp.add(new Cell(i, j + 1, candies[i][j + 1]));
-								tmp.add(new Cell(i - 1, j + 2, candies[i - 1][j + 2]));
+								tmp.add(new Cell(i, j + 2, candies[i - 1][j + 2]));
+								// la caramella di trova in i-1; j+2;
+								tmpMovable.add(new Cell(i-1,j+2, candies[i - 1][j + 2]));
 								enter = true;
 								System.out.println("sono l ultima cella" + (i - 1) + " : " + "" + (j + 2) + " : "+ candies[i][j + 1].getType());
 								System.out.println("sposta la caramella in " + (i - 1) + " : " + "" + (j + 2));
@@ -699,7 +703,9 @@ public class GameWorld {
 								enter = true;
 								mosse.add(new Cell(i, j, candies[i][j]));
 								mosse.add(new Cell(i, j + 1, candies[i][j + 1]));
-								mosse.add(new Cell(i + 1, j + 2, candies[i + 1][j + 2]));
+								mosse.add(new Cell(i, j + 2, candies[i + 1][j + 2]));
+								// ricordiamo che la caramella si trova in i+1;j + 2;
+								tmpMovable.add(new Cell(i+1,j+2, candies[i + 1][j + 2]));
 								System.out.println("sono l ultima cellaa destra: " + (i + 1) + " : " + "" + (j + 2) + " : "
 										+ candies[i][j + 1].getType());
 								System.out.println("sposta la caramella in " + (i + 1) + " : " + "" + (j + 2));
@@ -726,7 +732,9 @@ public class GameWorld {
 								enter = true;
 								mosse.add(new Cell(i, j, candies[i][j]));
 								mosse.add(new Cell(i, j + 1, candies[i][j + 1]));
-								mosse.add(new Cell(i, j, candies[i + 1][j - 1]));
+								mosse.add(new Cell(i, j-1, candies[i + 1][j - 1]));
+								//ricordiamoci che la caramelle è in pos i+1,j-1;
+								tmpMovable.add(new Cell(i+1,j-1,candies[i + 1][j - 1]));
 								System.out.println("sono la prima cella alto a dx" + (i + 1) + " : " + "" + (j - 1) + " : "
 										+ candies[i + 1][j - 1].getType());
 								System.out.println("sposta la caramella in " + (i + 1) + " : " + "" + (j - 1));
@@ -753,9 +761,11 @@ public class GameWorld {
 								enter = true;
 								mosse.add(new Cell(i, j, candies[i][j]));
 								mosse.add(new Cell(i, j + 1, candies[i][j + 1]));
-								mosse.add(new Cell(i - 1, j - 1, candies[i - 1][j - 1]));
+								mosse.add(new Cell(i, j - 1, candies[i - 1][j - 1]));
 								System.out.println("sono la prima cella alto sx" + (i - 1) + " : " + "" + (j - 1) + " : "
 										+ candies[i - 1][j - 1].getType());
+								//ricordiamoci che la caramella sta in i-1;j-1;
+								tmpMovable.add(new Cell(i-1,j-1,candies[i - 1][j - 1]));
 								System.out.println("sposta la caramella in " + (i - 1) + " : " + "" + (j - 1));
 								System.out.println(" in posizione" + (i) + " : " + "" + (j - 1));
 								indice = j - 1;
@@ -783,11 +793,13 @@ public class GameWorld {
 					if (candies[j][i].getType() == candies[j + 1][i].getType()) {
 						if (j < colS - 2 && candies[j + 1][i].getType() == candies[j + 2][i - 1].getType()) {
 							enter = true;
-							tmp.add(new Cell(i, j, candies[i][j]));
+							tmp.add(new Cell(j, i, candies[j][i]));
 							tmp.add(new Cell(j + 1, i, candies[j + 1][i]));
-							tmp.add(new Cell(j + 2, i - 1, candies[j + 2][i - 1]));
+							tmp.add(new Cell(j + 2, i , candies[j + 2][i - 1]));
 							System.out.println("sono la prima cella alto " + (j + 2) + " : " + "" + (i - 1) + " : "
 									+ candies[j + 2][i - 1].getType());
+							//ricordiamoci che la caramella sta in j+2;i-1
+							tmpMovable.add(new Cell(j+2,i-1,candies[j + 2][i - 1]));
 							System.out.println("sposta la caramella in " + (j + 2) + " : " + "" + (i - 1));
 							System.out.println(" in posizione" + (j + 2) + " : " + "" + (i));
 							indice = j + 2;
@@ -809,10 +821,12 @@ public class GameWorld {
 						if (j < colS - 2 && i < rowS - 1 && candies[j + 1][i].getType() == candies[j + 2][i + 1].getType()) {
 							enter = true;
 							tmp.add(new Cell(j, i, candies[j][i]));
-							tmp.add(new Cell(j, i, candies[j + 1][i]));
-							tmp.add(new Cell(j, i, candies[j + 2][i + 1]));
+							tmp.add(new Cell(j+1, i, candies[j + 1][i]));
+							tmp.add(new Cell(j+2, i, candies[j + 2][i + 1]));
 							System.out.println("sono la prima cella basso " + (j + 2) + " : " + "" + (i + 1) + " : "
 									+ candies[j + 2][i + 1].getType());
+							//ricordiamo che la caramella sta in pos j+2;i+1;
+							tmpMovable.add(new Cell(j+2,i+1,candies[j + 2][i + 1]));
 							System.out.println("sposta la caramella in " + (j + 2) + " : " + "" + (i + 1));
 							System.out.println(" in posizione" + (j + 2) + " : " + "" + (i));
 							indice = j + 2;
@@ -843,8 +857,11 @@ public class GameWorld {
 							System.out.println("sposta la caramella in " + (j - 1) + " : " + "" + (i - 1));
 							System.out.println(" in posizione" + (j - 1) + " : " + "" + (i));
 							tmp.add(new Cell(j, i, candies[j][i]));
-							tmp.add(new Cell(j, i, candies[j + 1][i]));
-							tmp.add(new Cell(j, i, candies[j - 1][i - 1]));
+							tmp.add(new Cell(j+1, i, candies[j + 1][i]));
+							tmp.add(new Cell(j-1, i, candies[j - 1][i - 1]));
+							System.out.println("sono j: "+ (j-1) +" sono i:"+ (i-1)+ "  "+candies[j-1][i-1].getType());
+							//Ricordiamoci che la caramella si trova in pos j-1; i-1;
+							tmpMovable.add(new Cell( j-1,i-1,candies[j-1][i-1]));
 							indice = j - 1;
 							indice--;
 							if (indice >= 0 && candies[j][i].getType() == candies[indice][i].getType()) {
@@ -866,11 +883,13 @@ public class GameWorld {
 						if (j > 0 && i < rowS - 1 && candies[j][i].getType() == candies[j - 1][i + 1].getType()) {
 							tmp.add(new Cell(j, i, candies[j][i]));
 							tmp.add(new Cell(j + 1, i, candies[j + 1][i]));
-							tmp.add(new Cell(j - 1, i + 1, candies[j - 1][i + 1]));
+							tmp.add(new Cell(j - 1, i , candies[j - 1][i + 1]));
 							System.out.println("sono la prima cella basso" + (j - 1) + " : " + " " + (i + 1) + " : "
 									+ candies[j - 1][i + 1].getType());
 							System.out.println("sposta la caramella in " + (j - 1) + " : " + "" + (i + 1));
 							System.out.println(" in posizione" + (j - 1) + " : " + "" + (i));
+							//ricordiamoci che la caramella sta in pos j-1;i+1;
+							tmpMovable.add(new Cell(j-1,i+1,candies[j-1][i+1]));
 							indice = j - 1;
 							indice--;
 							if (indice >= 0 && candies[j][i].getType() == candies[indice][i].getType()) {
@@ -900,12 +919,16 @@ public class GameWorld {
 												// tmp.get(i).getIcon());
 			mosse.add(tmp.get(i));
 		}
+		for (int i = 0; i < tmpMovable.size(); i++) {
+			movableCandy.add(tmp.get(i));
+		}
 
 	}
 
 	public void possibleTwoMoves() {
 		boolean enter = false;
 		ArrayList<Cell> tmp = new ArrayList<Cell>();
+		ArrayList<Cell> tmpMovable=new ArrayList<Cell>();
 
 		for (int i = 0; i < rowS; i++) {
 			for (int j = 0; j < colS; j++) {
@@ -918,7 +941,9 @@ public class GameWorld {
 							System.out.println(" in posizione" + (i) + " : " + "" + (j + 2));
 							tmp.add(new Cell(i, j, candies[i][j]));
 							tmp.add(new Cell(i, j + 1, candies[i][j + 1]));
-							tmp.add(new Cell(i, j + 3, candies[i][j + 3]));
+							tmp.add(new Cell(i, j + 2, candies[i][j + 3]));
+							//ricordiamoci che la caramella è in pos i;j+3;
+							tmpMovable.add(new Cell(i,j+3,candies[i][j+3]));
 
 						}
 
@@ -929,7 +954,9 @@ public class GameWorld {
 							System.out.println(" in posizione" + (i) + " : " + "" + (j - 1));
 							tmp.add(new Cell(i, j, candies[i][j]));
 							tmp.add(new Cell(i, j + 1, candies[i][j + 1]));
-							tmp.add(new Cell(i, j - 2, candies[i][j - 2]));
+							tmp.add(new Cell(i, j - 1, candies[i][j - 2]));
+							//ricordiamo che la caramella è in pos i;j-2;
+							tmpMovable.add(new Cell(i,j-2,candies[i][j-2]));
 
 						}
 					}
@@ -946,7 +973,9 @@ public class GameWorld {
 							System.out.println(" in posizione" + (j + 2) + " : " + "" + (i));
 							tmp.add(new Cell(j, i, candies[j][i]));
 							tmp.add(new Cell(j + 1, i, candies[j + 1][i]));
-							tmp.add(new Cell(j + 3, i, candies[j + 3][i]));
+							tmp.add(new Cell(j + 2, i, candies[j + 3][i]));
+							//ricordiamoci che la caramella è in pos j+3;i;
+							tmpMovable.add(new Cell(j+3,i,candies[j+3][i]));
 						}
 					}
 
@@ -965,7 +994,9 @@ public class GameWorld {
 								System.out.println(" in posizione" + (j - 1) + " : " + "" + (i));
 								tmp.add(new Cell(j, i, candies[j][i]));
 								tmp.add(new Cell(j + 1, i, candies[j + 1][i]));
-								tmp.add(new Cell(j - 2, i, candies[j - 2][i]));
+								tmp.add(new Cell(j - 1, i, candies[j - 2][i]));
+								//ricordiamoci che la caramella è in pos j-2;i
+								tmpMovable.add(new Cell(j-2,i,candies[j-2][i]));
 							}
 						}
 					}
@@ -981,12 +1012,16 @@ public class GameWorld {
 		for (int i = 0; i < tmp.size(); i++) {
 			mosse.add(tmp.get(i));
 		}
+		for (int i = 0; i < tmpMovable.size(); i++) {
+			movableCandy.add(tmp.get(i));
+		}
 
 	}
 
 	public void singlePossibleMoves() {
 		boolean enter = false;
 		ArrayList<Cell> tmp = new ArrayList<Cell>();
+		ArrayList<Cell> tmpMovable=new ArrayList<Cell>();
 
 		int indice = 0;
 		for (int i = 0; i < rowS; i++) {
@@ -999,7 +1034,9 @@ public class GameWorld {
 							
 							tmp.add(new Cell(i, j, candies[i][j]));
 							tmp.add(new Cell(i, j + 2, candies[i][j + 2]));
-							tmp.add(new Cell(i - 1, j + 1, candies[i - 1][j + 1]));
+							tmp.add(new Cell(i, j + 1, candies[i - 1][j + 1]));
+							//ricordiamoci che la caramella è in pos i-1;j+1
+							tmpMovable.add(new Cell(i-1,j+1,candies[i-1][j+1]));
 							
 							System.out.println("sono x: " + (i - 1) + " sono y:" + (j + 1));
 							System.out.println("sposta la caramella in " + (i - 1) + " : " + "" + (j + 1));
@@ -1028,7 +1065,9 @@ public class GameWorld {
 							
 							tmp.add(new Cell(i, j, candies[i][j]));
 							tmp.add(new Cell(i, j + 2, candies[i][j + 2]));
-							tmp.add(new Cell(i + 1, j + 1, candies[i + 1][j + 1]));
+							tmp.add(new Cell(i , j + 1, candies[i + 1][j + 1]));
+							//ricordiamoci che la caramella è in pos i+1;j+1
+							tmpMovable.add(new Cell(i+1,j+1,candies[i+1][j+1]));
 							
 							indice = j + 2;
 							indice++;
@@ -1060,7 +1099,10 @@ public class GameWorld {
 							
 							tmp.add(new Cell(j, i, candies[j][i]));
 							tmp.add(new Cell(j + 2, i, candies[j + 2][i]));
-							tmp.add(new Cell(j + 1, i + 1, candies[j + 1][i + 1]));
+							tmp.add(new Cell(j + 1, i, candies[j + 1][i + 1]));
+							//ricordiamoci che la caramella è in pos j+1;i+1;
+							tmpMovable.add(new Cell(j+1,i+1,candies[j+1][i+1]));
+							
 							
 							System.out.println("sono y: " + (j + 1) + " sono x:" + (i + 1));
 							System.out.println("sposta la caramella in " + (j + 1) + " : " + "" + (i + 1));
@@ -1082,8 +1124,9 @@ public class GameWorld {
 
 							tmp.add(new Cell(j, i, candies[j][i]));
 							tmp.add(new Cell(j + 2, i, candies[j + 2][i]));
-							tmp.add(new Cell(j + 1, i - 1, candies[j + 1][i - 1]));
-							
+							tmp.add(new Cell(j + 1, i, candies[j + 1][i - 1]));
+								//ricordiamo che la caramella è in pos j+1;i-1;
+							tmpMovable.add(new Cell(j+1,i-1,candies[j+1][i-1]));
 							indice = j + 2;
 							indice++;
 							if (indice < rowS  && candies[j + 2][i].getType() == candies[indice][i].getType()) {
@@ -1111,6 +1154,9 @@ public class GameWorld {
 		}
 		for (int i = 0; i < tmp.size(); i++) {
 			mosse.add(tmp.get(i));
+		}
+		for (int i = 0; i < tmpMovable.size(); i++) {
+			movableCandy.add(tmp.get(i));
 		}
 	}
 }
