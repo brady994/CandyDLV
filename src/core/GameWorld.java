@@ -676,14 +676,13 @@ public class GameWorld {
 								tmp.add(new Cell(i, j + 1, candies[i][j + 1]));
 								tmp.add(new Cell(i - 1, j + 2, candies[i - 1][j + 2]));
 								enter = true;
-								System.out.println("sono l ultima cella" + (i - 1) + " : " + "" + (j + 2) + " : "
-										+ candies[i][j + 1].getType());
+								System.out.println("sono l ultima cella" + (i - 1) + " : " + "" + (j + 2) + " : "+ candies[i][j + 1].getType());
 								System.out.println("sposta la caramella in " + (i - 1) + " : " + "" + (j + 2));
 								System.out.println(" in posizione" + (i) + " : " + "" + (j + 2));
 								indice = j + 2;
 								indice++;
-								if (indice < rowS - 1 && candies[i][j].getType() == candies[i][indice].getType()) {
-									while (indice < rowS - 1 && candies[i][j].getType() == candies[i][indice].getType()) {
+								if (indice < rowS  && candies[i][j].getType() == candies[i][indice].getType()) {
+									while (indice < rowS  && candies[i][j].getType() == candies[i][indice].getType()) {
 										tmp.add(new Cell(i, indice, candies[i][indice]));
 										indice++;
 										if (indice >= colS) {
@@ -707,8 +706,8 @@ public class GameWorld {
 								System.out.println(" in posizione" + (i) + " : " + "" + (j + 2));
 								indice = j + 2;
 								indice++;
-								if (indice < rowS - 1 && candies[i][j].getType() == candies[i][indice].getType()) {
-									while (indice < rowS - 1 && candies[i][j].getType() == candies[i][indice].getType()) {
+								if (indice < rowS  && candies[i][j].getType() == candies[i][indice].getType()) {
+									while (indice < rowS  && candies[i][j].getType() == candies[i][indice].getType()) {
 										mosse.add(new Cell(i, indice, candies[i][indice]));
 										indice++;
 										if (indice >= colS) {
@@ -734,8 +733,8 @@ public class GameWorld {
 								System.out.println(" in posizione" + (i) + " : " + "" + (j - 1));
 								indice = j + 2;
 								indice++;
-								if (indice < rowS - 1 && candies[i][j].getType() == candies[i][indice].getType()) {
-									while (indice < rowS - 1 && candies[i][j].getType() == candies[i][indice].getType()) {
+								if (indice < rowS && candies[i][j].getType() == candies[i][indice].getType()) {
+									while (indice < rowS  && candies[i][j].getType() == candies[i][indice].getType()) {
 										mosse.add(new Cell(i, indice, candies[i][indice]));
 										indice++;
 										if (indice >= rowS) {
@@ -761,8 +760,8 @@ public class GameWorld {
 								System.out.println(" in posizione" + (i) + " : " + "" + (j - 1));
 								indice = j - 1;
 								indice--;
-								if (indice > 0 && candies[i][j].getType() == candies[i][indice].getType()) {
-									while (indice > 0 && candies[i][j].getType() == candies[i][indice].getType()) {
+								if (indice >= 0 && candies[i][j].getType() == candies[i][indice].getType()) {
+									while (indice >= 0 && candies[i][j].getType() == candies[i][indice].getType()) {
 										mosse.add(new Cell(i, indice, candies[i][indice]));
 										indice--;
 										if (indice < 0) {
@@ -793,8 +792,8 @@ public class GameWorld {
 							System.out.println(" in posizione" + (j + 2) + " : " + "" + (i));
 							indice = j + 2;
 							indice++;
-							if (indice < colS - 1 && candies[j][i].getType() == candies[indice][i].getType()) {
-								while (indice < colS - 1 && candies[j][i].getType() == candies[indice][i].getType()) {
+							if (indice < colS  && candies[j][i].getType() == candies[indice][i].getType()) {
+								while (indice < colS && candies[j][i].getType() == candies[indice][i].getType()) {
 									tmp.add(new Cell(indice, i, candies[indice][i]));
 									indice++;
 									if (indice > colS) {
@@ -818,8 +817,8 @@ public class GameWorld {
 							System.out.println(" in posizione" + (j + 2) + " : " + "" + (i));
 							indice = j + 2;
 							indice++;
-							if (indice < colS - 1 && candies[j][i].getType() == candies[indice][i].getType()) {
-								while (indice < colS - 1 && candies[j][i].getType() == candies[indice][i].getType()) {
+							if (indice < colS  && candies[j][i].getType() == candies[indice][i].getType()) {
+								while (indice < colS  && candies[j][i].getType() == candies[indice][i].getType()) {
 									tmp.add(new Cell(indice, i, candies[indice][i]));
 									indice++;
 									if (indice > colS) {
@@ -848,8 +847,8 @@ public class GameWorld {
 							tmp.add(new Cell(j, i, candies[j - 1][i - 1]));
 							indice = j - 1;
 							indice--;
-							if (indice > 0 && candies[j][i].getType() == candies[indice][i].getType()) {
-								while (indice > 0 && candies[j][i].getType() == candies[indice][i].getType()) {
+							if (indice >= 0 && candies[j][i].getType() == candies[indice][i].getType()) {
+								while (indice >= 0 && candies[j][i].getType() == candies[indice][i].getType()) {
 									tmp.add(new Cell(indice, i, candies[indice][i]));
 									indice--;
 									if (indice < 0) {
@@ -874,8 +873,8 @@ public class GameWorld {
 							System.out.println(" in posizione" + (j - 1) + " : " + "" + (i));
 							indice = j - 1;
 							indice--;
-							if (indice > 0 && candies[j][i].getType() == candies[indice][i].getType()) {
-								while (indice > 0 && candies[j][i].getType() == candies[indice][i].getType()) {
+							if (indice >= 0 && candies[j][i].getType() == candies[indice][i].getType()) {
+								while (indice >= 0 && candies[j][i].getType() == candies[indice][i].getType()) {
 									tmp.add(new Cell(indice, i, candies[indice][i]));
 									indice--;
 									if (indice < 0) {
@@ -946,7 +945,7 @@ public class GameWorld {
 							System.out.println("sposta la caramella in " + (j + 3) + " : " + "" + i);
 							System.out.println(" in posizione" + (j + 2) + " : " + "" + (i));
 							tmp.add(new Cell(j, i, candies[j][i]));
-							tmp.add(new Cell(j + 2, i, candies[j + 1][i]));
+							tmp.add(new Cell(j + 1, i, candies[j + 1][i]));
 							tmp.add(new Cell(j + 3, i, candies[j + 3][i]));
 						}
 					}
@@ -965,7 +964,7 @@ public class GameWorld {
 								System.out.println("sposta la caramella in " + (j - 2) + " : " + "" + i);
 								System.out.println(" in posizione" + (j - 1) + " : " + "" + (i));
 								tmp.add(new Cell(j, i, candies[j][i]));
-								tmp.add(new Cell(j + 2, i, candies[j + 1][i]));
+								tmp.add(new Cell(j + 1, i, candies[j + 1][i]));
 								tmp.add(new Cell(j - 2, i, candies[j - 2][i]));
 							}
 						}
@@ -997,17 +996,21 @@ public class GameWorld {
 
 						if (i > 0 && candies[i][j].getType() == candies[i - 1][j + 1].getType()) {
 							enter = true;
+							
 							tmp.add(new Cell(i, j, candies[i][j]));
-							tmp.add(new Cell(i - 1, j + 1, candies[i - 1][j + 1]));
 							tmp.add(new Cell(i, j + 2, candies[i][j + 2]));
+							tmp.add(new Cell(i - 1, j + 1, candies[i - 1][j + 1]));
+							
 							System.out.println("sono x: " + (i - 1) + " sono y:" + (j + 1));
 							System.out.println("sposta la caramella in " + (i - 1) + " : " + "" + (j + 1));
-							indice = j + 2;
+							indice = (j + 2);
+							System.out.println(indice+" sono indice");
 							indice++;
-							if (indice < rowS - 1 && candies[i][j + 2].getType() == candies[i][indice].getType()) {
-								System.out.println("sei un pezzo di merda");
-								while (indice < rowS - 1 && candies[i][j + 2].getType() == candies[i][indice].getType()) {
-									tmp.add(new Cell(i, indice, candies[i][indice]));
+							System.out.println(indice+" sono indice");
+							if (indice < rowS  && candies[i][j + 2].getType() == candies[i][indice].getType()) {
+								
+								while (indice < rowS  && candies[i][j + 2].getType() == candies[i][indice].getType()) {
+									tmp.add(new Cell(i,indice,candies[i][indice]));
 									indice++;
 									System.out.println("again");
 									if (indice >= colS)
@@ -1022,19 +1025,22 @@ public class GameWorld {
 						}
 						if (i < rowS - 1 && candies[i][j].getType() == candies[i + 1][j + 1].getType()) {
 							enter = true;
+							
 							tmp.add(new Cell(i, j, candies[i][j]));
-							tmp.add(new Cell(i + 1, j + 1, candies[i + 1][j + 1]));
 							tmp.add(new Cell(i, j + 2, candies[i][j + 2]));
+							tmp.add(new Cell(i + 1, j + 1, candies[i + 1][j + 1]));
+							
 							indice = j + 2;
 							indice++;
 							System.out.println("sono x: " + (i + 1) + " sono y:" + (j + 1));
 							System.out.println("sposta la caramella in " + (i + 1) + " : " + "" + (j + 1));
 							System.out.println(" in posizione" + (i) + " : " + "" + (j + 1));
-							if (indice < colS - 1 && candies[i][j + 2].getType() == candies[i][indice].getType()) {
+							if (indice < colS  && candies[i][j + 2].getType() == candies[i][indice].getType()) {
 								System.out.println("cazzzooo");
-								while (indice < rowS - 1 && candies[i][j + 2].getType() == candies[i][indice].getType()) {
-									tmp.add(new Cell(i, j, candies[i][indice]));
+								while (indice < rowS  && candies[i][j + 2].getType() == candies[i][indice].getType()) {
+									tmp.add(new Cell(i, indice, candies[i][indice]));
 									indice++;
+									System.out.println("again");
 									if (indice >= colS) {
 										break;
 									}
@@ -1046,39 +1052,45 @@ public class GameWorld {
 						}
 					}
 				}
-				if (j < colS - 2 && i < rowS - 1) {
+				if (j < colS - 2 ) {
 					if (candies[j][i].getType() == candies[j + 2][i].getType()) {
-						if (candies[j][i].getType() == candies[j + 1][i + 1].getType()) {
+						if (i < rowS - 1 && candies[j][i].getType() == candies[j + 1][i + 1].getType()) 
+						{
 							enter = true;
+							
 							tmp.add(new Cell(j, i, candies[j][i]));
 							tmp.add(new Cell(j + 2, i, candies[j + 2][i]));
 							tmp.add(new Cell(j + 1, i + 1, candies[j + 1][i + 1]));
+							
 							System.out.println("sono y: " + (j + 1) + " sono x:" + (i + 1));
 							System.out.println("sposta la caramella in " + (j + 1) + " : " + "" + (i + 1));
 							System.out.println(" in posizione" + (j + 1) + " : " + "" + (i));
 							indice = j + 2;
 							indice++;
-							if (indice < rowS - 1 && candies[j + 2][i].getType() == candies[indice][i].getType()) {
-								while (indice < rowS - 1 && candies[j + 2][i].getType() == candies[indice][i].getType()) {
+							if (indice < rowS  && candies[j + 2][i].getType() == candies[indice][i].getType()) {
+								while (indice < rowS  && candies[j + 2][i].getType() == candies[indice][i].getType()) {
 									tmp.add(new Cell(indice, i, candies[indice][i]));
 									indice++;
+									System.out.println("Again");
 									if (indice >= rowS) {
 										break;
 									}
 								}
 							}
 						}
-						if (j < colS - 1 && i > 0 && candies[j][i].getType() == candies[j + 1][i - 1].getType()) {
+		/*mod -1*/				if (j < colS  && i > 0 && candies[j][i].getType() == candies[j + 1][i - 1].getType()) {
 
-							tmp.add(new Cell(j + 2, i, candies[j + 2][i]));
 							tmp.add(new Cell(j, i, candies[j][i]));
+							tmp.add(new Cell(j + 2, i, candies[j + 2][i]));
 							tmp.add(new Cell(j + 1, i - 1, candies[j + 1][i - 1]));
+							
 							indice = j + 2;
 							indice++;
-							if (indice < rowS - 1 && candies[j + 2][i].getType() == candies[indice][i].getType()) {
-								while (indice < rowS - 1 && candies[j + 2][i].getType() == candies[indice][i].getType()) {
+							if (indice < rowS  && candies[j + 2][i].getType() == candies[indice][i].getType()) {
+								while (indice < rowS  && candies[j + 2][i].getType() == candies[indice][i].getType()) {
 									tmp.add(new Cell(indice, i, candies[indice][i]));
 									indice++;
+									System.out.println("again");
 									if (indice >= rowS) {
 										break;
 									}
