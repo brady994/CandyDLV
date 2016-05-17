@@ -9,6 +9,7 @@ public class GameWorld {
 	private int score;
 	public static ArrayList<Cell> movableCandy = new ArrayList<Cell>();
 	public static ArrayList<Cell> mosse = new ArrayList<Cell>();
+	private ArrayList<MovableCandy> dlv = new ArrayList<MovableCandy>();
 
 	public int rowS;
 	public int colS;
@@ -663,124 +664,254 @@ public class GameWorld {
 
 	public void possibleMoves() {
 		ArrayList<Cell> tmp = new ArrayList<Cell>();
+		ArrayList<Cell> tmp2 = new ArrayList<Cell>();
 		ArrayList<Cell> tmpMovable = new ArrayList<Cell>();
-		boolean enter = false;
+		Cell tmpMovable2 = null;
 
 		int indice = 0;
 		for (int i = 0; i < rowS; i++) {
 			for (int j = 0; j < colS; j++) {
 				if (j < colS - 1) {
-					if (candies[i][j].getType() == candies[i][j + 1].getType()) {
+					if (candies[i][j].getType() == candies[i][j + 1].getType()
+							|| candies[i][j].getType() == (candies[i][j + 1].getType() / 10)
+							|| (candies[i][j].getType() / 10) == candies[i][j + 1].getType()) {
 						if (i > 0 && j < colS - 2) {
-							if (candies[i][j + 1].getType() == candies[i - 1][j + 2].getType()) {
+							if (candies[i][j + 1].getType() == candies[i - 1][j + 2].getType()
+									|| candies[i][j + 1].getType() == (candies[i - 1][j + 2].getType() / 10)
+									|| (candies[i][j + 1].getType() / 10) == candies[i - 1][j + 2].getType()) {
 
 								tmp.add(new Cell(i, j, candies[i][j]));
 								tmp.add(new Cell(i, j + 1, candies[i][j + 1]));
 								tmp.add(new Cell(i, j + 2, candies[i - 1][j + 2]));
+
+								tmp2.add(new Cell(i, j, candies[i][j]));
+								tmp2.add(new Cell(i, j + 1, candies[i][j + 1]));
+								tmp2.add(new Cell(i, j + 2, candies[i - 1][j + 2]));
 								// la caramella di trova in i-1; j+2;
-								tmpMovable.add(new Cell(i-1,j+2, candies[i - 1][j + 2]));
-								enter = true;
-								System.out.println("sono l ultima cella" + (i - 1) + " : " + "" + (j + 2) + " : "+ candies[i][j + 1].getType());
-								System.out.println("sposta la caramella in " + (i - 1) + " : " + "" + (j + 2));
-								System.out.println(" in posizione" + (i) + " : " + "" + (j + 2));
+								tmpMovable.add(new Cell(i - 1, j + 2, candies[i - 1][j + 2]));
+
+								tmpMovable2 = new Cell(i - 1, j + 2, candies[i - 1][j + 2]);
+								// System.out.println("sono l ultima cella" + (i
+								// - 1) + " : " + "" + (j + 2) + " : "
+								// + candies[i][j + 1].getType());
+								// System.out.println("sposta la caramella in "
+								// + (i - 1) + " : " + "" + (j + 2));
+								// System.out.println(" in posizione" + (i) +
+								// " : " + "" + (j + 2));
 								indice = j + 2;
 								indice++;
-								if (indice < rowS  && candies[i][j].getType() == candies[i][indice].getType()) {
-									while (indice < rowS  && candies[i][j].getType() == candies[i][indice].getType()) {
+								if (indice < rowS
+										&& (candies[i][j].getType() == candies[i][indice].getType()
+												|| candies[i][j].getType() == (candies[i][indice].getType() / 10) || (candies[i][j]
+												.getType() / 10) == candies[i][indice].getType())) {
+									while (indice < rowS
+											&& (candies[i][j].getType() == candies[i][indice].getType()
+													|| candies[i][j].getType() == (candies[i][indice].getType() / 10) || (candies[i][j]
+													.getType() / 10) == candies[i][indice].getType())) {
 										tmp.add(new Cell(i, indice, candies[i][indice]));
+										tmp2.add(new Cell(i, indice, candies[i][indice]));
+
 										indice++;
 										if (indice >= colS) {
+
+											System.out.println("sizeee " + tmp2.size());
+
+											dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+											tmpMovable2 = null;
+
+											tmp2.clear();
+											System.out.println("ciao1  " + tmp2.size());
 											break;
 										}
 									}
 								} else {
-									if (enter)
-										break;
+
+									System.out.println("sizeee " + tmp2.size());
+
+									dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+									tmpMovable2 = null;
+									tmp2.clear();
+									System.out.println("ciao1else  " + tmp2.size());
 
 								}
 							}
-							if (i < rowS - 1 && candies[i][j + 1].getType() == candies[i + 1][j + 2].getType()) {
-								enter = true;
+							if (i < rowS - 1
+									&& (candies[i][j + 1].getType() == candies[i + 1][j + 2].getType()
+											|| candies[i][j + 1].getType() == (candies[i + 1][j + 2].getType() / 10) || (candies[i][j + 1]
+											.getType() / 10) == candies[i + 1][j + 2].getType())) {
 								mosse.add(new Cell(i, j, candies[i][j]));
 								mosse.add(new Cell(i, j + 1, candies[i][j + 1]));
 								mosse.add(new Cell(i, j + 2, candies[i + 1][j + 2]));
-								// ricordiamo che la caramella si trova in i+1;j + 2;
-								tmpMovable.add(new Cell(i+1,j+2, candies[i + 1][j + 2]));
-								System.out.println("sono l ultima cellaa destra: " + (i + 1) + " : " + "" + (j + 2) + " : "
-										+ candies[i][j + 1].getType());
-								System.out.println("sposta la caramella in " + (i + 1) + " : " + "" + (j + 2));
-								System.out.println(" in posizione" + (i) + " : " + "" + (j + 2));
+
+								tmp2.add(new Cell(i, j, candies[i][j]));
+								tmp2.add(new Cell(i, j + 1, candies[i][j + 1]));
+								tmp2.add(new Cell(i, j + 2, candies[i + 1][j + 2]));
+								// ricordiamo che la caramella si trova in i+1;j
+								// + 2;
+								tmpMovable.add(new Cell(i + 1, j + 2, candies[i + 1][j + 2]));
+								tmpMovable2 = new Cell(i + 1, j + 2, candies[i + 1][j + 2]);
+								// System.out.println("sono l ultima cellaa destra: "
+								// + (i + 1) + " : " + "" + (j + 2) + " : "
+								// + candies[i][j + 1].getType());
+								// System.out.println("sposta la caramella in "
+								// + (i + 1) + " : " + "" + (j + 2));
+								// System.out.println(" in posizione" + (i) +
+								// " : " + "" + (j + 2));
 								indice = j + 2;
 								indice++;
-								if (indice < rowS  && candies[i][j].getType() == candies[i][indice].getType()) {
-									while (indice < rowS  && candies[i][j].getType() == candies[i][indice].getType()) {
+								if (indice < rowS
+										&& (candies[i][j].getType() == candies[i][indice].getType()
+												|| candies[i][j].getType() == (candies[i][indice].getType() / 10) || (candies[i][j]
+												.getType() / 10) == candies[i][indice].getType())) {
+									while (indice < rowS
+											&& (candies[i][j].getType() == candies[i][indice].getType()
+													|| candies[i][j].getType() == (candies[i][indice].getType() / 10) || (candies[i][j]
+													.getType() / 10) == candies[i][indice].getType())) {
 										mosse.add(new Cell(i, indice, candies[i][indice]));
+										tmp2.add(new Cell(i, indice, candies[i][indice]));
 										indice++;
 										if (indice >= colS) {
+
+											System.out.println("sizeee " + tmp2.size());
+
+											dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+											tmpMovable2 = null;
+											tmp2.clear();
+
+											System.out.println("ciaooo2 " + tmp2.size());
 											break;
 										}
 									}
 								} else {
-									if (enter)
-										break;
+
+									System.out.println("sizeee " + tmp2.size());
+
+									dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+									tmpMovable2 = null;
+									tmp2.clear();
+
+									System.out.println("ciaooo2else " + tmp2.size());
 
 								}
 							}
 						}
 						if (i < rowS - 1 && j > 0) {
-							if (candies[i][j].getType() == candies[i + 1][j - 1].getType()) {
-								enter = true;
+							if (candies[i][j].getType() == candies[i + 1][j - 1].getType()
+									|| candies[i][j].getType() == (candies[i + 1][j - 1].getType() / 10)
+									|| (candies[i][j].getType() / 10) == candies[i + 1][j - 1].getType()) {
 								mosse.add(new Cell(i, j, candies[i][j]));
 								mosse.add(new Cell(i, j + 1, candies[i][j + 1]));
-								mosse.add(new Cell(i, j-1, candies[i + 1][j - 1]));
-								//ricordiamoci che la caramelle è in pos i+1,j-1;
-								tmpMovable.add(new Cell(i+1,j-1,candies[i + 1][j - 1]));
-								System.out.println("sono la prima cella alto a dx" + (i + 1) + " : " + "" + (j - 1) + " : "
-										+ candies[i + 1][j - 1].getType());
-								System.out.println("sposta la caramella in " + (i + 1) + " : " + "" + (j - 1));
-								System.out.println(" in posizione" + (i) + " : " + "" + (j - 1));
+								mosse.add(new Cell(i, j - 1, candies[i + 1][j - 1]));
+
+								tmp2.add(new Cell(i, j, candies[i][j]));
+								tmp2.add(new Cell(i, j + 1, candies[i][j + 1]));
+								tmp2.add(new Cell(i, j - 1, candies[i + 1][j - 1]));
+								// ricordiamoci che la caramelle ï¿½ in pos
+								// i+1,j-1;
+								tmpMovable.add(new Cell(i + 1, j - 1, candies[i + 1][j - 1]));
+								tmpMovable2 = new Cell(i + 1, j - 1, candies[i + 1][j - 1]);
+
+								// System.out.println("sono la prima cella alto a dx"
+								// + (i + 1) + " : " + "" + (j - 1) + " : "
+								// + candies[i + 1][j - 1].getType());
+								// System.out.println("sposta la caramella in "
+								// + (i + 1) + " : " + "" + (j - 1));
+								// System.out.println(" in posizione" + (i) +
+								// " : " + "" + (j - 1));
 								indice = j + 2;
 								indice++;
-								if (indice < rowS && candies[i][j].getType() == candies[i][indice].getType()) {
-									while (indice < rowS  && candies[i][j].getType() == candies[i][indice].getType()) {
+								if (indice < rowS
+										&& (candies[i][j].getType() == candies[i][indice].getType()
+												|| candies[i][j].getType() == (candies[i][indice].getType() / 10) || (candies[i][j]
+												.getType() / 10) == candies[i][indice].getType())) {
+									while (indice < rowS
+											&& (candies[i][j].getType() == candies[i][indice].getType()
+													|| candies[i][j].getType() == (candies[i][indice].getType() / 10) || (candies[i][j]
+													.getType() / 10) == candies[i][indice].getType())) {
 										mosse.add(new Cell(i, indice, candies[i][indice]));
+										tmp2.add(new Cell(i, indice, candies[i][indice]));
 										indice++;
 										if (indice >= rowS) {
+
+											System.out.println("sizeee " + tmp2.size());
+
+											dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+											tmpMovable2 = null;
+											tmp2.clear();
+
+											System.out.println("ciaooo3 " + tmp2.size());
+
 											break;
 										}
 									}
 								} else {
-									if (enter)
-										break;
+
+									System.out.println("sizeee " + tmp2.size());
+
+									dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+									tmpMovable2 = null;
+									tmp2.clear();
+
+									System.out.println("ciaooo3else " + tmp2.size());
 
 								}
 							}
 						}
 						if (i > 0 && j > 0) {
-							if (candies[i][j].getType() == candies[i - 1][j - 1].getType()) {
-								enter = true;
+							if (candies[i][j].getType() == candies[i - 1][j - 1].getType()
+									|| candies[i][j].getType() == (candies[i - 1][j - 1].getType() / 10)
+									|| (candies[i][j].getType() / 10) == candies[i - 1][j - 1].getType()) {
 								mosse.add(new Cell(i, j, candies[i][j]));
 								mosse.add(new Cell(i, j + 1, candies[i][j + 1]));
 								mosse.add(new Cell(i, j - 1, candies[i - 1][j - 1]));
-								System.out.println("sono la prima cella alto sx" + (i - 1) + " : " + "" + (j - 1) + " : "
-										+ candies[i - 1][j - 1].getType());
-								//ricordiamoci che la caramella sta in i-1;j-1;
-								tmpMovable.add(new Cell(i-1,j-1,candies[i - 1][j - 1]));
-								System.out.println("sposta la caramella in " + (i - 1) + " : " + "" + (j - 1));
-								System.out.println(" in posizione" + (i) + " : " + "" + (j - 1));
+
+								tmp2.add(new Cell(i, j, candies[i][j]));
+								tmp2.add(new Cell(i, j + 1, candies[i][j + 1]));
+								tmp2.add(new Cell(i, j - 1, candies[i - 1][j - 1]));
+								// System.out.println("sono la prima cella alto sx"
+								// + (i - 1) + " : " + "" + (j - 1) + " : "
+								// + candies[i - 1][j - 1].getType());
+								// ricordiamoci che la caramella sta in i-1;j-1;
+								tmpMovable.add(new Cell(i - 1, j - 1, candies[i - 1][j - 1]));
+								tmpMovable2 = new Cell(i - 1, j - 1, candies[i - 1][j - 1]);
+								// System.out.println("sposta la caramella in "
+								// + (i - 1) + " : " + "" + (j - 1));
+								// System.out.println(" in posizione" + (i) +
+								// " : " + "" + (j - 1));
 								indice = j - 1;
 								indice--;
-								if (indice >= 0 && candies[i][j].getType() == candies[i][indice].getType()) {
-									while (indice >= 0 && candies[i][j].getType() == candies[i][indice].getType()) {
+								if (indice >= 0
+										&& (candies[i][j].getType() == candies[i][indice].getType()
+												|| candies[i][j].getType() == (candies[i][indice].getType() / 10) || (candies[i][j]
+												.getType() / 10) == candies[i][indice].getType())) {
+									while (indice >= 0
+											&& (candies[i][j].getType() == candies[i][indice].getType()
+													|| candies[i][j].getType() == (candies[i][indice].getType() / 10) || (candies[i][j]
+													.getType() / 10) == candies[i][indice].getType())) {
 										mosse.add(new Cell(i, indice, candies[i][indice]));
+										tmp2.add(new Cell(i, indice, candies[i][indice]));
 										indice--;
 										if (indice < 0) {
+
+											System.out.println("sizeee " + tmp2.size());
+
+											dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+											tmpMovable2 = null;
+											tmp2.clear();
+
+											System.out.println("ciaooo4 " + tmp2.size());
 											break;
 										}
 									}
 								} else {
-									if (enter)
-										break;
+
+									System.out.println("sizeee " + tmp2.size());
+
+									dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+									tmpMovable2 = null;
+									tmp2.clear();
+
+									System.out.println("ciaooo4else " + tmp2.size());
 
 								}
 							}
@@ -789,122 +920,260 @@ public class GameWorld {
 					// j scorre colonne "com'ï¿½ giusto che sia stupido java"
 				}
 				if (j < colS - 1 && i > 0) {
-					enter = false;
-					if (candies[j][i].getType() == candies[j + 1][i].getType()) {
-						if (j < colS - 2 && candies[j + 1][i].getType() == candies[j + 2][i - 1].getType()) {
-							enter = true;
+					if (candies[j][i].getType() == candies[j + 1][i].getType()
+							|| candies[j][i].getType() == (candies[j + 1][i].getType() / 10)
+							|| (candies[j][i].getType() / 10) == candies[j + 1][i].getType()) {
+						if (j < colS - 2
+								&& (candies[j + 1][i].getType() == candies[j + 2][i - 1].getType()
+										|| candies[j + 1][i].getType() == (candies[j + 2][i - 1].getType() / 10) || (candies[j + 1][i]
+										.getType() / 10) == candies[j + 2][i - 1].getType())) {
 							tmp.add(new Cell(j, i, candies[j][i]));
 							tmp.add(new Cell(j + 1, i, candies[j + 1][i]));
-							tmp.add(new Cell(j + 2, i , candies[j + 2][i - 1]));
-							System.out.println("sono la prima cella alto " + (j + 2) + " : " + "" + (i - 1) + " : "
-									+ candies[j + 2][i - 1].getType());
-							//ricordiamoci che la caramella sta in j+2;i-1
-							tmpMovable.add(new Cell(j+2,i-1,candies[j + 2][i - 1]));
-							System.out.println("sposta la caramella in " + (j + 2) + " : " + "" + (i - 1));
-							System.out.println(" in posizione" + (j + 2) + " : " + "" + (i));
+							tmp.add(new Cell(j + 2, i, candies[j + 2][i - 1]));
+
+							tmp2.add(new Cell(j, i, candies[j][i]));
+							tmp2.add(new Cell(j + 1, i, candies[j + 1][i]));
+							tmp2.add(new Cell(j + 2, i, candies[j + 2][i - 1]));
+							// System.out.println("sono la prima cella alto " +
+							// (j + 2) + " : " + "" + (i - 1) + " : "
+							// + candies[j + 2][i - 1].getType());
+							// ricordiamoci che la caramella sta in j+2;i-1
+							tmpMovable.add(new Cell(j + 2, i - 1, candies[j + 2][i - 1]));
+							tmpMovable2 = new Cell(j + 2, i - 1, candies[j + 2][i - 1]);
+							// System.out.println("sposta la caramella in " + (j
+							// + 2) + " : " + "" + (i - 1));
+							// System.out.println(" in posizione" + (j + 2) +
+							// " : " + "" + (i));
 							indice = j + 2;
 							indice++;
-							if (indice < colS  && candies[j][i].getType() == candies[indice][i].getType()) {
-								while (indice < colS && candies[j][i].getType() == candies[indice][i].getType()) {
+							if (indice < colS
+									&& (candies[j][i].getType() == candies[indice][i].getType()
+											|| candies[j][i].getType() == (candies[indice][i].getType() / 10) || (candies[j][i]
+											.getType() / 10) == candies[indice][i].getType())) {
+								while (indice < colS
+										&& (candies[j][i].getType() == candies[indice][i].getType()
+												|| candies[j][i].getType() == (candies[indice][i].getType() / 10) || (candies[j][i]
+												.getType() / 10) == candies[indice][i].getType())) {
 									tmp.add(new Cell(indice, i, candies[indice][i]));
+									tmp2.add(new Cell(indice, i, candies[indice][i]));
 									indice++;
 									if (indice > colS) {
+
+										System.out.println("sizeee " + tmp2.size());
+
+										dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+										tmpMovable2 = null;
+										tmp2.clear();
+
+										System.out.println("ciaooo5 " + tmp2.size());
+
 										break;
 									}
 								}
 							} else {
-								if (enter)
-									break;
+
+								System.out.println("sizeee " + tmp2.size());
+
+								dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+								tmpMovable2 = null;
+								tmp2.clear();
+
+								System.out.println("ciaooo5else " + tmp2.size());
 
 							}
 						}
-						if (j < colS - 2 && i < rowS - 1 && candies[j + 1][i].getType() == candies[j + 2][i + 1].getType()) {
-							enter = true;
+						if (j < colS - 2
+								&& i < rowS - 1
+								&& (candies[j + 1][i].getType() == candies[j + 2][i + 1].getType()
+										|| candies[j + 1][i].getType() == (candies[j + 2][i + 1].getType() / 10) || (candies[j + 1][i]
+										.getType() / 10) == candies[j + 2][i + 1].getType())) {
 							tmp.add(new Cell(j, i, candies[j][i]));
-							tmp.add(new Cell(j+1, i, candies[j + 1][i]));
-							tmp.add(new Cell(j+2, i, candies[j + 2][i + 1]));
-							System.out.println("sono la prima cella basso " + (j + 2) + " : " + "" + (i + 1) + " : "
-									+ candies[j + 2][i + 1].getType());
-							//ricordiamo che la caramella sta in pos j+2;i+1;
-							tmpMovable.add(new Cell(j+2,i+1,candies[j + 2][i + 1]));
-							System.out.println("sposta la caramella in " + (j + 2) + " : " + "" + (i + 1));
-							System.out.println(" in posizione" + (j + 2) + " : " + "" + (i));
+							tmp.add(new Cell(j + 1, i, candies[j + 1][i]));
+							tmp.add(new Cell(j + 2, i, candies[j + 2][i + 1]));
+
+							tmp2.add(new Cell(j, i, candies[j][i]));
+							tmp2.add(new Cell(j + 1, i, candies[j + 1][i]));
+							tmp2.add(new Cell(j + 2, i, candies[j + 2][i + 1]));
+							// System.out.println("sono la prima cella basso " +
+							// (j + 2) + " : " + "" + (i + 1) + " : "
+							// + candies[j + 2][i + 1].getType());
+							// ricordiamo che la caramella sta in pos j+2;i+1;
+							tmpMovable.add(new Cell(j + 2, i + 1, candies[j + 2][i + 1]));
+							tmpMovable2 = new Cell(j + 2, i + 1, candies[j + 2][i + 1]);
+							// System.out.println("sposta la caramella in " + (j
+							// + 2) + " : " + "" + (i + 1));
+							// System.out.println(" in posizione" + (j + 2) +
+							// " : " + "" + (i));
 							indice = j + 2;
 							indice++;
-							if (indice < colS  && candies[j][i].getType() == candies[indice][i].getType()) {
-								while (indice < colS  && candies[j][i].getType() == candies[indice][i].getType()) {
+							if (indice < colS
+									&& (candies[j][i].getType() == candies[indice][i].getType()
+											|| candies[j][i].getType() == (candies[indice][i].getType() / 10) || (candies[j][i]
+											.getType() / 10) == candies[indice][i].getType())) {
+								while (indice < colS
+										&& (candies[j][i].getType() == candies[indice][i].getType()
+												|| candies[j][i].getType() == (candies[indice][i].getType() / 10) || (candies[j][i]
+												.getType() / 10) == candies[indice][i].getType())) {
 									tmp.add(new Cell(indice, i, candies[indice][i]));
+									tmp2.add(new Cell(indice, i, candies[indice][i]));
 									indice++;
 									if (indice > colS) {
+
+										System.out.println("sizeee " + tmp2.size());
+
+										dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+										tmp2.clear();
+										tmpMovable2 = null;
+
+										System.out.println("ciaooo6 " + tmp2.size());
+
 										break;
 									}
 								}
 							} else {
-								if (enter)
-									break;
+
+								System.out.println("sizeee " + tmp2.size());
+
+								dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+								tmp2.clear();
+								tmpMovable2 = null;
+
+								System.out.println("ciaoo6else " + tmp2.size());
 
 							}
 						}
 					}
 				}
 				if (i > 0 && j < colS - 1) {
-					enter = false;
-					if (candies[j][i].getType() == candies[j + 1][i].getType()) {
-						if (j > 0 && candies[j][i].getType() == candies[j - 1][i - 1].getType()) {
-							enter = true;
-							System.out.println("sono la prima cella alto " + (j - 1) + " : " + "" + (i - 1) + " : "
-									+ candies[j - 1][i - 1].getType());
-							System.out.println("sposta la caramella in " + (j - 1) + " : " + "" + (i - 1));
-							System.out.println(" in posizione" + (j - 1) + " : " + "" + (i));
+					if (candies[j][i].getType() == candies[j + 1][i].getType()
+							|| candies[j][i].getType() == (candies[j + 1][i].getType() / 10)
+							|| (candies[j][i].getType() / 10) == candies[j + 1][i].getType()) {
+						if (j > 0
+								&& (candies[j][i].getType() == candies[j - 1][i - 1].getType()
+										|| candies[j][i].getType() == (candies[j - 1][i - 1].getType() / 10) || (candies[j][i]
+										.getType() / 10) == candies[j - 1][i - 1].getType())) {
+							// System.out.println("sono la prima cella alto " +
+							// (j - 1) + " : " + "" + (i - 1) + " : "
+							// + candies[j - 1][i - 1].getType());
+							// System.out.println("sposta la caramella in " + (j
+							// - 1) + " : " + "" + (i - 1));
+							// System.out.println(" in posizione" + (j - 1) +
+							// " : " + "" + (i));
 							tmp.add(new Cell(j, i, candies[j][i]));
-							tmp.add(new Cell(j+1, i, candies[j + 1][i]));
-							tmp.add(new Cell(j-1, i, candies[j - 1][i - 1]));
-							System.out.println("sono j: "+ (j-1) +" sono i:"+ (i-1)+ "  "+candies[j-1][i-1].getType());
-							//Ricordiamoci che la caramella si trova in pos j-1; i-1;
-							tmpMovable.add(new Cell( j-1,i-1,candies[j-1][i-1]));
+							tmp.add(new Cell(j + 1, i, candies[j + 1][i]));
+							tmp.add(new Cell(j - 1, i, candies[j - 1][i - 1]));
+
+							tmp2.add(new Cell(j, i, candies[j][i]));
+							tmp2.add(new Cell(j + 1, i, candies[j + 1][i]));
+							tmp2.add(new Cell(j - 1, i, candies[j - 1][i - 1]));
+							// System.out.println("sono j: " + (j - 1) +
+							// " sono i:" + (i - 1) + "  "
+							// + candies[j - 1][i - 1].getType());
+							// Ricordiamoci che la caramella si trova in pos
+							// j-1; i-1;
+							tmpMovable.add(new Cell(j - 1, i - 1, candies[j - 1][i - 1]));
+							tmpMovable2 = new Cell(j - 1, i - 1, candies[j - 1][i - 1]);
 							indice = j - 1;
 							indice--;
-							if (indice >= 0 && candies[j][i].getType() == candies[indice][i].getType()) {
-								while (indice >= 0 && candies[j][i].getType() == candies[indice][i].getType()) {
+							if (indice >= 0
+									&& (candies[j][i].getType() == candies[indice][i].getType()
+											|| candies[j][i].getType() == (candies[indice][i].getType() / 10) || (candies[j][i]
+											.getType() / 10) == candies[indice][i].getType())) {
+								while (indice >= 0
+										&& (candies[j][i].getType() == candies[indice][i].getType()
+												|| candies[j][i].getType() == (candies[indice][i].getType() / 10) || (candies[j][i]
+												.getType() / 10) == candies[indice][i].getType())) {
 									tmp.add(new Cell(indice, i, candies[indice][i]));
+									tmp2.add(new Cell(indice, i, candies[indice][i]));
 									indice--;
 									if (indice < 0) {
+
+										System.out.println("sizeee " + tmp2.size());
+
+										dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+										tmpMovable2 = null;
+										tmp2.clear();
+
+										System.out.println("ciaooo7 " + tmp2.size());
+
 										break;
 
 									}
 								}
 							} else {
-								if (enter)
-									break;
+
+								System.out.println("sizeee " + tmp2.size());
+
+								dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+								tmpMovable2 = null;
+								tmp2.clear();
+
+								System.out.println("ciaoo7else " + tmp2.size());
 
 							}
 
 						}
-						if (j > 0 && i < rowS - 1 && candies[j][i].getType() == candies[j - 1][i + 1].getType()) {
+						if (j > 0
+								&& i < rowS - 1
+								&& (candies[j][i].getType() == candies[j - 1][i + 1].getType()
+										|| candies[j][i].getType() == (candies[j - 1][i + 1].getType() / 10) || (candies[j][i]
+										.getType() / 10) == candies[j - 1][i + 1].getType())) {
 							tmp.add(new Cell(j, i, candies[j][i]));
 							tmp.add(new Cell(j + 1, i, candies[j + 1][i]));
-							tmp.add(new Cell(j - 1, i , candies[j - 1][i + 1]));
-							System.out.println("sono la prima cella basso" + (j - 1) + " : " + " " + (i + 1) + " : "
-									+ candies[j - 1][i + 1].getType());
-							System.out.println("sposta la caramella in " + (j - 1) + " : " + "" + (i + 1));
-							System.out.println(" in posizione" + (j - 1) + " : " + "" + (i));
-							//ricordiamoci che la caramella sta in pos j-1;i+1;
-							tmpMovable.add(new Cell(j-1,i+1,candies[j-1][i+1]));
+							tmp.add(new Cell(j - 1, i, candies[j - 1][i + 1]));
+
+							tmp2.add(new Cell(j, i, candies[j][i]));
+							tmp2.add(new Cell(j + 1, i, candies[j + 1][i]));
+							tmp2.add(new Cell(j - 1, i, candies[j - 1][i + 1]));
+							// System.out.println("sono la prima cella basso" +
+							// (j - 1) + " : " + " " + (i + 1) + " : "
+							// + candies[j - 1][i + 1].getType());
+							// System.out.println("sposta la caramella in " + (j
+							// - 1) + " : " + "" + (i + 1));
+							// System.out.println(" in posizione" + (j - 1) +
+							// " : " + "" + (i));
+							// ricordiamoci che la caramella sta in pos j-1;i+1;
+							tmpMovable.add(new Cell(j - 1, i + 1, candies[j - 1][i + 1]));
+							tmpMovable2 = new Cell(j - 1, i + 1, candies[j - 1][i + 1]);
 							indice = j - 1;
 							indice--;
-							if (indice >= 0 && candies[j][i].getType() == candies[indice][i].getType()) {
-								while (indice >= 0 && candies[j][i].getType() == candies[indice][i].getType()) {
+							if (indice >= 0
+									&& (candies[j][i].getType() == candies[indice][i].getType()
+											|| candies[j][i].getType() == (candies[indice][i].getType() / 10) || (candies[j][i]
+											.getType() / 10) == candies[indice][i].getType())) {
+								while (indice >= 0
+										&& (candies[j][i].getType() == candies[indice][i].getType()
+												|| candies[j][i].getType() == (candies[indice][i].getType() / 10) || (candies[j][i]
+												.getType() / 10) == candies[indice][i].getType())) {
 									tmp.add(new Cell(indice, i, candies[indice][i]));
+									tmp2.add(new Cell(indice, i, candies[indice][i]));
 									indice--;
 									if (indice < 0) {
+
+										System.out.println("sizeee " + tmp2.size());
+
+										dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+										tmpMovable2 = null;
+										tmp2.clear();
+
+										System.out.println("ciaooo8 " + tmp2.size());
+
 										break;
 
 									}
 								}
 							} else {
-								if (enter)
-									break;
+
+								System.out.println("sizeee " + tmp2.size());
+
+								dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+								tmpMovable2 = null;
+								tmp2.clear();
+
+								System.out.println("ciaoooo8else " + tmp2.size());
+
 							}
+
 						}
 					}
 				}
@@ -914,89 +1183,173 @@ public class GameWorld {
 
 			System.out.println(tmp.get(i).getRow() + " " + tmp.get(i).getCol());
 		}
-		for (int i = 0; i < tmp.size(); i++) { // mosse.add(tmp.get(i).getRow(),
-												// tmp.get(i).getCol(),
-												// tmp.get(i).getIcon());
+		for (int i = 0; i < tmp.size(); i++) {
+
 			mosse.add(tmp.get(i));
+
 		}
 		for (int i = 0; i < tmpMovable.size(); i++) {
-			movableCandy.add(tmp.get(i));
+
+			movableCandy.add(tmpMovable.get(i));
+			System.out.println("only move   " + tmpMovable.get(i).getRow() + " " + tmpMovable.get(i).getCol());
+
+		}
+
+		for (int i = 0; i < dlv.size(); i++) {
+			System.out.println(" dlv move  " + dlv.get(i).getMove().getRow() + " " + dlv.get(i).getMove().getCol() + "size "
+					+ dlv.get(i).getSize());
 		}
 
 	}
 
 	public void possibleTwoMoves() {
-		boolean enter = false;
 		ArrayList<Cell> tmp = new ArrayList<Cell>();
-		ArrayList<Cell> tmpMovable=new ArrayList<Cell>();
+		ArrayList<Cell> tmp2 = new ArrayList<Cell>();
+		ArrayList<Cell> tmpMovable = new ArrayList<Cell>();
+		Cell tmpMMovable2 = null;
 
 		for (int i = 0; i < rowS; i++) {
 			for (int j = 0; j < colS; j++) {
 				if (j < colS - 3) {
-					if (candies[i][j].getType() == candies[i][j + 1].getType()) {
-						if (candies[i][j].getType() == candies[i][j + 3].getType()) {
-							enter = true;
-							System.out.println("sono in x: " + i + "sono in y: " + (j + 3));
-							System.out.println("sposta la caramella in " + i + " : " + "" + (j + 3));
-							System.out.println(" in posizione" + (i) + " : " + "" + (j + 2));
+					if (candies[i][j].getType() == candies[i][j + 1].getType()
+							|| candies[i][j].getType() == (candies[i][j + 1].getType() / 10)
+							|| (candies[i][j].getType() / 10) == candies[i][j + 1].getType()) {
+						if (candies[i][j].getType() == candies[i][j + 3].getType()
+								|| candies[i][j].getType() == (candies[i][j + 3].getType() / 10)
+								|| (candies[i][j].getType() / 10) == candies[i][j + 3].getType()) {
+							// System.out.println("sono in x: " + i +
+							// "sono in y: " + (j + 3));
+							// System.out.println("sposta la caramella in " + i
+							// + " : " + "" + (j + 3));
+							// System.out.println(" in posizione" + (i) + " : "
+							// + "" + (j + 2));
 							tmp.add(new Cell(i, j, candies[i][j]));
 							tmp.add(new Cell(i, j + 1, candies[i][j + 1]));
 							tmp.add(new Cell(i, j + 2, candies[i][j + 3]));
-							//ricordiamoci che la caramella è in pos i;j+3;
-							tmpMovable.add(new Cell(i,j+3,candies[i][j+3]));
+
+							tmp2.add(new Cell(i, j, candies[i][j]));
+							tmp2.add(new Cell(i, j + 1, candies[i][j + 1]));
+							tmp2.add(new Cell(i, j + 2, candies[i][j + 3]));
+							// ricordiamoci che la caramella ï¿½ in pos i;j+3;
+							tmpMovable.add(new Cell(i, j + 3, candies[i][j + 3]));
+							tmpMMovable2 = new Cell(i, j + 3, candies[i][j + 3]);
+
+							System.out.println("sizeee " + tmp2.size());
+
+							dlv.add(new MovableCandy(tmpMMovable2, tmp2, false));
+							tmp2.clear();
+							tmpMMovable2 = null;
+
+							System.out.println("sizeee " + tmp2.size());
 
 						}
 
-						enter = false;
-						if (j >= 2 && candies[i][j].getType() == candies[i][j - 2].getType()) {
-							System.out.println("sono in x: " + i + "sono in y: " + (j - 2));
-							System.out.println("sposta la caramella in " + i + " : " + "" + (j - 2));
-							System.out.println(" in posizione" + (i) + " : " + "" + (j - 1));
+						if (j >= 2
+								&& (candies[i][j].getType() == candies[i][j - 2].getType()
+										|| candies[i][j].getType() == (candies[i][j - 2].getType() / 10) || (candies[i][j]
+										.getType() / 10) == candies[i][j - 2].getType())) {
+							// System.out.println("sono in x: " + i +
+							// "sono in y: " + (j - 2));
+							// System.out.println("sposta la caramella in " + i
+							// + " : " + "" + (j - 2));
+							// System.out.println(" in posizione" + (i) + " : "
+							// + "" + (j - 1));
 							tmp.add(new Cell(i, j, candies[i][j]));
 							tmp.add(new Cell(i, j + 1, candies[i][j + 1]));
 							tmp.add(new Cell(i, j - 1, candies[i][j - 2]));
-							//ricordiamo che la caramella è in pos i;j-2;
-							tmpMovable.add(new Cell(i,j-2,candies[i][j-2]));
 
+							tmp2.add(new Cell(i, j, candies[i][j]));
+							tmp2.add(new Cell(i, j + 1, candies[i][j + 1]));
+							tmp2.add(new Cell(i, j - 1, candies[i][j - 2]));
+							// ricordiamo che la caramella ï¿½ in pos i;j-2;
+							tmpMovable.add(new Cell(i, j - 2, candies[i][j - 2]));
+							tmpMMovable2 = new Cell(i, j - 2, candies[i][j - 2]);
+
+							System.out.println("sizeee " + tmp2.size());
+
+							dlv.add(new MovableCandy(tmpMMovable2, tmp2, false));
+
+							tmp2.clear();
+							tmpMMovable2 = null;
+
+							System.out.println("sizeee " + tmp2.size());
 						}
 					}
 				}
 				if (j < colS - 3 && i > 0) {
 					if (candies[j][i].getType() == candies[j + 1][i].getType()
-							|| (candies[j][i].getType() == candies[j + 1][i].getType() / 10)) {
+							|| candies[j][i].getType() == (candies[j + 1][i].getType() / 10)
+							|| (candies[j][i].getType() / 10) == candies[j + 1][i].getType()) {
 
 						if (candies[j][i].getType() == candies[j + 3][i].getType()
-								|| (candies[j][i].getType() == candies[j + 3][i].getType() / 10)) {
-							enter = true;
-							System.out.println("sono in y: " + (j + 3) + "sono in x: " + i);
-							System.out.println("sposta la caramella in " + (j + 3) + " : " + "" + i);
-							System.out.println(" in posizione" + (j + 2) + " : " + "" + (i));
+								|| candies[j][i].getType() == (candies[j + 3][i].getType() / 10)
+								|| (candies[j][i].getType() / 10) == candies[j + 3][i].getType()) {
+							// System.out.println("sono in y: " + (j + 3) +
+							// "sono in x: " + i);
+							// System.out.println("sposta la caramella in " + (j
+							// + 3) + " : " + "" + i);
+							// System.out.println(" in posizione" + (j + 2) +
+							// " : " + "" + (i));
 							tmp.add(new Cell(j, i, candies[j][i]));
 							tmp.add(new Cell(j + 1, i, candies[j + 1][i]));
 							tmp.add(new Cell(j + 2, i, candies[j + 3][i]));
-							//ricordiamoci che la caramella è in pos j+3;i;
-							tmpMovable.add(new Cell(j+3,i,candies[j+3][i]));
+
+							tmp2.add(new Cell(j, i, candies[j][i]));
+							tmp2.add(new Cell(j + 1, i, candies[j + 1][i]));
+							tmp2.add(new Cell(j + 2, i, candies[j + 3][i]));
+
+							// ricordiamoci che la caramella ï¿½ in pos j+3;i;
+							tmpMovable.add(new Cell(j + 3, i, candies[j + 3][i]));
+
+							tmpMMovable2 = new Cell(j + 3, i, candies[j + 3][i]);
+
+							System.out.println("sizeee " + tmp2.size());
+
+							dlv.add(new MovableCandy(tmpMMovable2, tmp2, false));
+
+							tmp2.clear();
+							tmpMMovable2 = null;
+
+							System.out.println("sizeee " + tmp2.size());
 						}
 					}
 
 				}
 				if (j < colS - 3 && i > 0) {
-					enter = false;
 					if (candies[j][i].getType() == candies[j + 1][i].getType()
-							|| (candies[j][i].getType() == candies[j + 1][i].getType() / 10)) {
+							|| candies[j][i].getType() == (candies[j + 1][i].getType() / 10)
+							|| (candies[j][i].getType() / 10) == candies[j + 1][i].getType()) {
 
 						if (j >= 2) {
 							if (candies[j][i].getType() == candies[j - 2][i].getType()
-									|| (candies[j][i].getType() == candies[j - 2][i].getType() / 10)) {
-								enter = true;
-								System.out.println("sono in y: " + (j - 2) + "sono in x: " + i);
-								System.out.println("sposta la caramella in " + (j - 2) + " : " + "" + i);
-								System.out.println(" in posizione" + (j - 1) + " : " + "" + (i));
+									|| candies[j][i].getType() == (candies[j - 2][i].getType() / 10)
+									|| (candies[j][i].getType() / 10) == candies[j - 2][i].getType()) {
+								// System.out.println("sono in y: " + (j - 2) +
+								// "sono in x: " + i);
+								// System.out.println("sposta la caramella in "
+								// + (j - 2) + " : " + "" + i);
+								// System.out.println(" in posizione" + (j - 1)
+								// + " : " + "" + (i));
 								tmp.add(new Cell(j, i, candies[j][i]));
 								tmp.add(new Cell(j + 1, i, candies[j + 1][i]));
 								tmp.add(new Cell(j - 1, i, candies[j - 2][i]));
-								//ricordiamoci che la caramella è in pos j-2;i
-								tmpMovable.add(new Cell(j-2,i,candies[j-2][i]));
+
+								tmp2.add(new Cell(j, i, candies[j][i]));
+								tmp2.add(new Cell(j + 1, i, candies[j + 1][i]));
+								tmp2.add(new Cell(j - 1, i, candies[j - 2][i]));
+								// ricordiamoci che la caramella ï¿½ in pos j-2;i
+								tmpMovable.add(new Cell(j - 2, i, candies[j - 2][i]));
+
+								tmpMMovable2 = new Cell(j - 2, i, candies[j - 2][i]);
+
+								System.out.println("sizeee " + tmp2.size());
+
+								dlv.add(new MovableCandy(tmpMMovable2, tmp2, false));
+
+								tmp2.clear();
+								tmpMMovable2 = null;
+
+								System.out.println("sizeee " + tmp2.size());
 							}
 						}
 					}
@@ -1013,135 +1366,254 @@ public class GameWorld {
 			mosse.add(tmp.get(i));
 		}
 		for (int i = 0; i < tmpMovable.size(); i++) {
-			movableCandy.add(tmp.get(i));
+			movableCandy.add(tmpMovable.get(i));
+			System.out.println("only move   " + tmpMovable.get(i).getRow() + " " + tmpMovable.get(i).getCol());
+
+		}
+
+		for (int i = 0; i < dlv.size(); i++) {
+			System.out.println("   dlv   " + dlv.get(i).getMove().getRow() + " " + dlv.get(i).getMove().getCol() + " size "
+					+ dlv.get(i).getSize());
 		}
 
 	}
 
 	public void singlePossibleMoves() {
-		boolean enter = false;
 		ArrayList<Cell> tmp = new ArrayList<Cell>();
-		ArrayList<Cell> tmpMovable=new ArrayList<Cell>();
+		ArrayList<Cell> tmp2 = new ArrayList<Cell>();
+		ArrayList<Cell> tmpMovable = new ArrayList<Cell>();
+		Cell tmpMovable2 = null;
 
 		int indice = 0;
 		for (int i = 0; i < rowS; i++) {
 			for (int j = 0; j < colS; j++) {
 				if (j < colS - 2) {
-					if (candies[i][j].getType() == candies[i][j + 2].getType()) {
+					if (candies[i][j].getType() == candies[i][j + 2].getType()
+							|| candies[i][j].getType() == (candies[i][j + 2].getType() / 10)
+							|| (candies[i][j].getType() / 10) == candies[i][j + 2].getType()) {
 
-						if (i > 0 && candies[i][j].getType() == candies[i - 1][j + 1].getType()) {
-							enter = true;
-							
+						if (i > 0
+								&& (candies[i][j].getType() == candies[i - 1][j + 1].getType()
+										|| candies[i][j].getType() == (candies[i - 1][j + 1].getType() / 10) || (candies[i][j]
+										.getType() / 10) == candies[i - 1][j + 1].getType())) {
+
 							tmp.add(new Cell(i, j, candies[i][j]));
 							tmp.add(new Cell(i, j + 2, candies[i][j + 2]));
 							tmp.add(new Cell(i, j + 1, candies[i - 1][j + 1]));
-							//ricordiamoci che la caramella è in pos i-1;j+1
-							tmpMovable.add(new Cell(i-1,j+1,candies[i-1][j+1]));
-							
+
+							tmp2.add(new Cell(i, j, candies[i][j]));
+							tmp2.add(new Cell(i, j + 2, candies[i][j + 2]));
+							tmp2.add(new Cell(i, j + 1, candies[i - 1][j + 1]));
+
+							// ricordiamoci che la caramella ï¿½ in pos i-1;j+1
+							tmpMovable.add(new Cell(i - 1, j + 1, candies[i - 1][j + 1]));
+
+							tmpMovable2 = new Cell(i - 1, j + 1, candies[i - 1][j + 1]);
+
 							System.out.println("sono x: " + (i - 1) + " sono y:" + (j + 1));
 							System.out.println("sposta la caramella in " + (i - 1) + " : " + "" + (j + 1));
 							indice = (j + 2);
-							System.out.println(indice+" sono indice");
+							System.out.println(indice + " sono indice");
 							indice++;
-							System.out.println(indice+" sono indice");
-							if (indice < rowS  && candies[i][j + 2].getType() == candies[i][indice].getType()) {
-								
-								while (indice < rowS  && candies[i][j + 2].getType() == candies[i][indice].getType()) {
-									tmp.add(new Cell(i,indice,candies[i][indice]));
+							System.out.println(indice + " sono indice");
+							if (indice < rowS
+									&& (candies[i][j + 2].getType() == candies[i][indice].getType()
+											|| candies[i][j + 2].getType() == (candies[i][indice].getType() / 10) || (candies[i][j + 2]
+											.getType() / 10) == candies[i][indice].getType())) {
+
+								while (indice < rowS
+										&& (candies[i][j + 2].getType() == candies[i][indice].getType()
+												|| candies[i][j + 2].getType() == (candies[i][indice].getType() / 10) || (candies[i][j + 2]
+												.getType() / 10) == candies[i][indice].getType())) {
+									tmp.add(new Cell(i, indice, candies[i][indice]));
+									tmp2.add(new Cell(i, indice, candies[i][indice]));
 									indice++;
 									System.out.println("again");
-									if (indice >= colS)
+									if (indice >= colS) {
+
+										dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+										tmp2.clear();
+										tmpMovable2 = null;
 										break;
+
+									}
+
 								}
 							} else {
-								if (enter)
-									break;
+
+								dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+								tmp2.clear();
+								tmpMovable2 = null;
+
 							}
 							// System.out.println(" in posizione" +(i)+" : " +""
 							// +(j+1));
 						}
-						if (i < rowS - 1 && candies[i][j].getType() == candies[i + 1][j + 1].getType()) {
-							enter = true;
-							
+						if (i < rowS - 1
+								&& (candies[i][j].getType() == candies[i + 1][j + 1].getType()
+										|| candies[i][j].getType() == (candies[i + 1][j + 1].getType() / 10) || (candies[i][j]
+										.getType() / 10) == candies[i + 1][j + 1].getType())) {
+
 							tmp.add(new Cell(i, j, candies[i][j]));
 							tmp.add(new Cell(i, j + 2, candies[i][j + 2]));
-							tmp.add(new Cell(i , j + 1, candies[i + 1][j + 1]));
-							//ricordiamoci che la caramella è in pos i+1;j+1
-							tmpMovable.add(new Cell(i+1,j+1,candies[i+1][j+1]));
-							
+							tmp.add(new Cell(i, j + 1, candies[i + 1][j + 1]));
+
+							tmp2.add(new Cell(i, j, candies[i][j]));
+							tmp2.add(new Cell(i, j + 2, candies[i][j + 2]));
+							tmp2.add(new Cell(i, j + 1, candies[i + 1][j + 1]));
+
+							// ricordiamoci che la caramella ï¿½ in pos i+1;j+1
+							tmpMovable.add(new Cell(i + 1, j + 1, candies[i + 1][j + 1]));
+
+							tmpMovable2 = new Cell(i + 1, j + 1, candies[i + 1][j + 1]);
+
 							indice = j + 2;
 							indice++;
-							System.out.println("sono x: " + (i + 1) + " sono y:" + (j + 1));
-							System.out.println("sposta la caramella in " + (i + 1) + " : " + "" + (j + 1));
-							System.out.println(" in posizione" + (i) + " : " + "" + (j + 1));
-							if (indice < colS  && candies[i][j + 2].getType() == candies[i][indice].getType()) {
+							// System.out.println("sono x: " + (i + 1) +
+							// " sono y:" + (j + 1));
+							// System.out.println("sposta la caramella in " + (i
+							// + 1) + " : " + "" + (j + 1));
+							// System.out.println(" in posizione" + (i) + " : "
+							// + "" + (j + 1));
+							if (indice < colS
+									&& (candies[i][j + 2].getType() == candies[i][indice].getType()
+											|| candies[i][j + 2].getType() == (candies[i][indice].getType() / 10) || (candies[i][j + 2]
+											.getType() / 10) == candies[i][indice].getType())) {
 								System.out.println("cazzzooo");
-								while (indice < rowS  && candies[i][j + 2].getType() == candies[i][indice].getType()) {
+								while (indice < rowS
+										&& (candies[i][j + 2].getType() == candies[i][indice].getType()
+												|| candies[i][j + 2].getType() == (candies[i][indice].getType() / 10) || (candies[i][j + 2]
+												.getType() / 10) == candies[i][indice].getType())) {
 									tmp.add(new Cell(i, indice, candies[i][indice]));
+
+									tmp2.add(new Cell(i, indice, candies[i][indice]));
 									indice++;
 									System.out.println("again");
 									if (indice >= colS) {
+										dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+										tmp2.clear();
+										tmpMovable2 = null;
 										break;
 									}
 								}
 							} else {
-								if (enter)
-									break;
+
+								dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+								tmp2.clear();
+								tmpMovable2 = null;
+
 							}
 						}
 					}
 				}
-				if (j < colS - 2 ) {
-					if (candies[j][i].getType() == candies[j + 2][i].getType()) {
-						if (i < rowS - 1 && candies[j][i].getType() == candies[j + 1][i + 1].getType()) 
-						{
-							enter = true;
-							
+				if (j < colS - 2) {
+					if (candies[j][i].getType() == candies[j + 2][i].getType()
+							|| candies[j][i].getType() == (candies[j + 2][i].getType() / 10)
+							|| (candies[j][i].getType() / 10) == candies[j + 2][i].getType()) {
+						if (i < rowS - 1
+								&& (candies[j][i].getType() == candies[j + 1][i + 1].getType()
+										|| candies[j][i].getType() == (candies[j + 1][i + 1].getType() / 10) || (candies[j][i]
+										.getType() / 10) == candies[j + 1][i + 1].getType())) {
+
 							tmp.add(new Cell(j, i, candies[j][i]));
 							tmp.add(new Cell(j + 2, i, candies[j + 2][i]));
 							tmp.add(new Cell(j + 1, i, candies[j + 1][i + 1]));
-							//ricordiamoci che la caramella è in pos j+1;i+1;
-							tmpMovable.add(new Cell(j+1,i+1,candies[j+1][i+1]));
-							
-							
-							System.out.println("sono y: " + (j + 1) + " sono x:" + (i + 1));
-							System.out.println("sposta la caramella in " + (j + 1) + " : " + "" + (i + 1));
-							System.out.println(" in posizione" + (j + 1) + " : " + "" + (i));
+
+							tmp2.add(new Cell(j, i, candies[j][i]));
+							tmp2.add(new Cell(j + 2, i, candies[j + 2][i]));
+							tmp2.add(new Cell(j + 1, i, candies[j + 1][i + 1]));
+
+							// ricordiamoci che la caramella ï¿½ in pos j+1;i+1;
+							tmpMovable.add(new Cell(j + 1, i + 1, candies[j + 1][i + 1]));
+
+							tmpMovable2 = new Cell(j + 1, i + 1, candies[j + 1][i + 1]);
+
+							// System.out.println("sono y: " + (j + 1) +
+							// " sono x:" + (i + 1));
+							// System.out.println("sposta la caramella in " + (j
+							// + 1) + " : " + "" + (i + 1));
+							// System.out.println(" in posizione" + (j + 1) +
+							// " : " + "" + (i));
 							indice = j + 2;
 							indice++;
-							if (indice < rowS  && candies[j + 2][i].getType() == candies[indice][i].getType()) {
-								while (indice < rowS  && candies[j + 2][i].getType() == candies[indice][i].getType()) {
+							if (indice < rowS
+									&& (candies[j + 2][i].getType() == candies[indice][i].getType()
+											|| candies[j + 2][i].getType() == (candies[indice][i].getType() / 10) || (candies[j + 2][i]
+											.getType() / 10) == candies[indice][i].getType())) {
+								while (indice < rowS
+										&& (candies[j + 2][i].getType() == candies[indice][i].getType()
+												|| candies[j + 2][i].getType() == (candies[indice][i].getType() / 10) || (candies[j + 2][i]
+												.getType() / 10) == candies[indice][i].getType())) {
 									tmp.add(new Cell(indice, i, candies[indice][i]));
+									tmp2.add(new Cell(indice, i, candies[indice][i]));
 									indice++;
 									System.out.println("Again");
 									if (indice >= rowS) {
+										dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+										tmp2.clear();
+										tmpMovable2 = null;
 										break;
 									}
 								}
+							} else {
+								dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+								tmp2.clear();
+								tmpMovable2 = null;
 							}
 						}
-		/*mod -1*/				if (j < colS  && i > 0 && candies[j][i].getType() == candies[j + 1][i - 1].getType()) {
+						/* mod -1 */if (j < colS
+								&& i > 0
+								&& (candies[j][i].getType() == candies[j + 1][i - 1].getType()
+										|| candies[j][i].getType() == (candies[j + 1][i - 1].getType() / 10) || (candies[j][i]
+										.getType() / 10) == candies[j + 1][i - 1].getType())) {
 
 							tmp.add(new Cell(j, i, candies[j][i]));
 							tmp.add(new Cell(j + 2, i, candies[j + 2][i]));
 							tmp.add(new Cell(j + 1, i, candies[j + 1][i - 1]));
-								//ricordiamo che la caramella è in pos j+1;i-1;
-							tmpMovable.add(new Cell(j+1,i-1,candies[j+1][i-1]));
+
+							tmp2.add(new Cell(j, i, candies[j][i]));
+							tmp2.add(new Cell(j + 2, i, candies[j + 2][i]));
+							tmp2.add(new Cell(j + 1, i, candies[j + 1][i - 1]));
+
+							// ricordiamo che la caramella ï¿½ in pos j+1;i-1;
+							tmpMovable.add(new Cell(j + 1, i - 1, candies[j + 1][i - 1]));
+
+							tmpMovable2 = new Cell(j + 1, i - 1, candies[j + 1][i - 1]);
+
 							indice = j + 2;
 							indice++;
-							if (indice < rowS  && candies[j + 2][i].getType() == candies[indice][i].getType()) {
-								while (indice < rowS  && candies[j + 2][i].getType() == candies[indice][i].getType()) {
+							if (indice < rowS
+									&& (candies[j + 2][i].getType() == candies[indice][i].getType()
+											|| candies[j + 2][i].getType() == (candies[indice][i].getType() / 10) || (candies[j + 2][i]
+											.getType() / 10) == candies[indice][i].getType())) {
+								while (indice < rowS
+										&& (candies[j + 2][i].getType() == candies[indice][i].getType()
+												|| candies[j + 2][i].getType() == (candies[indice][i].getType() / 10) || (candies[j + 2][i]
+												.getType() / 10) == candies[indice][i].getType())) {
 									tmp.add(new Cell(indice, i, candies[indice][i]));
+
+									tmp2.add(new Cell(indice, i, candies[indice][i]));
+
 									indice++;
 									System.out.println("again");
 									if (indice >= rowS) {
+										dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+										tmp2.clear();
+										tmpMovable2 = null;
 										break;
 									}
 								}
+							} else {
+								dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+								tmp2.clear();
+								tmpMovable2 = null;
 							}
-							System.out.println("sono y: " + (j + 1) + " sono x:" + (i - 1));
-							System.out.println("sposta la caramella in " + (j + 1) + " : " + "" + (i - 1));
-							System.out.println(" in posizione" + (j + 1) + " : " + "" + (i));
+							// System.out.println("sono y: " + (j + 1) +
+							// " sono x:" + (i - 1));
+							// System.out.println("sposta la caramella in " + (j
+							// + 1) + " : " + "" + (i - 1));
+							// System.out.println(" in posizione" + (j + 1) +
+							// " : " + "" + (i));
 						}
 					}
 				}
@@ -1156,7 +1628,21 @@ public class GameWorld {
 			mosse.add(tmp.get(i));
 		}
 		for (int i = 0; i < tmpMovable.size(); i++) {
-			movableCandy.add(tmp.get(i));
+			movableCandy.add(tmpMovable.get(i));
+			System.out.println("only move   " + tmpMovable.get(i).getRow() + " " + tmpMovable.get(i).getCol());
 		}
+
+		for (int i = 0; i < dlv.size(); i++) {
+			System.out.println("    dlv    " + dlv.get(i).getMove().getRow() + " " + dlv.get(i).getMove().getCol() + " size "
+					+ dlv.get(i).getSize());
+		}
+	}
+
+	public static ArrayList<Cell> getMovableCandy() {
+		return movableCandy;
+	}
+
+	public ArrayList<MovableCandy> getDlv() {
+		return dlv;
 	}
 }
