@@ -99,6 +99,17 @@ public class Panel extends JPanel implements MouseListener {
 
 		gw.start();
 		if (gw.check()) {
+			gw.singlePossibleMoves();
+			// gw.possibleMoves();
+			// gw.possibleTwoMoves();
+			System.out.println("   mosse    " + GameWorld.getMovableCandy().size());
+			GameWorld.getMovableCandy().clear();
+			GameWorld.getMosse().clear();
+			gw.getDlv().clear();
+			// // gw.possibleMoves2();
+			// gw.stampa(gw.getMosse());
+			// // gw.stampaV(gw.getMosseV());
+			// System.out.println(gw.getMosseV().size());
 			for (int i = 0; i < gw.checkAfterChangeO().size(); i++) {
 
 				hightOneCell(g, gw.checkAfterChangeO().get(i).getRow(), gw.checkAfterChangeO().get(i).getCol());
