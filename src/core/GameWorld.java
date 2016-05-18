@@ -667,6 +667,7 @@ public class GameWorld {
 		ArrayList<Cell> tmp2 = new ArrayList<Cell>();
 		ArrayList<Cell> tmpMovable = new ArrayList<Cell>();
 		Cell tmpMovable2 = null;
+		boolean trovato = false;
 
 		int indice = 0;
 		for (int i = 0; i < rowS; i++) {
@@ -713,25 +714,27 @@ public class GameWorld {
 
 										indice++;
 										if (indice >= colS) {
-
-											System.out.println("sizeee " + tmp2.size());
-
-											dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+											trovato = true;
+											boolean check = checkSpecialCandy(tmp2);
+											dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 											tmpMovable2 = null;
 
 											tmp2.clear();
-											System.out.println("ciao1  " + tmp2.size());
 											break;
 										}
 									}
+									if (!trovato) {
+										boolean check = checkSpecialCandy(tmp2);
+										dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
+										tmpMovable2 = null;
+										tmp2.clear();
+									}
+									trovato = false;
 								} else {
-
-									System.out.println("sizeee " + tmp2.size());
-
-									dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+									boolean check = checkSpecialCandy(tmp2);
+									dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 									tmpMovable2 = null;
 									tmp2.clear();
-									System.out.println("ciao1else  " + tmp2.size());
 
 								}
 							}
@@ -739,9 +742,9 @@ public class GameWorld {
 									&& (candies[i][j + 1].getType() == candies[i + 1][j + 2].getType()
 											|| candies[i][j + 1].getType() == (candies[i + 1][j + 2].getType() / 10) || (candies[i][j + 1]
 											.getType() / 10) == candies[i + 1][j + 2].getType())) {
-								mosse.add(new Cell(i, j, candies[i][j]));
-								mosse.add(new Cell(i, j + 1, candies[i][j + 1]));
-								mosse.add(new Cell(i, j + 2, candies[i + 1][j + 2]));
+								tmp.add(new Cell(i, j, candies[i][j]));
+								tmp.add(new Cell(i, j + 1, candies[i][j + 1]));
+								tmp.add(new Cell(i, j + 2, candies[i + 1][j + 2]));
 
 								tmp2.add(new Cell(i, j, candies[i][j]));
 								tmp2.add(new Cell(i, j + 1, candies[i][j + 1]));
@@ -772,25 +775,26 @@ public class GameWorld {
 										indice++;
 										if (indice >= colS) {
 
-											System.out.println("sizeee " + tmp2.size());
-
-											dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+											trovato = true;
+											boolean check = checkSpecialCandy(tmp2);
+											dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 											tmpMovable2 = null;
 											tmp2.clear();
-
-											System.out.println("ciaooo2 " + tmp2.size());
 											break;
 										}
 									}
+									if (!trovato) {
+										boolean check = checkSpecialCandy(tmp2);
+										dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
+										tmpMovable2 = null;
+										tmp2.clear();
+									}
+									trovato = false;
 								} else {
-
-									System.out.println("sizeee " + tmp2.size());
-
-									dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+									boolean check = checkSpecialCandy(tmp2);
+									dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 									tmpMovable2 = null;
 									tmp2.clear();
-
-									System.out.println("ciaooo2else " + tmp2.size());
 
 								}
 							}
@@ -832,27 +836,27 @@ public class GameWorld {
 										tmp2.add(new Cell(i, indice, candies[i][indice]));
 										indice++;
 										if (indice >= rowS) {
-
-											System.out.println("sizeee " + tmp2.size());
-
-											dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+											trovato = true;
+											boolean check = checkSpecialCandy(tmp2);
+											dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 											tmpMovable2 = null;
 											tmp2.clear();
-
-											System.out.println("ciaooo3 " + tmp2.size());
 
 											break;
 										}
 									}
+									if (!trovato) {
+										boolean check = checkSpecialCandy(tmp2);
+										dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
+										tmpMovable2 = null;
+										tmp2.clear();
+									}
+									trovato = false;
 								} else {
-
-									System.out.println("sizeee " + tmp2.size());
-
-									dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+									boolean check = checkSpecialCandy(tmp2);
+									dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 									tmpMovable2 = null;
 									tmp2.clear();
-
-									System.out.println("ciaooo3else " + tmp2.size());
 
 								}
 							}
@@ -861,9 +865,9 @@ public class GameWorld {
 							if (candies[i][j].getType() == candies[i - 1][j - 1].getType()
 									|| candies[i][j].getType() == (candies[i - 1][j - 1].getType() / 10)
 									|| (candies[i][j].getType() / 10) == candies[i - 1][j - 1].getType()) {
-								mosse.add(new Cell(i, j, candies[i][j]));
-								mosse.add(new Cell(i, j + 1, candies[i][j + 1]));
-								mosse.add(new Cell(i, j - 1, candies[i - 1][j - 1]));
+								tmp.add(new Cell(i, j, candies[i][j]));
+								tmp.add(new Cell(i, j + 1, candies[i][j + 1]));
+								tmp.add(new Cell(i, j - 1, candies[i - 1][j - 1]));
 
 								tmp2.add(new Cell(i, j, candies[i][j]));
 								tmp2.add(new Cell(i, j + 1, candies[i][j + 1]));
@@ -892,26 +896,26 @@ public class GameWorld {
 										tmp2.add(new Cell(i, indice, candies[i][indice]));
 										indice--;
 										if (indice < 0) {
-
-											System.out.println("sizeee " + tmp2.size());
-
-											dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+											trovato = true;
+											boolean check = checkSpecialCandy(tmp2);
+											dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 											tmpMovable2 = null;
 											tmp2.clear();
-
-											System.out.println("ciaooo4 " + tmp2.size());
 											break;
 										}
 									}
+									if (!trovato) {
+										boolean check = checkSpecialCandy(tmp2);
+										dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
+										tmpMovable2 = null;
+										tmp2.clear();
+									}
+									trovato = false;
 								} else {
-
-									System.out.println("sizeee " + tmp2.size());
-
-									dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+									boolean check = checkSpecialCandy(tmp2);
+									dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 									tmpMovable2 = null;
 									tmp2.clear();
-
-									System.out.println("ciaooo4else " + tmp2.size());
 
 								}
 							}
@@ -958,27 +962,27 @@ public class GameWorld {
 									tmp2.add(new Cell(indice, i, candies[indice][i]));
 									indice++;
 									if (indice > colS) {
-
-										System.out.println("sizeee " + tmp2.size());
-
-										dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+										trovato = true;
+										boolean check = checkSpecialCandy(tmp2);
+										dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 										tmpMovable2 = null;
 										tmp2.clear();
-
-										System.out.println("ciaooo5 " + tmp2.size());
 
 										break;
 									}
 								}
+								if (!trovato) {
+									boolean check = checkSpecialCandy(tmp2);
+									dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
+									tmpMovable2 = null;
+									tmp2.clear();
+								}
+								trovato = false;
 							} else {
-
-								System.out.println("sizeee " + tmp2.size());
-
-								dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+								boolean check = checkSpecialCandy(tmp2);
+								dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 								tmpMovable2 = null;
 								tmp2.clear();
-
-								System.out.println("ciaooo5else " + tmp2.size());
 
 							}
 						}
@@ -1018,27 +1022,27 @@ public class GameWorld {
 									tmp2.add(new Cell(indice, i, candies[indice][i]));
 									indice++;
 									if (indice > colS) {
-
-										System.out.println("sizeee " + tmp2.size());
-
-										dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+										trovato = true;
+										boolean check = checkSpecialCandy(tmp2);
+										dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 										tmp2.clear();
 										tmpMovable2 = null;
-
-										System.out.println("ciaooo6 " + tmp2.size());
 
 										break;
 									}
 								}
+								if (!trovato) {
+									boolean check = checkSpecialCandy(tmp2);
+									dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
+									tmpMovable2 = null;
+									tmp2.clear();
+								}
+								trovato = false;
 							} else {
-
-								System.out.println("sizeee " + tmp2.size());
-
-								dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+								boolean check = checkSpecialCandy(tmp2);
+								dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 								tmp2.clear();
 								tmpMovable2 = null;
-
-								System.out.println("ciaoo6else " + tmp2.size());
 
 							}
 						}
@@ -1087,28 +1091,28 @@ public class GameWorld {
 									tmp2.add(new Cell(indice, i, candies[indice][i]));
 									indice--;
 									if (indice < 0) {
-
-										System.out.println("sizeee " + tmp2.size());
-
-										dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+										trovato = true;
+										boolean check = checkSpecialCandy(tmp2);
+										dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 										tmpMovable2 = null;
 										tmp2.clear();
-
-										System.out.println("ciaooo7 " + tmp2.size());
 
 										break;
 
 									}
 								}
+								if (!trovato) {
+									boolean check = checkSpecialCandy(tmp2);
+									dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
+									tmpMovable2 = null;
+									tmp2.clear();
+								}
+								trovato = false;
 							} else {
-
-								System.out.println("sizeee " + tmp2.size());
-
-								dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+								boolean check = checkSpecialCandy(tmp2);
+								dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 								tmpMovable2 = null;
 								tmp2.clear();
-
-								System.out.println("ciaoo7else " + tmp2.size());
 
 							}
 
@@ -1149,28 +1153,28 @@ public class GameWorld {
 									tmp2.add(new Cell(indice, i, candies[indice][i]));
 									indice--;
 									if (indice < 0) {
-
-										System.out.println("sizeee " + tmp2.size());
-
-										dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+										trovato = true;
+										boolean check = checkSpecialCandy(tmp2);
+										dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 										tmpMovable2 = null;
 										tmp2.clear();
-
-										System.out.println("ciaooo8 " + tmp2.size());
 
 										break;
 
 									}
 								}
+								if (!trovato) {
+									boolean check = checkSpecialCandy(tmp2);
+									dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
+									tmpMovable2 = null;
+									tmp2.clear();
+								}
+								trovato = false;
 							} else {
-
-								System.out.println("sizeee " + tmp2.size());
-
-								dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+								boolean check = checkSpecialCandy(tmp2);
+								dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 								tmpMovable2 = null;
 								tmp2.clear();
-
-								System.out.println("ciaoooo8else " + tmp2.size());
 
 							}
 
@@ -1197,7 +1201,7 @@ public class GameWorld {
 
 		for (int i = 0; i < dlv.size(); i++) {
 			System.out.println(" dlv move  " + dlv.get(i).getMove().getRow() + " " + dlv.get(i).getMove().getCol() + "size "
-					+ dlv.get(i).getSize());
+					+ dlv.get(i).getSize() + " special  " + dlv.get(i).getSpecial());
 		}
 
 	}
@@ -1234,13 +1238,11 @@ public class GameWorld {
 							tmpMovable.add(new Cell(i, j + 3, candies[i][j + 3]));
 							tmpMMovable2 = new Cell(i, j + 3, candies[i][j + 3]);
 
-							System.out.println("sizeee " + tmp2.size());
+							boolean check = checkSpecialCandy(tmp2);
 
-							dlv.add(new MovableCandy(tmpMMovable2, tmp2, false));
+							dlv.add(new MovableCandy(tmpMMovable2, tmp2, check));
 							tmp2.clear();
 							tmpMMovable2 = null;
-
-							System.out.println("sizeee " + tmp2.size());
 
 						}
 
@@ -1265,14 +1267,13 @@ public class GameWorld {
 							tmpMovable.add(new Cell(i, j - 2, candies[i][j - 2]));
 							tmpMMovable2 = new Cell(i, j - 2, candies[i][j - 2]);
 
-							System.out.println("sizeee " + tmp2.size());
+							boolean check = checkSpecialCandy(tmp2);
 
-							dlv.add(new MovableCandy(tmpMMovable2, tmp2, false));
+							dlv.add(new MovableCandy(tmpMMovable2, tmp2, check));
 
 							tmp2.clear();
 							tmpMMovable2 = null;
 
-							System.out.println("sizeee " + tmp2.size());
 						}
 					}
 				}
@@ -1303,14 +1304,12 @@ public class GameWorld {
 
 							tmpMMovable2 = new Cell(j + 3, i, candies[j + 3][i]);
 
-							System.out.println("sizeee " + tmp2.size());
-
-							dlv.add(new MovableCandy(tmpMMovable2, tmp2, false));
+							boolean check = checkSpecialCandy(tmp2);
+							dlv.add(new MovableCandy(tmpMMovable2, tmp2, check));
 
 							tmp2.clear();
 							tmpMMovable2 = null;
 
-							System.out.println("sizeee " + tmp2.size());
 						}
 					}
 
@@ -1342,14 +1341,13 @@ public class GameWorld {
 
 								tmpMMovable2 = new Cell(j - 2, i, candies[j - 2][i]);
 
-								System.out.println("sizeee " + tmp2.size());
+								boolean check = checkSpecialCandy(tmp2);
 
-								dlv.add(new MovableCandy(tmpMMovable2, tmp2, false));
+								dlv.add(new MovableCandy(tmpMMovable2, tmp2, check));
 
 								tmp2.clear();
 								tmpMMovable2 = null;
 
-								System.out.println("sizeee " + tmp2.size());
 							}
 						}
 					}
@@ -1373,7 +1371,7 @@ public class GameWorld {
 
 		for (int i = 0; i < dlv.size(); i++) {
 			System.out.println("   dlv   " + dlv.get(i).getMove().getRow() + " " + dlv.get(i).getMove().getCol() + " size "
-					+ dlv.get(i).getSize());
+					+ dlv.get(i).getSize() + " special  " + dlv.get(i).getSpecial());
 		}
 
 	}
@@ -1382,6 +1380,7 @@ public class GameWorld {
 		ArrayList<Cell> tmp = new ArrayList<Cell>();
 		ArrayList<Cell> tmp2 = new ArrayList<Cell>();
 		ArrayList<Cell> tmpMovable = new ArrayList<Cell>();
+		boolean trovato = false;
 		Cell tmpMovable2 = null;
 
 		int indice = 0;
@@ -1428,10 +1427,11 @@ public class GameWorld {
 									tmp.add(new Cell(i, indice, candies[i][indice]));
 									tmp2.add(new Cell(i, indice, candies[i][indice]));
 									indice++;
-									System.out.println("again");
-									if (indice >= colS) {
 
-										dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+									if (indice >= colS) {
+										trovato = true;
+										boolean check = checkSpecialCandy(tmp2);
+										dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 										tmp2.clear();
 										tmpMovable2 = null;
 										break;
@@ -1439,9 +1439,18 @@ public class GameWorld {
 									}
 
 								}
-							} else {
+								if (!trovato) {
+									boolean check = checkSpecialCandy(tmp2);
+									dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
+									tmp2.clear();
+									tmpMovable2 = null;
 
-								dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+								}
+								trovato = false;
+
+							} else {
+								boolean check = checkSpecialCandy(tmp2);
+								dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 								tmp2.clear();
 								tmpMovable2 = null;
 
@@ -1449,6 +1458,7 @@ public class GameWorld {
 							// System.out.println(" in posizione" +(i)+" : " +""
 							// +(j+1));
 						}
+
 						if (i < rowS - 1
 								&& (candies[i][j].getType() == candies[i + 1][j + 1].getType()
 										|| candies[i][j].getType() == (candies[i + 1][j + 1].getType() / 10) || (candies[i][j]
@@ -1490,15 +1500,24 @@ public class GameWorld {
 									indice++;
 									System.out.println("again");
 									if (indice >= colS) {
-										dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+										trovato = true;
+										boolean check = checkSpecialCandy(tmp2);
+										dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 										tmp2.clear();
 										tmpMovable2 = null;
 										break;
 									}
 								}
+								if (!trovato) {
+									boolean check = checkSpecialCandy(tmp2);
+									dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
+									tmp2.clear();
+									tmpMovable2 = null;
+								}
+								trovato = false;
 							} else {
-
-								dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+								boolean check = checkSpecialCandy(tmp2);
+								dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 								tmp2.clear();
 								tmpMovable2 = null;
 
@@ -1506,6 +1525,7 @@ public class GameWorld {
 						}
 					}
 				}
+
 				if (j < colS - 2) {
 					if (candies[j][i].getType() == candies[j + 2][i].getType()
 							|| candies[j][i].getType() == (candies[j + 2][i].getType() / 10)
@@ -1547,20 +1567,30 @@ public class GameWorld {
 									tmp.add(new Cell(indice, i, candies[indice][i]));
 									tmp2.add(new Cell(indice, i, candies[indice][i]));
 									indice++;
-									System.out.println("Again");
 									if (indice >= rowS) {
-										dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+										trovato = true;
+										boolean check = checkSpecialCandy(tmp2);
+										dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 										tmp2.clear();
 										tmpMovable2 = null;
 										break;
 									}
 								}
+								if (!trovato) {
+									boolean check = checkSpecialCandy(tmp2);
+									dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
+									tmp2.clear();
+									tmpMovable2 = null;
+								}
+								trovato = false;
 							} else {
-								dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+								boolean check = checkSpecialCandy(tmp2);
+								dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 								tmp2.clear();
 								tmpMovable2 = null;
 							}
 						}
+
 						/* mod -1 */if (j < colS
 								&& i > 0
 								&& (candies[j][i].getType() == candies[j + 1][i - 1].getType()
@@ -1595,16 +1625,26 @@ public class GameWorld {
 									tmp2.add(new Cell(indice, i, candies[indice][i]));
 
 									indice++;
-									System.out.println("again");
 									if (indice >= rowS) {
-										dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+										boolean check = checkSpecialCandy(tmp2);
+										trovato = true;
+										dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 										tmp2.clear();
 										tmpMovable2 = null;
 										break;
 									}
 								}
+								if (!trovato) {
+									boolean check = checkSpecialCandy(tmp2);
+									dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
+									tmp2.clear();
+									tmpMovable2 = null;
+
+								}
+								trovato = false;
 							} else {
-								dlv.add(new MovableCandy(tmpMovable2, tmp2, false));
+								boolean check = checkSpecialCandy(tmp2);
+								dlv.add(new MovableCandy(tmpMovable2, tmp2, check));
 								tmp2.clear();
 								tmpMovable2 = null;
 							}
@@ -1618,6 +1658,7 @@ public class GameWorld {
 					}
 				}
 			}
+
 		}
 		System.out.println("size mosse " + tmp.size());
 		for (int i = 0; i < tmp.size(); i++) {
@@ -1634,7 +1675,7 @@ public class GameWorld {
 
 		for (int i = 0; i < dlv.size(); i++) {
 			System.out.println("    dlv    " + dlv.get(i).getMove().getRow() + " " + dlv.get(i).getMove().getCol() + " size "
-					+ dlv.get(i).getSize());
+					+ dlv.get(i).getSize() + " special " + dlv.get(i).getSpecial());
 		}
 	}
 
